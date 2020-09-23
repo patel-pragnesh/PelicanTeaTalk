@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="WPSTORE.Controls.ExBorderlessEntryControl"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:WPSTORE.Controls;assembly=WPSTORE"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    mc:Ignorable="d">
+    <ContentView.Content>
+        <Grid RowSpacing="5" HeightRequest="65">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <pancake:PancakeView Grid.Row="0"
+                Padding="10,0,0,0"
+                BorderColor="{DynamicResource Gray-900}"
+                BorderGradientEndColor="{DynamicResource colPrim}"
+                BorderGradientStartColor="{DynamicResource colPrimLight}"
+                BorderThickness="1"
+                CornerRadius="4"
+                HeightRequest="52"
+                HorizontalOptions="FillAndExpand"
+                Opacity="0.8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="40" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal"
+                        Spacing="10"
+                        VerticalOptions="FillAndExpand">
+                        <Label
+                            x:Name="IconLabel"
+                            Margin="0"
+                            FontFamily="{StaticResource FontAwesome}"
+                            FontSize="16"
+                            HorizontalOptions="Start"
+                            TextColor="{DynamicResource Gray-700}"
+                            VerticalOptions="Center" />
+
+                        <controls:BorderlessEntry
+                            x:Name="ExEntryName"
+                            FontSize="14"
+                            HorizontalOptions="FillAndExpand"
+                            Keyboard="{Binding Keyboard}"
+                            PlaceholderColor="{DynamicResource Gray-700}"
+                            TextColor="{DynamicResource Gray-900}" />
+                    </StackLayout>
+                    <Label
+                        x:Name="ErrorIcon"
+                        Grid.Column="1"
+                        Margin="8"
+                        FontFamily="{StaticResource FontAwesome}"
+                        FontSize="18"
+                        HorizontalOptions="EndAndExpand"
+                        HorizontalTextAlignment="End"
+                        IsVisible="{Binding Path=IsVisible, Source={x:Reference ErrorMessageLabel}}"
+                        Text="&#xf06a;"
+                        TextColor="Red"
+                        VerticalOptions="Center" />
+                </Grid>
+            </pancake:PancakeView>
+            <Label Grid.Row="1"
+                x:Name="ErrorMessageLabel"
+                Margin="15,-5,0,-2"
+                FontSize="12"
+                IsVisible="{Binding HasError}"
+                TextColor="Red"
+                VerticalOptions="FillAndExpand" />
+        </Grid>
+    </ContentView.Content>
+</ContentView>

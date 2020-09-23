@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="WPSTORE.Views.Templates.HomeCardWithViewButtonTemplate"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:extensions="clr-namespace:WPSTORE.Extensions"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    xmlns:viewModels="clr-namespace:WPSTORE.ViewModels"
+    mc:Ignorable="d">
+    <ContentView.Content>
+        <Grid Padding="5">
+            <controls:CustomShadowFrame
+                Margin="0"
+                Padding="0"
+                BackgroundColor="{DynamicResource colBG1}"
+                BorderColor="White"
+                BorderWidth="1"
+                CornerRadius="10"
+                HasShadow="True"
+                IsClippedToBounds="True">
+                <Grid
+                    BackgroundColor="{DynamicResource colBG1}"
+                    RowSpacing="0"
+                    VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <ffimageloading:CachedImage
+                        Margin="-14,0,-14,0"
+                        Aspect="AspectFill"
+                        DownsampleToViewSize="True"
+                        HeightRequest="{OnPlatform 100,
+                                                   Android=100,
+                                                   iOS=90}"
+                        LoadingPlaceholder="logo.png"
+                        Source="{Binding jetpack_featured_media_url}"
+                        WidthRequest="{OnPlatform 200,
+                                                  Android=200,
+                                                  iOS=200}">
+                        <ffimageloading:CachedImage.CacheKeyFactory>
+                            <extensions:CustomCacheKeyFactory />
+                        </ffimageloading:CachedImage.CacheKeyFactory>
+                        <ffimageloading:CachedImage.Transformations>
+                            <fftransformations:CornersTransformation />
+                        </ffimageloading:CachedImage.Transformations>
+                    </ffimageloading:CachedImage>
+
+                    <Grid
+                        Grid.Row="1"
+                        Padding="10,5,10,0"
+                        RowSpacing="0"
+                        VerticalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="70" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Label
+                            Grid.Row="0"
+                            FontFamily="{StaticResource BoldFont_ProductSans}"
+                            FontSize="14"
+                            HorizontalTextAlignment="Start"
+                            LineBreakMode="TailTruncation"
+                            MaxLines="2"
+                            Text="{Binding title.rendered}"
+                            TextColor="{DynamicResource Gray-900}"
+                            TextType="Html"
+                            VerticalOptions="Start"
+                            VerticalTextAlignment="Start" />
+
+                        <Label
+                            Grid.Row="1"
+                            FontFamily="{StaticResource RegularFont_ProductSans}"
+                            FontSize="13"
+                            HorizontalTextAlignment="Start"
+                            LineBreakMode="TailTruncation"
+                            LineHeight="1.25"
+                            MaxLines="3"
+                            Text="{Binding ExcerptContent}"
+                            TextColor="{DynamicResource Gray-800}"
+                            TextType="Html"
+                            VerticalOptions="Start"
+                            VerticalTextAlignment="Start" />
+
+                        <Grid Grid.Row="2" VerticalOptions="Fill">
+                            <!--<Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>-->
+
+                            <Button
+                                Margin="0"
+                                Padding="10,5"
+                                BackgroundColor="Transparent"
+                                BorderColor="{DynamicResource colPrim}"
+                                BorderWidth="1"
+                                Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:HomeViewModel}}, Path=PostTapCommand}"
+                                CommandParameter="{Binding .}"
+                                CornerRadius="17"
+                                FontFamily="{StaticResource RegularFont_ProductSans}"
+                                FontSize="13"
+                                HeightRequest="34"
+                                HorizontalOptions="EndAndExpand"
+                                IsVisible="{Binding ShowButton}"
+                                Text="{translator:Translate ViewDetail}"
+                                TextColor="{DynamicResource colPrim}"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </controls:CustomShadowFrame>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Selected">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="#ED3B3B" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

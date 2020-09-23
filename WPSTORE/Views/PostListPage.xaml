@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WPSTORE.Views.PostListPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:prismNavigation="clr-namespace:Prism.Navigation.Xaml;assembly=Prism.Forms"
+    xmlns:templates="clr-namespace:WPSTORE.Views.Templates"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{DynamicResource colBG2}"
+    NavigationPage.HasNavigationBar="False"
+    Shell.NavBarIsVisible="False"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <Grid VerticalOptions="FillAndExpand">
+            <StackLayout IsClippedToBounds="True" VerticalOptions="FillAndExpand">
+                <StackLayout
+                    Margin="{OnPlatform '0',
+                                        iOS='0,30,0,0'}"
+                    Padding="{OnPlatform '20,0,20,0',
+                                         iOS='10,0,10,0'}"
+                    BackgroundColor="{DynamicResource colBG1}"
+                    HeightRequest="56"
+                    Orientation="Horizontal"
+                    Spacing="15">
+                    <ImageButton
+                        BackgroundColor="Transparent"
+                        Command="{Binding GoBackCommand}"
+                        Source="ic_back"
+                        WidthRequest="20" />
+                    <Label
+                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                        FontSize="16"
+                        HorizontalOptions="Start"
+                        Text="{Binding PageTitle}"
+                        TextColor="{DynamicResource colPrim}"
+                        VerticalOptions="Center" />
+                </StackLayout>
+
+                <BoxView
+                    BackgroundColor="{DynamicResource Gray-500}"
+                    HeightRequest="0.5"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="StartAndExpand" />
+
+                <Grid Padding="0,10" VerticalOptions="FillAndExpand">
+                    <ListView
+                        x:Name="postsList"
+                        CachingStrategy="RecycleElement"
+                        HasUnevenRows="true"
+                        ItemTapped="postsList_ItemTapped"
+                        ItemsSource="{Binding Articles}"
+                        RowHeight="140"
+                        SeparatorVisibility="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <templates:PostListViewItemTemplate Padding="15,5,15,5" />
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+
+                <BoxView
+                    BackgroundColor="{DynamicResource Gray-500}"
+                    HeightRequest="0.5"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="EndAndExpand" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

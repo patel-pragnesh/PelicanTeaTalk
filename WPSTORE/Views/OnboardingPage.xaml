@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WPSTORE.Views.OnboardingPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:svg="clr-namespace:WPSTORE.Controls"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{DynamicResource colBG2}"
+    NavigationPage.HasNavigationBar="False"
+    mc:Ignorable="d">
+    <ContentPage.Resources>
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+            <Setter Property="LineHeight" Value="{OnPlatform Android=1.25, Default=-1}" />
+        </Style>
+
+        <!--  Common button style  -->
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+            <Setter Property="VerticalOptions" Value="EndAndExpand" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="HeightRequest" Value="50" />
+            <Setter Property="FontFamily" Value="{StaticResource BoldFont_ProductSans}" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="TextColor" Value="{DynamicResource Gray-White}" />
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!--<pancake:PancakeView
+                Grid.RowSpan="3"
+                BackgroundGradientEndColor="#ff9900"
+                BackgroundGradientStartColor="#FFEA8025"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand" />-->
+
+            <Button
+                Grid.Row="0"
+                Margin="{OnPlatform Android='0,10,0,0',
+                                    iOS='0,20,10,0'}"
+                Padding="0"
+                BackgroundColor="Transparent"
+                BorderColor="Transparent"
+                BorderWidth="1"
+                Command="{Binding SkipCommand}"
+                CornerRadius="18"
+                FontFamily="{StaticResource BoldFont_ProductSans}"
+                FontSize="14"
+                HeightRequest="36"
+                HorizontalOptions="End"
+                IsVisible="{Binding IsSkipButtonVisible}"
+                Text="Skip"
+                TextColor="{x:StaticResource colPrim}"
+                VerticalOptions="StartAndExpand"
+                WidthRequest="80" />
+
+            <cards:CoverFlowView
+                Grid.Row="1"
+                Margin="{x:OnIdiom Phone='15,-30,15,0',
+                                   Desktop='0',
+                                   Tablet='0'}"
+                BackgroundColor="Transparent"
+                HorizontalOptions="FillAndExpand"
+                IsCyclical="False"
+                IsPanSwipeEnabled="True"
+                IsUserInteractionEnabled="True"
+                IsViewReusingEnabled="True"
+                ItemSwipedCommand="{Binding BoardingItemSwipeCommand}"
+                ItemsSource="{Binding Boardings}"
+                PositionShiftValue="0"
+                SelectedIndex="{Binding SelectedItemIndex, Mode=TwoWay}"
+                VerticalOptions="CenterAndExpand">
+                <cards:CoverFlowView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout
+                            BackgroundColor="Transparent"
+                            Spacing="0"
+                            VerticalOptions="Center">
+                            <!--  Image for display svg image  -->
+                            <svg:SVGImage
+                                Margin="{x:OnIdiom Phone='0,0,0,0',
+                                                   Desktop='0',
+                                                   Tablet='0'}"
+                                BackgroundColor="Transparent"
+                                HeightRequest="{OnPlatform Android='200',
+                                                           iOS='200'}"
+                                Source="{Binding ImagePath}"
+                                VerticalOptions="Center"
+                                WidthRequest="{x:OnIdiom Phone=200,
+                                                         Desktop=300,
+                                                         Tablet=300}" />
+                            <!--<Image
+                                Margin="{x:OnIdiom Phone='0,0,0,0',
+                                                   Desktop='0',
+                                                   Tablet='0'}"
+                                Aspect="AspectFit"
+                                BackgroundColor="Transparent"
+                                HorizontalOptions="Fill"
+                                IsAnimationPlaying="True"
+                                Source="{Binding ImagePath}"
+                                VerticalOptions="Center" />-->
+
+                            <!--  Label to display header  -->
+                            <Label
+                                Margin="0,10,0,8"
+                                FontFamily="{StaticResource BoldFont_ProductSans}"
+                                FontSize="20"
+                                HorizontalTextAlignment="Center"
+                                Style="{StaticResource LabelStyle}"
+                                Text="{Binding Header}"
+                                TextColor="{DynamicResource colPrim}"
+                                VerticalTextAlignment="Center" />
+
+                            <!--  Label to display content  -->
+                            <Label
+                                FontFamily="{StaticResource RegularFont_ProductSans}"
+                                FontSize="16"
+                                Style="{StaticResource LabelStyle}"
+                                Text="{Binding Content}"
+                                TextColor="{DynamicResource Gray-900}"
+                                VerticalTextAlignment="Center" />
+                        </StackLayout>
+                    </DataTemplate>
+                </cards:CoverFlowView.ItemTemplate>
+            </cards:CoverFlowView>
+
+            <!--  Next button  -->
+            <pancake:PancakeView
+                Grid.Row="2"
+                Margin="20,10,20,20"
+                Padding="0"
+                BackgroundGradientAngle="45"
+                BackgroundGradientEndColor="{DynamicResource colGradEnd}"
+                BackgroundGradientStartColor="{DynamicResource colGradStart}"
+                CornerRadius="25,25,25,25"
+                HeightRequest="50"
+                WidthRequest="245">
+                <Button
+                    Command="{Binding NextCommand}"
+                    Style="{StaticResource ButtonStyle}"
+                    Text="{Binding NextButtonText}" />
+            </pancake:PancakeView>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

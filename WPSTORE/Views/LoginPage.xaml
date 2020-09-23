@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WPSTORE.Views.LoginPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:WPSTORE.Behaviors;assembly=WPSTORE"
+    xmlns:controls="clr-namespace:WPSTORE.Controls;assembly=WPSTORE"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:WPSTORE.Models.SocialLogin"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{DynamicResource colBG2}"
+    NavigationPage.HasNavigationBar="False"
+    mc:Ignorable="d">
+
+    <ContentPage.Resources />
+    <StackLayout>
+        <AbsoluteLayout>
+            <Grid AbsoluteLayout.LayoutBounds="0,0,1,.7" AbsoluteLayout.LayoutFlags="All">
+                <!--<Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>-->
+
+                <Image
+                    Grid.Row="0"
+                    Aspect="Fill"
+                    Opacity="0.9"
+                    Source="bg1" />
+
+                <StackLayout
+                    Grid.Row="0"
+                    Padding="0,0,0,0"
+                    BackgroundColor="Transparent">
+
+                    <StackLayout Spacing="15" VerticalOptions="CenterAndExpand">
+
+                        <ffimageloading:CachedImage
+                            x:Name="Logo"
+                            Aspect="AspectFit"
+                            BackgroundColor="Transparent"
+                            HeightRequest="80"
+                            HorizontalOptions="CenterAndExpand"
+                            Opacity="1"
+                            Source="logo"
+                            TranslationY="-10"
+                            WidthRequest="80">
+                            <ffimageloading:CachedImage.Transformations>
+                                <fftransformations:RoundedTransformation
+                                    BorderHexColor="#FFEA8025"
+                                    BorderSize="10"
+                                    Radius="60" />
+                            </ffimageloading:CachedImage.Transformations>
+                        </ffimageloading:CachedImage>
+
+                        <Label
+                            FontAttributes="Bold"
+                            FontFamily="{StaticResource BoldFont_ProductSans}"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="THE SHOP APP"
+                            TextColor="{DynamicResource colPrim}"
+                            VerticalOptions="StartAndExpand" />
+                    </StackLayout>
+
+                    <StackLayout
+                        x:Name="MainStack"
+                        Margin="50,0,50,0"
+                        HorizontalOptions="FillAndExpand"
+                        Opacity="0"
+                        Spacing="10"
+                        TranslationY="40"
+                        VerticalOptions="CenterAndExpand">
+
+                        <pancake:PancakeView
+                            Padding="10,0,0,0"
+                            BackgroundColor="Black"
+                            BorderColor="White"
+                            BorderGradientEndColor="{DynamicResource colSec}"
+                            BorderGradientStartColor="{DynamicResource colPrim}"
+                            BorderThickness="3"
+                            CornerRadius="5"
+                            HeightRequest="52"
+                            HorizontalOptions="FillAndExpand"
+                            Opacity="0.6">
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                Spacing="10"
+                                VerticalOptions="FillAndExpand">
+                                <Label
+                                    Margin="0"
+                                    FontFamily="{StaticResource FontAwesome}"
+                                    FontSize="16"
+                                    HorizontalOptions="Start"
+                                    Text="&#xf2bd;"
+                                    TextColor="{DynamicResource Gray-700}"
+                                    VerticalOptions="Center" />
+
+                                <controls:BorderlessEntry
+                                    x:Name="tbEmail_Login"
+                                    FontSize="14"
+                                    HorizontalOptions="FillAndExpand"
+                                    Keyboard="Email"
+                                    Placeholder="Email"
+                                    PlaceholderColor="LightGray"
+                                    Text="{Binding UserName}"
+                                    TextColor="White">
+                                    <Entry.Behaviors>
+                                        <behaviors:EmailValidatorBehavior x:Name="emailValidator" />
+                                    </Entry.Behaviors>
+                                </controls:BorderlessEntry>
+                            </StackLayout>
+
+                        </pancake:PancakeView>
+
+                        <pancake:PancakeView
+                            Padding="10,0,0,0"
+                            BackgroundColor="Black"
+                            BorderColor="White"
+                            BorderGradientEndColor="{DynamicResource colSec}"
+                            BorderGradientStartColor="{DynamicResource colPrim}"
+                            BorderThickness="3"
+                            CornerRadius="5"
+                            HeightRequest="52"
+                            HorizontalOptions="FillAndExpand"
+                            Opacity="0.6">
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal"
+                                Spacing="10"
+                                VerticalOptions="FillAndExpand">
+                                <Label
+                                    Margin="0"
+                                    FontFamily="{StaticResource FontAwesome}"
+                                    FontSize="16"
+                                    HorizontalOptions="Start"
+                                    Text="&#xf023;"
+                                    TextColor="{DynamicResource Gray-700}"
+                                    VerticalOptions="Center" />
+                                <controls:BorderlessEntry
+                                    x:Name="tbPassword_Login"
+                                    FontSize="14"
+                                    HorizontalOptions="FillAndExpand"
+                                    IsPassword="True"
+                                    Placeholder="Password"
+                                    PlaceholderColor="LightGray"
+                                    Text="{Binding Password}"
+                                    TextColor="White" />
+                            </StackLayout>
+                        </pancake:PancakeView>
+
+                        <pancake:PancakeView
+                            Grid.Row="2"
+                            Margin="0,20,0,20"
+                            Padding="0"
+                            BackgroundGradientAngle="45"
+                            BackgroundGradientEndColor="{DynamicResource colGradEnd}"
+                            BackgroundGradientStartColor="{DynamicResource colGradStart}"
+                            BorderThickness="3"
+                            CornerRadius="5"
+                            HeightRequest="50"
+                            Opacity="0.9"
+                            WidthRequest="245">
+                            <Button
+                                BackgroundColor="Transparent"
+                                Clicked="Login"
+                                FontFamily="{StaticResource BoldFont_ProductSans}"
+                                HorizontalOptions="FillAndExpand"
+                                Text="{translator:Translate Login}"
+                                TextColor="White"
+                                VerticalOptions="FillAndExpand" />
+                        </pancake:PancakeView>
+
+
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+
+            <StackLayout
+                Padding="0,10,0,10"
+                AbsoluteLayout.LayoutBounds="1,1,1,.3"
+                AbsoluteLayout.LayoutFlags="All"
+                BackgroundColor="#FFE8EAF6"
+                HorizontalOptions="FillAndExpand"
+                Spacing="20"
+                VerticalOptions="FillAndExpand">
+
+                <Label
+                    FontFamily="{StaticResource RegularFont_ProductSans}"
+                    FontSize="14"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="{translator:Translate LoginWith}"
+                    TextColor="{DynamicResource Gray-600}"
+                    VerticalOptions="Start" />
+
+                <StackLayout
+                    HorizontalOptions="CenterAndExpand"
+                    Orientation="Horizontal"
+                    Spacing="30"
+                    VerticalOptions="Center">
+                    <Frame
+                        Padding="0"
+                        CornerRadius="28"
+                        HasShadow="True"
+                        HeightRequest="56"
+                        WidthRequest="56">
+                        <Image Aspect="AspectFill" Source="bg_fb">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SocialSignInCommand}" CommandParameter="{x:Static models:SocialProvider.Facebook}" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Frame>
+
+                    <Frame
+                        Padding="0"
+                        CornerRadius="28"
+                        HasShadow="True"
+                        HeightRequest="56"
+                        WidthRequest="56">
+                        <Image Aspect="AspectFill" Source="bg_sms">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SmsLoginCommand}" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Frame>
+
+                    <Frame
+                        Padding="0"
+                        CornerRadius="28"
+                        HasShadow="True"
+                        HeightRequest="56"
+                        WidthRequest="56">
+                        <Image Aspect="AspectFill" Source="bg_gg">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SocialSignInCommand}" CommandParameter="{x:Static models:SocialProvider.Google}" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Frame>
+                </StackLayout>
+
+                <Label HorizontalOptions="CenterAndExpand" VerticalOptions="End">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span
+                                FontFamily="{StaticResource RegularFont_ProductSans}"
+                                FontSize="14"
+                                Text="{translator:Translate DontHaveAccount}"
+                                TextColor="{DynamicResource Gray-800}" />
+                            <Span Text=" " />
+                            <Span
+                                FontFamily="{StaticResource BoldFont_ProductSans}"
+                                FontSize="14"
+                                Text="{translator:Translate SignUp}"
+                                TextColor="{DynamicResource colPrim}">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SignUpCommand}" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Label HorizontalOptions="CenterAndExpand" VerticalOptions="EndAndExpand">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span
+                                FontFamily="{StaticResource FontAwesome}"
+                                FontSize="14"
+                                Text="&#xf1f9;"
+                                TextColor="{DynamicResource Gray-800}" />
+                            <Span Text=" " />
+                            <Span
+                                FontFamily="{StaticResource RegularFont_ProductSans}"
+                                FontSize="14"
+                                Text="2020"
+                                TextColor="{DynamicResource Gray-800}" />
+                            <Span Text=" - " />
+                            <Span
+                                FontFamily="{StaticResource BoldFont_ProductSans}"
+                                FontSize="15"
+                                Text="TLS Software"
+                                TextColor="{DynamicResource colPrim}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+
+        </AbsoluteLayout>
+    </StackLayout>
+</ContentPage>

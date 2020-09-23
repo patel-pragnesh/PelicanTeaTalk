@@ -1,0 +1,506 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="WPSTORE.Views.PopupUpdateShippingInfoPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:extensions="clr-namespace:WPSTORE.Extensions"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    CloseWhenBackgroundIsClicked="False"
+    mc:Ignorable="d">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"
+            PositionIn="Bottom"
+            PositionOut="Bottom"
+            ScaleIn="1.2"
+            ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
+    <pancake:PancakeView
+        Margin="0,148,0,0"
+        Padding="0"
+        BackgroundColor="{DynamicResource colBG2}"
+        BorderColor="{DynamicResource Gray-100}"
+        BorderThickness="1"
+        CornerRadius="25,25,0,0"
+        HasShadow="True">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="0.5" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Padding="10,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Column="0"
+                    Margin="10,0,30,0"
+                    FontFamily="{StaticResource BoldFont_ProductSans}"
+                    FontSize="16"
+                    Text="{translator:Translate ShippingInfo}"
+                    TextColor="{DynamicResource colPrim}"
+                    VerticalOptions="Center" />
+
+                <pancake:PancakeView
+                    Grid.Column="1"
+                    Margin="{OnPlatform Android='0,-20,0,0',
+                                        iOS='0,-15,0,0'}"
+                    Padding="0"
+                    BackgroundGradientAngle="45"
+                    BackgroundGradientEndColor="{DynamicResource colPrim}"
+                    BackgroundGradientStartColor="{DynamicResource colPrimLight}"
+                    BorderColor="{DynamicResource Gray-100}"
+                    BorderThickness="1"
+                    CornerRadius="30,0,30,0"
+                    Elevation="6"
+                    HasShadow="False"
+                    HeightRequest="58"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    WidthRequest="58">
+                    <ImageButton
+                        Padding="5"
+                        BackgroundColor="Transparent"
+                        Command="{Binding CancelCommand}"
+                        HeightRequest="36"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        WidthRequest="36">
+                        <ImageButton.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource FontAwesome}"
+                                Glyph="&#xf057;"
+                                Size="20"
+                                Color="{DynamicResource Gray-200}" />
+                        </ImageButton.Source>
+                    </ImageButton>
+                </pancake:PancakeView>
+            </Grid>
+
+            <BoxView
+                Grid.Row="1"
+                Margin="20,0,50,0"
+                BackgroundColor="{DynamicResource Gray-500}"
+                HeightRequest="0.5" />
+
+            <ScrollView Grid.Row="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid
+                        x:Name="PaymentMethodList"
+                        Grid.Row="0"
+                       RowSpacing="2"
+                        Margin="20,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        
+                        <Grid Grid.Row="0"
+                            Margin="0,8,0,0"
+                            ColumnSpacing="15"
+                            VerticalOptions="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*" />
+                                <ColumnDefinition Width="5*" />
+                            </Grid.ColumnDefinitions>
+
+
+                            <controls:ExBorderlessEntryControl
+                                Grid.Column="0"
+                                ErrorMessage="{Binding FirstNameErrMessage}"
+                                ExKeyboard="Text"
+                                ExText="{Binding CustomerInfo.Billing.FirstName}"
+                                HasError="{Binding FirstNameHasError}"
+                                Icon="&#xf031;"
+                                PlaceHolder="{Binding FirstNamePld}"
+                                VerticalOptions="Center" />
+
+                            <controls:ExBorderlessEntryControl
+                                Grid.Column="1"
+                                ErrorMessage="{Binding LastNameErrMessage}"
+                                ExKeyboard="Text"
+                                ExText="{Binding CustomerInfo.Billing.LastName}"
+                                HasError="{Binding LastNameHasError}"
+                                Icon="&#xf032;"
+                                PlaceHolder="{Binding LastNamePld}"
+                                VerticalOptions="Center" />
+                        </Grid>
+
+                        <controls:ExBorderlessEntryControl Grid.Row="1"
+                                                           Margin="0,8,0,0"
+                            ErrorMessage="{Binding AddressErrMessage}"
+                            ExKeyboard="Text"
+                            ExText="{Binding CustomerInfo.Billing.Address1}"
+                            HasError="{Binding AddressHasError}"
+                            Icon="&#xf59f;"
+                            PlaceHolder="{Binding AddressPld}" />
+
+                        <Grid Grid.Row="2"
+                              Margin="0,8,0,0"
+                            ColumnSpacing="15"
+                            VerticalOptions="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*" />
+                                <ColumnDefinition Width="5*" />
+                            </Grid.ColumnDefinitions>
+
+                            <controls:ExBorderlessEntryControl
+                                Margin="0,0,0,0"
+                                ErrorMessage="{Binding StateErrMessage}"
+                                ExKeyboard="Text"
+                                ExText="{Binding CustomerInfo.Billing.State}"
+                                HasError="{Binding StateHasError}"
+                                Icon="&#xf0c8;"
+                                PlaceHolder="{Binding StatePld}" />
+
+                            <controls:ExBorderlessEntryControl
+                                Grid.Column="1"
+                                Margin="0,0,0,0"
+                                ErrorMessage="{Binding PostCodeErrMessage}"
+                                ExKeyboard="Text"
+                                ExText="{Binding CustomerInfo.Billing.Postcode}"
+                                HasError="{Binding PostCodeHasError}"
+                                Icon="&#xf674;"
+                                PlaceHolder="{Binding PostCodePld}" />
+                        </Grid>
+
+                        <controls:ExBorderlessEntryControl Grid.Row="3"
+                                                           Margin="0,8,0,0"
+                            ErrorMessage="{Binding CityErrMessage}"
+                            ExKeyboard="Text"
+                            ExText="{Binding CustomerInfo.Billing.City}"
+                            HasError="{Binding CityHasError}"
+                            Icon="&#xf64f;"
+                            PlaceHolder="{Binding CityPld}" />
+
+                        <StackLayout Grid.Row="4"
+                                     Margin="0,8,0,0" Spacing="5">
+                            <pancake:PancakeView
+                                Padding="10,0,0,0"
+                                BorderColor="White"
+                                BorderGradientEndColor="{DynamicResource colPrim}"
+                                BorderGradientStartColor="{DynamicResource colPrimLight}"
+                                BorderThickness="1"
+                                CornerRadius="4"
+                                HeightRequest="52"
+                                HorizontalOptions="FillAndExpand"
+                                Opacity="0.6">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="40" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal"
+                                        Spacing="10"
+                                        VerticalOptions="FillAndExpand">
+                                        <Label
+                                            Margin="0"
+                                            FontFamily="{StaticResource FontAwesome}"
+                                            FontSize="16"
+                                            HorizontalOptions="Start"
+                                            Text="&#xf024;"
+                                            TextColor="{DynamicResource Gray-700}"
+                                            VerticalOptions="Center" />
+
+                                        <combobox:SfComboBox
+                                            AllowFiltering="False"
+                                            DataSource="{Binding Countries}"
+                                            DisplayMemberPath="Name"
+                                            HeightRequest="48"
+                                            HorizontalOptions="FillAndExpand"
+                                            IsEditableMode="True"
+                                            SelectedItem="{Binding SelectedCountry}"
+                                            ShowBorder="False"
+                                            ShowClearButton="True"
+                                            ShowSuggestionsOnFocus="True"
+                                            TextColor="{DynamicResource Gray-900}"
+                                            VerticalOptions="CenterAndExpand"
+                                            Watermark="{translator:Translate CountryPld}">
+                                            <combobox:SfComboBox.DropDownButtonSettings>
+                                                <combobox:DropDownButtonSettings>
+                                                    <combobox:DropDownButtonSettings.View>
+                                                        <Label
+                                                            Margin="0"
+                                                            FontFamily="{StaticResource FontAwesome}"
+                                                            FontSize="25"
+                                                            HorizontalTextAlignment="Center"
+                                                            IsVisible="False"
+                                                            Text="&#xf107;"
+                                                            TextColor="{DynamicResource Gray-900}"
+                                                            VerticalTextAlignment="Center" />
+                                                    </combobox:DropDownButtonSettings.View>
+                                                </combobox:DropDownButtonSettings>
+                                            </combobox:SfComboBox.DropDownButtonSettings>
+                                        </combobox:SfComboBox>
+                                    </StackLayout>
+                                    <Label
+                                        x:Name="ErrorIcon"
+                                        Grid.Column="1"
+                                        Margin="8"
+                                        FontFamily="{StaticResource FontAwesome}"
+                                        FontSize="18"
+                                        HorizontalOptions="EndAndExpand"
+                                        HorizontalTextAlignment="End"
+                                        IsVisible="{Binding Path=IsVisible, Source={x:Reference ErrorMessageLabel}}"
+                                        Text="&#xf06a;"
+                                        TextColor="Red"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </pancake:PancakeView>
+                            <Label
+                                x:Name="ErrorMessageLabel"
+                                Margin="15,-5,0,0"
+                                FontSize="12"
+                                IsVisible="{Binding CountryHasError}"
+                                TextColor="Red"
+                                VerticalOptions="FillAndExpand" />
+                        </StackLayout>
+
+                        <controls:ExBorderlessEntryControl Grid.Row="5"
+                                                           Margin="0,8,0,0"
+                            ErrorMessage="{Binding EmailErrMessage}"
+                            ExKeyboard="Email"
+                            ExText="{Binding CustomerInfo.Billing.Email}"
+                            HasError="{Binding EmailHasError}"
+                            Icon="&#xf0e0;"
+                            PlaceHolder="{Binding EmailPld}" />
+
+                        <controls:ExBorderlessEntryControl Grid.Row="6"
+                                                           Margin="0,8,0,0"
+                            ErrorMessage="{Binding PhoneErrMessage}"
+                            ExKeyboard="Telephone"
+                            ExText="{Binding CustomerInfo.Billing.Phone}"
+                            HasError="{Binding PhoneHasError}"
+                            Icon="&#xf3cd;"
+                            PlaceHolder="{Binding PhonePld}" />
+
+                        <Expander Grid.Row="7"
+                                  x:Name="shippingInfoExpander"
+                            Margin="0,8,0,5"
+                            IsExpanded="{Binding UseDifferentAddress}"
+                            Spacing="8">
+                            <Expander.Header>
+                                <StackLayout Orientation="Horizontal">
+                                    <CheckBox
+                                        x:Name="useDifferentAddressCheckbox"
+                                        IsChecked="{Binding Source={x:Reference shippingInfoExpander}, Path=IsExpanded}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        FontSize="14"
+                                        Text="{translator:Translate ShipToAnotherAddress}"
+                                        TextColor="{DynamicResource Gray-900}"
+                                        VerticalOptions="Center">
+                                        <Label.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding Source={x:Reference useDifferentAddressCheckbox}, Path=IsChecked}"
+                                                TargetType="Label"
+                                                Value="true">
+                                                <Setter Property="FontAttributes" Value="Bold" />
+                                                <Setter Property="FontSize" Value="16" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                </StackLayout>
+                            </Expander.Header>
+                            <StackLayout>
+                                <Grid
+                                    Margin="0,15,0,0"
+                                    ColumnSpacing="15"
+                                    VerticalOptions="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*" />
+                                        <ColumnDefinition Width="5*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <controls:ExBorderlessEntryControl
+                                        Grid.Column="0"
+                                        ErrorMessage="{Binding FirstNameErrMessage}"
+                                        ExKeyboard="Text"
+                                        ExText="{Binding CustomerInfo.Shipping.FirstName}"
+                                        HasError="{Binding ShippingFirstNameHasError}"
+                                        Icon="&#xf031;"
+                                        PlaceHolder="{Binding FirstNamePld}"
+                                        VerticalOptions="Center" />
+
+                                    <controls:ExBorderlessEntryControl
+                                        Grid.Column="1"
+                                        ErrorMessage="{Binding LastNameErrMessage}"
+                                        ExKeyboard="Text"
+                                        ExText="{Binding CustomerInfo.Shipping.LastName}"
+                                        HasError="{Binding ShippingLastNameHasError}"
+                                        Icon="&#xf032;"
+                                        PlaceHolder="{Binding LastNamePld}"
+                                        VerticalOptions="Center" />
+                                </Grid>
+
+                                <controls:ExBorderlessEntryControl
+                                    Margin="0,15,0,0"
+                                    ErrorMessage="{Binding AddressErrMessage}"
+                                    ExKeyboard="Text"
+                                    ExText="{Binding CustomerInfo.Shipping.Address1, Mode=TwoWay}"
+                                    HasError="{Binding ShippingAddressHasError}"
+                                    Icon="&#xf59f;"
+                                    PlaceHolder="{Binding AddressPld}" />
+
+                                <Grid
+                                    Margin="0,14,0,0"
+                                    ColumnSpacing="15"
+                                    VerticalOptions="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*" />
+                                        <ColumnDefinition Width="5*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <controls:ExBorderlessEntryControl
+                                        Margin="0,0,0,0"
+                                        ErrorMessage="{Binding StateErrMessage}"
+                                        ExKeyboard="Text"
+                                        ExText="{Binding CustomerInfo.Shipping.State}"
+                                        Icon="&#xf0c8;"
+                                        PlaceHolder="{Binding StatePld}" />
+
+                                    <controls:ExBorderlessEntryControl
+                                        Grid.Column="1"
+                                        Margin="0,0,0,0"
+                                        ErrorMessage="{Binding PostCodeErrMessage}"
+                                        ExKeyboard="Text"
+                                        ExText="{Binding CustomerInfo.Shipping.Postcode}"
+                                        Icon="&#xf674;"
+                                        PlaceHolder="{Binding PostCodePld}" />
+                                </Grid>
+
+                                <controls:ExBorderlessEntryControl
+                                    Margin="0,15,0,5"
+                                    ErrorMessage="{Binding CityErrMessage}"
+                                    ExKeyboard="Text"
+                                    ExText="{Binding CustomerInfo.Shipping.City}"
+                                    HasError="{Binding ShippingCityHasError}"
+                                    Icon="&#xf64f;"
+                                    PlaceHolder="{Binding CityPld}" />
+
+                                <!--<StackLayout Margin="0,8,0,0"
+                                             Spacing="5">
+                                    <pancake:PancakeView Padding="10,0,0,0"
+                                                         BorderColor="White"
+                                                         BorderGradientEndColor="{DynamicResource colPrim}"
+                                                         BorderGradientStartColor="{DynamicResource colPrimLight}"
+                                                         BorderThickness="2"
+                                                         CornerRadius="4"
+                                                         HeightRequest="52"
+                                                         HorizontalOptions="FillAndExpand"
+                                                         Opacity="0.6">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="40" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout HorizontalOptions="FillAndExpand"
+                                                         Orientation="Horizontal"
+                                                         Spacing="10"
+                                                         VerticalOptions="FillAndExpand">
+                                                <Label Margin="0"
+                                                       FontFamily="{StaticResource FontAwesome}"
+                                                       FontSize="16"
+                                                       HorizontalOptions="Start"
+                                                       Text="&#xf024;"
+                                                       TextColor="{DynamicResource Gray-700}"
+                                                       VerticalOptions="Center" />
+                                                <combobox:SfComboBox AllowFiltering="False"
+                                                                     DataSource="{Binding ShippingCountries}"
+                                                                     DisplayMemberPath="Name"
+                                                                     HorizontalOptions="FillAndExpand"
+                                                                     VerticalOptions="FillAndExpand"
+                                                                     IsEditableMode="True"
+                                                                     SelectedItem="{Binding SelectedCountryShipping}"
+                                                                     ShowBorder="False"
+                                                                     Text="AAA"
+                                                                     ShowClearButton="True"
+                                                                     ShowSuggestionsOnFocus="True"
+                                                                     Watermark="Country">
+                                                    <combobox:SfComboBox.DropDownButtonSettings>
+                                                        <combobox:DropDownButtonSettings>
+                                                            <combobox:DropDownButtonSettings.View>
+                                                                <Label Margin="0"
+                                                                       FontFamily="{StaticResource FontAwesome}"
+                                                                       FontSize="25"
+                                                                       HorizontalTextAlignment="Center"
+                                                                       IsVisible="False"
+                                                                       Text="&#xf107;"
+                                                                       TextColor="Gray"
+                                                                       VerticalTextAlignment="Center" />
+                                                            </combobox:DropDownButtonSettings.View>
+                                                        </combobox:DropDownButtonSettings>
+                                                    </combobox:SfComboBox.DropDownButtonSettings>
+                                                </combobox:SfComboBox>
+
+                                            </StackLayout>
+                                            <Label x:Name="ShippingInfoErrorIcon"
+                                                   Grid.Column="1"
+                                                   Margin="8"
+                                                   FontFamily="{StaticResource FontAwesome}"
+                                                   FontSize="18"
+                                                   HorizontalOptions="EndAndExpand"
+                                                   HorizontalTextAlignment="End"
+                                                   IsVisible="{Binding Path=IsVisible, Source={x:Reference ShippingInfoErrorMessageLabel}}"
+                                                   Text="&#xf06a;"
+                                                   TextColor="Red"
+                                                   VerticalOptions="Center" />
+                                        </Grid>
+                                    </pancake:PancakeView>
+                                    <Label x:Name="ShippingInfoErrorMessageLabel"
+                                           Margin="15,-5,0,0"
+                                           FontSize="12"
+                                           IsVisible="{Binding CountryHasError}"
+                                           TextColor="Red"
+                                           VerticalOptions="FillAndExpand" />
+                                </StackLayout>-->
+                            </StackLayout>
+                        </Expander>
+                    </Grid>
+                    <Button
+                        Grid.Row="1"
+                        Margin="0,10"
+                        BackgroundColor="{DynamicResource colPrim}"
+                        Command="{Binding OkCommand}"
+                        CornerRadius="5"
+                        FontAttributes="Bold"
+                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                        HorizontalOptions="Center"
+                        Opacity="0.9"
+                        Text="OK"
+                        TextColor="{DynamicResource Gray-White}"
+                        WidthRequest="120" />
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </pancake:PancakeView>
+</pages:PopupPage>

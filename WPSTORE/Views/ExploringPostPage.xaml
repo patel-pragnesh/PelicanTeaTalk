@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="WPSTORE.Views.ExploringPostPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:WPSTORE.Behaviors"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:customs="clr-namespace:WPSTORE.Controls.Actions"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:templates="clr-namespace:WPSTORE.Views.Templates"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    Title="{translator:Translate ExploringTitle}"
+    ios:Page.UseSafeArea="true"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{DynamicResource colBG1}">
+
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#039BE6" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+        <DataTemplate x:Key="PostExploringSearchTemplate">
+            <Grid Padding="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Image
+                    Grid.RowSpan="2"
+                    Grid.Column="0"
+                    Aspect="AspectFill"
+                    Source="{Binding jetpack_featured_media_url}"
+                    VerticalOptions="Center">
+                    <Image.WidthRequest>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="Android" Value="60" />
+                            <On Platform="iOS" Value="42" />
+                        </OnPlatform>
+                    </Image.WidthRequest>
+                    <Image.HeightRequest>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="Android" Value="60" />
+                            <On Platform="iOS" Value="42" />
+                        </OnPlatform>
+                    </Image.HeightRequest>
+                </Image>
+                <Label
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
+                    FontAttributes="Bold"
+                    Text="{Binding title.rendered}"
+                    VerticalOptions="Center">
+                    <Label.TextColor>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="White" />
+                        </OnPlatform>
+                    </Label.TextColor>
+                </Label>
+            </Grid>
+        </DataTemplate>
+    </ContentPage.Resources>
+    <Shell.SearchHandler>
+        <controls:WpSearchHandler
+            DisplayMemberName="name"
+            FontSize="Small"
+            ItemTemplate="{StaticResource PostExploringSearchTemplate}"
+            OnSearchItemSelected="WpSearchHandler_OnSearchItemSelected"
+            OnSearchTextChange="WpSearchHandler_OnSearchTextChange"
+            Placeholder="{translator:Translate SearchHint}"
+            SearchBoxVisibility="Collapsible"
+            ShowsResults="true" />
+    </Shell.SearchHandler>
+
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout Spacing="0" VerticalOptions="FillAndExpand">
+                <StackLayout
+                    Margin="{OnPlatform Android='0',
+                                        iOS='0,30,0,0'}"
+                    Padding="{OnPlatform '20,5,20,5',
+                                         iOS='10,0,10,0'}"
+                    BackgroundColor="{DynamicResource colBG1}"
+                    HeightRequest="50"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Horizontal"
+                    Spacing="0">
+                    <ImageButton
+                        BackgroundColor="Transparent"
+                        Command="{Binding BackCommand}"
+                        Source="ic_back"
+                        WidthRequest="20" />
+                    <Label
+                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                        FontSize="16"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Rewards list"
+                        TextColor="{DynamicResource colPrim}"
+                        VerticalOptions="Center" />
+                </StackLayout>
+                <BoxView
+                    BackgroundColor="{DynamicResource Gray-500}"
+                    HeightRequest="0.5"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill" />
+
+                <customs:CustomListview
+                    x:Name="listview"
+                    BackgroundColor="{DynamicResource colBG1}"
+                    HasUnevenRows="True"
+                    IsPullToRefreshEnabled="True"
+                    IsRefreshing="{Binding IsBusy}"
+                    ItemTapped="listview_ItemTapped"
+                    ItemsSource="{Binding Posts}"
+                    RefreshCommand="{Binding ListViewRefreshCommand}"
+                    SeparatorVisibility="None"
+                    VerticalScrollBarVisibility="Never">
+                    <x:Arguments>
+                        <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                    </x:Arguments>
+                    <customs:CustomListview.Behaviors>
+                        <behaviors:EventToCommandBehavior Command="{Binding ListViewItemAppearingCommand}" EventName="ItemAppearing" />
+                    </customs:CustomListview.Behaviors>
+                    <customs:CustomListview.ItemTemplate>
+                        <DataTemplate>
+                            <templates:PostExploreViewCell />
+                        </DataTemplate>
+                    </customs:CustomListview.ItemTemplate>
+                    <customs:CustomListview.Footer>
+                        <Grid HeightRequest="30">
+                            <controls:LoadingOverlay
+                                Grid.Row="0"
+                                HorizontalOptions="Fill"
+                                IsRunning="{Binding IsBusy, Mode=TwoWay}"
+                                VerticalOptions="Fill" />
+                            <StackLayout
+                                HeightRequest="30"
+                                HorizontalOptions="Center"
+                                IsVisible="{Binding IsAllLoad}"
+                                Orientation="Horizontal">
+                                <BoxView
+                                    BackgroundColor="#D0D0D0"
+                                    HeightRequest="1"
+                                    VerticalOptions="Center"
+                                    WidthRequest="40" />
+                                <Label
+                                    FontFamily="{StaticResource Montserrat-Regular}"
+                                    FontSize="8"
+                                    Text="All posts loaded"
+                                    TextColor="#D0D0D0"
+                                    VerticalOptions="Center" />
+                                <BoxView
+                                    BackgroundColor="#D0D0D0"
+                                    HeightRequest="1"
+                                    VerticalOptions="Center"
+                                    WidthRequest="40" />
+                            </StackLayout>
+                        </Grid>
+                    </customs:CustomListview.Footer>
+                </customs:CustomListview>
+            </StackLayout>
+
+            <!--<controls:LoadingOverlay Grid.Row="0"
+                                     IsRunning="{Binding IsBusy, Mode=TwoWay}"
+                                     HorizontalOptions="Fill"
+                                     VerticalOptions="Fill" />-->
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

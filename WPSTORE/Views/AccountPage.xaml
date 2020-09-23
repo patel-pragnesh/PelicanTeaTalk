@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="WPSTORE.Views.AccountPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:extensions="clr-namespace:WPSTORE.Extensions"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    xmlns:views="clr-namespace:WPSTORE.Views"
+    ios:Page.UseSafeArea="true"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{DynamicResource colBG2}"
+    Shell.NavBarHasShadow="False"
+    Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#546DFE" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+        <Color x:Key="PrimaryTextColor">#333333</Color>
+        <Color x:Key="TableSectionTitleBackgroundColor">#05000000</Color>
+        <Color x:Key="TableSectionLineBackgroundColor">#22000000</Color>
+
+        <x:Double x:Key="TableSectionTitleFontSize">12</x:Double>
+        <x:Double x:Key="TableSectionTitleHeight">60</x:Double>
+        <x:Double x:Key="TableSectionTitleLineHeight">1</x:Double>
+
+        <x:Double x:Key="TableSectionTextHeight">44</x:Double>
+        <x:Double x:Key="TableSectionLineHeight">1</x:Double>
+
+        <Style x:Key="TableSectionTitleStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="{DynamicResource colPrim}" />
+            <Setter Property="VerticalTextAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="{StaticResource TableSectionTitleFontSize}" />
+            <Setter Property="FontFamily" Value="{StaticResource BoldFont_ProductSans}" />
+            <Setter Property="HorizontalTextAlignment" Value="Start" />
+            <Setter Property="HeightRequest" Value="{StaticResource TableSectionTitleHeight}" />
+        </Style>
+
+        <Style x:Key="TableSectionTitleIconStyle" TargetType="Label">
+            <Setter Property="TextColor" Value="{DynamicResource colPrim}" />
+            <Setter Property="VerticalTextAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+
+        <Style x:Key="TableSectionLineBaseStyle" TargetType="BoxView">
+            <Setter Property="HeightRequest" Value="{StaticResource TableSectionLineHeight}" />
+        </Style>
+
+        <Style
+            x:Key="TableSectionLineStyle"
+            BasedOn="{StaticResource TableSectionLineBaseStyle}"
+            TargetType="BoxView">
+            <Setter Property="BackgroundColor" Value="{StaticResource TableSectionLineBackgroundColor}" />
+        </Style>
+
+        <Style
+            x:Key="TableSectionTitleLineStyle"
+            BasedOn="{StaticResource TableSectionLineBaseStyle}"
+            TargetType="BoxView">
+            <Setter Property="BackgroundColor" Value="{DynamicResource colPrim}" />
+            <Setter Property="HeightRequest" Value="{StaticResource TableSectionTitleLineHeight}" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="Margin" Value="0,0" />
+        </Style>
+
+        <Style x:Key="TableSectionTitleBackgroundStyle" TargetType="Grid">
+            <Setter Property="BackgroundColor" Value="{StaticResource TableSectionTitleBackgroundColor}" />
+            <Setter Property="Padding" Value="10,0" />
+        </Style>
+
+        <Style x:Key="TableSectionTextStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontFamily" Value="{StaticResource BoldFont_ProductSans}" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            <Setter Property="VerticalOptions" Value="FillAndExpand" />
+            <Setter Property="VerticalTextAlignment" Value="Center" />
+            <Setter Property="HorizontalTextAlignment" Value="Start" />
+            <Setter Property="TextColor" Value="{DynamicResource Gray-900}" />
+            <Setter Property="HeightRequest" Value="{StaticResource TableSectionTextHeight}" />
+        </Style>
+
+        <Style x:Key="TableSectionSwitchStyle" TargetType="Switch">
+            <Setter Property="HorizontalOptions" Value="End" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+
+        <Style x:Key="TableSectionGroupStyle" TargetType="StackLayout">
+            <Setter Property="Padding" Value="15,0" />
+            <Setter Property="Spacing" Value="10" />
+            <Setter Property="Orientation" Value="Horizontal" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout
+                Padding="0,0,0,0"
+                HorizontalOptions="FillAndExpand"
+                Spacing="0"
+                VerticalOptions="FillAndExpand">
+                <Frame
+                    Margin="0,0,0,0"
+                    Padding="15"
+                    BackgroundColor="{DynamicResource colBG1}"
+                    CornerRadius="0"
+                    HasShadow="False">
+                    <Grid
+                        BackgroundColor="{DynamicResource colBG1}"
+                        ColumnSpacing="8"
+                        HeightRequest="65"
+                        RowSpacing="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <ffimageloading:CachedImage
+                            Grid.RowSpan="2"
+                            Aspect="AspectFill"
+                            HeightRequest="60"
+                            HorizontalOptions="Center"
+                            Source="{Binding UserInfo.PictureUrl}"
+                            VerticalOptions="Center"
+                            WidthRequest="60">
+                            <ffimageloading:CachedImage.CacheKeyFactory>
+                                <extensions:CustomCacheKeyFactory />
+                            </ffimageloading:CachedImage.CacheKeyFactory>
+                            <ffimageloading:CachedImage.Transformations>
+                                <fftransformations:CircleTransformation BorderHexColor="#ffffff" BorderSize="5" />
+                            </ffimageloading:CachedImage.Transformations>
+                        </ffimageloading:CachedImage>
+
+                        <StackLayout
+                            Grid.RowSpan="2"
+                            Grid.Column="1"
+                            Spacing="3"
+                            VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontFamily="{StaticResource BoldFont_ProductSans}"
+                                FontSize="18"
+                                HorizontalOptions="Start"
+                                LineBreakMode="TailTruncation"
+                                LineHeight="{OnPlatform Default=-1,
+                                                        Android=1.25}"
+                                MaxLines="2"
+                                Text="{Binding UserInfo.DisplayName}"
+                                TextColor="{DynamicResource Gray-900}" />
+
+                            <Label
+                                FontFamily="{StaticResource RegularFont_ProductSans}"
+                                FontSize="14"
+                                HorizontalOptions="Start"
+                                LineBreakMode="TailTruncation"
+                                LineHeight="{OnPlatform Default=-1,
+                                                        Android=1.25}"
+                                MaxLines="2"
+                                Text="Diamond Level"
+                                TextColor="{DynamicResource Gray-700}" />
+                        </StackLayout>
+
+                        <Label
+                            Grid.RowSpan="2"
+                            Grid.Column="2"
+                            Margin="8,0"
+                            FontFamily="{StaticResource BoldFont_ProductSans}"
+                            FontSize="16"
+                            HorizontalOptions="Center"
+                            LineBreakMode="TailTruncation"
+                            LineHeight="{OnPlatform Default=-1,
+                                                    Android=1.25}"
+                            MaxLines="2"
+                            Text="549 Points"
+                            TextColor="{DynamicResource colPrim}"
+                            VerticalOptions="Center" />
+                    </Grid>
+                </Frame>
+
+                <BoxView
+                    Margin="0"
+                    BackgroundColor="{DynamicResource Gray-500}"
+                    HeightRequest="0.5"
+                    HorizontalOptions="Fill" />
+
+                <!--<BoxView
+                    Margin="0,7,0,0"
+                    BackgroundColor="{DynamicResource Gray-500}"
+                    HeightRequest="0.5"
+                    HorizontalOptions="Fill" />-->
+
+                <StackLayout
+                    Margin="0,10,0,0"
+                    Padding="0,5,0,0"
+                    BackgroundColor="{DynamicResource colBG1}"
+                    Spacing="5">
+
+                    <StackLayout Style="{StaticResource TableSectionGroupStyle}">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding StoreRewardCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <Label
+                            FontFamily="{StaticResource FontAwesome}"
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource TableSectionTitleIconStyle}"
+                            Text="&#xf4be;"
+                            VerticalOptions="Center" />
+                        <Label
+                            Style="{StaticResource TableSectionTextStyle}"
+                            Text="{translator:Translate ShopReward}"
+                            VerticalOptions="Center" />
+
+                        <!--<Switch
+                            x:Name="NightModeSwitcher"
+                            IsToggled="{Binding IsNightModeEnabled}"
+                            Style="{StaticResource TableSectionSwitchStyle}" />-->
+                    </StackLayout>
+
+                    <!--<BoxView Style="{StaticResource TableSectionLineStyle}" />-->
+
+                    <StackLayout Style="{StaticResource TableSectionGroupStyle}">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AccountInfoCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <Label
+                            FontFamily="{StaticResource FontAwesome}"
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource TableSectionTitleIconStyle}"
+                            Text="&#xf2bd;"
+                            VerticalOptions="Center" />
+                        <Label
+                            Style="{StaticResource TableSectionTextStyle}"
+                            Text="{translator:Translate AccountInfo}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <!--<StackLayout Style="{StaticResource TableSectionGroupStyle}">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PlayingMusicCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <Label
+                            FontFamily="{StaticResource FontAwesome}"
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource TableSectionTitleIconStyle}"
+                            Text="&#xf001;"
+                            VerticalOptions="Center" />
+                        <Label
+                            Style="{StaticResource TableSectionTextStyle}"
+                            Text="{translator:Translate PlayingMusic}"
+                            VerticalOptions="Center" />
+
+                    </StackLayout>-->
+
+                    <StackLayout Style="{StaticResource TableSectionGroupStyle}">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OrderHistoryCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <Label
+                            FontFamily="{StaticResource FontAwesome}"
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource TableSectionTitleIconStyle}"
+                            Text="&#xf1da;"
+                            VerticalOptions="Center" />
+                        <Label
+                            Style="{StaticResource TableSectionTextStyle}"
+                            Text="{translator:Translate OrdersHistory}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <StackLayout Style="{StaticResource TableSectionGroupStyle}">
+                        <Label
+                            FontFamily="{StaticResource FontAwesome}"
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource TableSectionTitleIconStyle}"
+                            Text="&#xf09d;"
+                            VerticalOptions="Center" />
+                        <Label
+                            Style="{StaticResource TableSectionTextStyle}"
+                            Text="{translator:Translate Payment}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+
+                    <!--<BoxView Style="{StaticResource TableSectionLineStyle}" />-->
+
+                    <StackLayout Style="{StaticResource TableSectionGroupStyle}">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding HelpCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <Label
+                            FontFamily="{StaticResource FontAwesome}"
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource TableSectionTitleIconStyle}"
+                            Text="&#xf1cd;"
+                            VerticalOptions="Center" />
+                        <Label
+                            Style="{StaticResource TableSectionTextStyle}"
+                            Text="{translator:Translate Help}"
+                            VerticalOptions="Center" />
+
+                    </StackLayout>
+
+                    <StackLayout Style="{StaticResource TableSectionGroupStyle}">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SettingsCommand}" />
+                        </StackLayout.GestureRecognizers>
+                        <Label
+                            FontFamily="{StaticResource FontAwesome}"
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource TableSectionTitleIconStyle}"
+                            Text="&#xf013;"
+                            VerticalOptions="Center" />
+                        <Label
+                            Style="{StaticResource TableSectionTextStyle}"
+                            Text="{translator:Translate Settings}"
+                            VerticalOptions="Center" />
+
+                    </StackLayout>
+
+                    <!--<BoxView Style="{StaticResource TableSectionLineStyle}" />-->
+
+                    <StackLayout HeightRequest="50" Style="{StaticResource TableSectionGroupStyle}">
+
+                        <Label
+                            FontFamily="{StaticResource FontAwesome}"
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource TableSectionTitleIconStyle}"
+                            Text="&#xf7a2;"
+                            VerticalOptions="Center" />
+
+                        <Label
+                            Style="{StaticResource TableSectionTextStyle}"
+                            Text="{translator:Translate SystemLanguage}"
+                            VerticalOptions="Center" />
+
+                        <controls:CustomPicker
+                            x:Name="languagePicker"
+                            Title="{translator:Translate SelectLanguageTitle}"
+                            Margin="0,5,0,5"
+                            FontFamily="{StaticResource RegularFont_ProductSans}"
+                            FontSize="14"
+                            Image="ic_locale_down"
+                            ItemDisplayBinding="{Binding Name}"
+                            ItemsSource="{Binding LanguageList}"
+                            SelectedItem="{Binding LanguageSelected}"
+                            TextColor="{StaticResource Gray-700}"
+                            TitleColor="{DynamicResource colPrim}"
+                            WidthRequest="160" />
+                    </StackLayout>
+
+                    <BoxView
+                        Margin="0,0,0,-5"
+                        BackgroundColor="{DynamicResource Gray-500}"
+                        HeightRequest="0.5"
+                        HorizontalOptions="Fill" />
+
+                    <StackLayout BackgroundColor="{DynamicResource colBG2}" Style="{StaticResource TableSectionGroupStyle}">
+
+                        <!--<Label
+                            FontFamily="{StaticResource FontAwesome}"
+                            HorizontalOptions="Start"
+                            HorizontalTextAlignment="Start"
+                            Style="{StaticResource TableSectionTitleIconStyle}"
+                            Text="&#xe72b;"
+                            VerticalOptions="Center" />-->
+
+                        <Label
+                            Style="{StaticResource TableSectionTextStyle}"
+                            Text="{translator:Translate Logout}"
+                            TextColor="Red"
+                            VerticalOptions="Center">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding LogoutCommand}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                    </StackLayout>
+
+                </StackLayout>
+
+                <BoxView
+                    Margin="0"
+                    BackgroundColor="{DynamicResource Gray-500}"
+                    HeightRequest="0.5"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="EndAndExpand" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WPSTORE.Views.PostDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:htmlLabel="clr-namespace:LabelHtml.Forms.Plugin.Abstractions;assembly=HtmlLabel.Forms.Plugin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:xamanimation="clr-namespace:Xamanimation;assembly=Xamanimation"
+    x:Name="self"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{DynamicResource colBG2}"
+    NavigationPage.HasNavigationBar="False"
+    Shell.NavBarIsVisible="False"
+    mc:Ignorable="d">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior
+            BindingContext="{Binding Source={x:Reference self}, Path=BindingContext}"
+            Command="{Binding GoBackCommand}"
+            IconOverride="back.png" />
+    </Shell.BackButtonBehavior>
+    <ContentPage.Content>
+        <Grid>
+            <!--<ScrollView>
+                <ContentView x:Name="headerView"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Image x:Name="headerImage"
+                               Grid.Row="0"
+                               Aspect="AspectFill"
+                               BackgroundColor="{DynamicResource Gray-200}"
+                               HeightRequest="265"
+                               HorizontalOptions="FillAndExpand"
+                               VerticalOptions="Start">
+                            <Image.Source>
+                                <UriImageSource CacheValidity="14"
+                                                CachingEnabled="true"
+                                                Uri="{Binding Post.jetpack_featured_media_url }" />
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+                    <ContentView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnImageViewTapped"
+                                              CommandParameter="{Binding Post.jetpack_featured_media_url}" />
+                    </ContentView.GestureRecognizers>
+                </ContentView>
+            </ScrollView>
+            <controls:ParallaxScrollView HorizontalOptions="FillAndExpand"
+                                         ParallaxHeaderView="{x:Reference headerView}"
+                                         VerticalOptions="FillAndExpand">
+                <Grid RowSpacing="0"
+                      VerticalOptions="FillAndExpand">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="240" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackLayout HorizontalOptions="Start"
+                                 Grid.Row="0"
+                                 Padding="20"
+                                 Spacing="0"
+                                 VerticalOptions="End">
+
+                        <Label Text="{ Binding Post.title.rendered }"
+                               LineBreakMode="WordWrap"
+                               MaxLines="2"
+                               FontFamily="{StaticResource Montserrat-SemiBold}"
+                               TextColor="{ StaticResource OverImageTextColor }"
+                               FontAttributes="Bold"
+                               FontSize="26" />
+
+                        <BoxView BackgroundColor="{ DynamicResource colPrim }"
+                                 Style="{StaticResource BrandNameOrnamentStyle}"
+                                 Margin="0,20,0,0" />
+
+                    </StackLayout>
+
+                    <Grid Grid.Row="1"
+                          RowSpacing="0"
+                          BackgroundColor="{ DynamicResource BasePageColor }">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <BoxView Grid.Row="0"
+                                 BackgroundColor="{ DynamicResource ArticleHeaderBackgroundColor }" />
+
+                        <Grid Padding="20,0"
+                              VerticalOptions="Center"
+                              ColumnSpacing="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0"
+                                   Text="{ Binding Post.CategoryName }"
+                                   FontSize="14"
+                                   FontFamily="{StaticResource Montserrat-SemiBold}"
+                                   TextColor="#49659F"
+                                   VerticalTextAlignment="Center" />
+
+                            <Label Grid.Column="1"
+                                   Margin="10,0"
+                                   Text="{ Binding Post.CreatedDate }"
+                                   FontSize="14"
+                                   FontFamily="{StaticResource Montserrat-Regular}"
+                                   TextColor="{ DynamicResource BlackTextColor }"
+                                   VerticalTextAlignment="Center" />
+
+                            <Label Grid.Column="2"
+                                   FontSize="18"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   HorizontalTextAlignment="Center"
+                                   FontFamily="{StaticResource FontAwesome}"
+                                   Text="&#xe701;" />
+
+                            <Label Grid.Column="3"
+                                   Text="72"
+                                   FontSize="14"
+                                   TextColor="{ DynamicResource colPrim }"
+                                   VerticalTextAlignment="Center" />
+
+                            <Label Grid.Column="4"
+                                   FontSize="18"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   HorizontalTextAlignment="Center"
+                                   FontFamily="{StaticResource FontAwesome}"
+                                   Text="&#xe734;" />
+
+                            <Label Grid.Column="5"
+                                   Text="24"
+                                   FontSize="14"
+                                   TextColor="{ DynamicResource colPrim }"
+                                   VerticalTextAlignment="Center" />
+                        </Grid>
+
+                        <BoxView Grid.Row="0"
+                                 Style="{ StaticResource Horizontal1ptLineStyle}"
+                                 VerticalOptions="End"
+                                 BackgroundColor="Gray" />
+
+                        <Grid Grid.Row="1"
+                              Padding="20,10,20,10"
+                              VerticalOptions="Center"
+                              RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <controls:ExtendedWebView HorizontalOptions="Fill"
+                                                      VerticalOptions="StartAndExpand"
+                                                      HeightRequest="600">
+                                <WebView.Source>
+                                    <HtmlWebViewSource Html="{Binding Post.content.rendered}" />
+                                </WebView.Source>
+                            </controls:ExtendedWebView>
+
+                        </Grid>
+
+                        <Grid Grid.Row="2"
+                              IsVisible="False"
+                              Padding="0,0,0,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*" />
+                                <ColumnDefinition Width="50*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackLayout Grid.Column="0"
+                                         Orientation="Horizontal"
+                                         VerticalOptions="Center"
+                                         HorizontalOptions="Start"
+                                         Spacing="10">
+
+                                <ffimageloading:CachedImage Margin="20,0,0,0"
+                                                            Source="icon"
+                                                            VerticalOptions="Center">
+                                    <ffimageloading:CachedImage.Transformations>
+                                        <fftransformations:CircleTransformation BorderHexColor="#FF0000" />
+                                    </ffimageloading:CachedImage.Transformations>
+                                </ffimageloading:CachedImage>
+
+                                <Label Text="{ Binding UserName, StringFormat='by {0:F0}' }"
+                                       TextColor="Red"
+                                       VerticalTextAlignment="Center" />
+                            </StackLayout>
+
+                            <StackLayout Grid.Column="1"
+                                         Orientation="Horizontal"
+                                         VerticalOptions="Center"
+                                         HorizontalOptions="Center"
+                                         Spacing="10">
+
+                                <Label Text="Tag"
+                                       TextColor="Red"
+                                       FontSize="16"
+                                       VerticalOptions="Center"
+                                       VerticalTextAlignment="Center" />
+                                <Label Text="{ Binding Post.tags, StringFormat='in {0:F0}' }"
+                                       TextColor="{ DynamicResource colPrim }"
+                                       VerticalTextAlignment="Start" />
+                            </StackLayout>
+
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </controls:ParallaxScrollView>-->
+            <StackLayout Spacing="0">
+
+                <StackLayout
+                    Margin="{OnPlatform '0',
+                                        iOS='0,30,0,0'}"
+                    Padding="{OnPlatform '20,5,20,5',
+                                         iOS='10,0,10,0'}"
+                    BackgroundColor="Transparent"
+                    HeightRequest="50"
+                    Orientation="Horizontal"
+                    Spacing="0">
+                    <Label
+                        FontFamily="{StaticResource FontAwesome}"
+                        FontSize="25"
+                        Text="&#xf057;"
+                        TextColor="{DynamicResource Gray-700}"
+                        VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <!--<ImageButton
+                        BackgroundColor="Transparent"
+                        Command="{Binding GoBackCommand}"
+                        Source="Close"
+                        WidthRequest="15" />-->
+                </StackLayout>
+
+                <StackLayout Margin="{OnIdiom Phone='16,0', Tablet='48,0', Desktop='48,0'}" Spacing="0">
+
+                    <Label
+                        Margin="0,0,0,8"
+                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                        FontSize="18"
+                        LineBreakMode="WordWrap"
+                        LineHeight="1.25"
+                        MaxLines="2"
+                        Text="{Binding Post.title.rendered}"
+                        TextColor="{DynamicResource colPrim}"
+                        TextType="Html" />
+
+                    <StackLayout
+                        Margin="0,0,0,16"
+                        Orientation="Horizontal"
+                        Spacing="20">
+                        <Label
+                            FontFamily="{StaticResource RegularFont_ProductSans}"
+                            FontSize="12"
+                            Text="{Binding Post.CategoryName}"
+                            TextColor="{DynamicResource Gray-900}" />
+                        <Label
+                            FontFamily="{StaticResource RegularFont_ProductSans}"
+                            FontSize="12"
+                            Text="{Binding Post.CreatedDate}"
+                            TextColor="{DynamicResource Gray-900}" />
+
+                        <Label
+                            FontFamily="{StaticResource FontAwesome}"
+                            FontSize="22"
+                            HorizontalOptions="EndAndExpand"
+                            Text="&#xf598;"
+                            TextColor="{DynamicResource colPrim}" />
+                    </StackLayout>
+
+                    <ScrollView>
+                        <StackLayout>
+                            <Image
+                                x:Name="headerImage"
+                                Aspect="AspectFill"
+                                BackgroundColor="{DynamicResource Gray-200}"
+                                HeightRequest="265"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="Start">
+                                <Image.Source>
+                                    <UriImageSource
+                                        CacheValidity="14"
+                                        CachingEnabled="true"
+                                        Uri="{Binding Post.jetpack_featured_media_url}" />
+                                </Image.Source>
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding Post.jetpack_featured_media_url}" Tapped="OnImageViewTapped" />
+                                </Image.GestureRecognizers>
+                            </Image>
+
+                            <Grid
+                                Padding="0,15,0,10"
+                                BackgroundColor="{DynamicResource colBG2}"
+                                RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <!--<Label
+                                    FontFamily="{StaticResource RegularFont_ProductSans}"
+                                    LineHeight="1.25"
+                                    Text="{Binding Post.content.rendered}"
+                                    TextColor="{DynamicResource Gray-900}"
+                                    TextType="Html" />-->
+                                <htmlLabel:HtmlLabel
+                                    FontFamily="{StaticResource RegularFont_ProductSans}"
+                                    LineHeight="1.25"
+                                    Text="{Binding Post.content.rendered}"
+                                    TextColor="{DynamicResource Gray-900}" />
+                                <!--<controls:ExtendedWebView HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand">
+                                    <WebView.Source>
+                                        <HtmlWebViewSource Html="{Binding Post.content.rendered}" />
+                                    </WebView.Source>
+                                </controls:ExtendedWebView>-->
+
+                            </Grid>
+                            <BoxView
+                                BackgroundColor="{DynamicResource Gray-500}"
+                                HeightRequest="0.5"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="EndAndExpand" />
+                        </StackLayout>
+                    </ScrollView>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

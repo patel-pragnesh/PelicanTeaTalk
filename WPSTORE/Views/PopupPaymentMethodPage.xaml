@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="WPSTORE.Views.PopupPaymentMethodPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:converter="clr-namespace:WPSTORE.Converters"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:extensions="clr-namespace:WPSTORE.Extensions"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    x:Name="PaymentMethodPage"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    CloseWhenBackgroundIsClicked="False"
+    mc:Ignorable="d">
+    <pages:PopupPage.Resources>
+        <converter:SelectedPaymentMethodToBooleanConverter x:Key="SelectedPaymentMethodToBooleanConverter" />
+    </pages:PopupPage.Resources>
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"
+            PositionIn="Bottom"
+            PositionOut="Bottom"
+            ScaleIn="1.2"
+            ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <pancake:PancakeView
+            Grid.Row="1"
+            Padding="0"
+            BackgroundColor="{DynamicResource colBG2}"
+            BorderColor="{DynamicResource Gray-100}"
+            BorderThickness="1"
+            CornerRadius="25,25,0,0"
+            HasShadow="True">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="0.5" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Padding="10,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Column="0"
+                        Margin="10,0,30,0"
+                        FontFamily="{StaticResource RegularFont_ProductSans}"
+                        FontSize="16"
+                        Text="{translator:Translate ChoosePaymentMethod}"
+                        TextColor="{DynamicResource colPrim}"
+                        VerticalOptions="Center" />
+                    <pancake:PancakeView
+                        Grid.Column="1"
+                        Margin="{OnPlatform Android='0,-20,0,0',
+                                            iOS='0,-15,0,0'}"
+                        Padding="0"
+                        BackgroundGradientAngle="45"
+                        BackgroundGradientEndColor="{DynamicResource colPrim}"
+                        BackgroundGradientStartColor="{DynamicResource colPrimLight}"
+                        BorderColor="{DynamicResource Gray-100}"
+                        BorderThickness="1"
+                        CornerRadius="30,0,30,0"
+                        Elevation="6"
+                        HasShadow="False"
+                        HeightRequest="58"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        WidthRequest="58">
+                        <ImageButton
+                            Padding="5"
+                            BackgroundColor="Transparent"
+                            Command="{Binding CancelCommand}"
+                            HeightRequest="36"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            WidthRequest="36">
+                            <ImageButton.Source>
+                                <FontImageSource
+                                    FontFamily="{StaticResource FontAwesome}"
+                                    Glyph="&#xf057;"
+                                    Size="20"
+                                    Color="{DynamicResource Gray-200}" />
+                            </ImageButton.Source>
+                        </ImageButton>
+                    </pancake:PancakeView>
+                </Grid>
+
+                <BoxView
+                    Grid.Row="1"
+                    Margin="20,0,50,0"
+                    BackgroundColor="{DynamicResource Gray-500}"
+                    HeightRequest="0.5" />
+
+                <StackLayout
+                    x:Name="PaymentMethodList"
+                    Grid.Row="2"
+                    Margin="20,10"
+                    BindableLayout.ItemsSource="{Binding PaymentMethods}"
+                    HorizontalOptions="FillAndExpand">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,10" ColumnSpacing="10">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.SelectPaymentMethodCommand, Source={x:Reference PaymentMethodList}}" CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="1"
+                                    FontFamily="{StaticResource RegularFont_ProductSans}"
+                                    FontSize="15"
+                                    HorizontalOptions="Start"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{Binding Title}"
+                                    TextColor="{DynamicResource Gray-Black}"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Column="0"
+                                    FontFamily="{StaticResource FontAwesome}"
+                                    FontSize="20"
+                                    HorizontalOptions="End"
+                                    HorizontalTextAlignment="Center"
+                                    IsVisible="{Binding ., Converter={StaticResource SelectedPaymentMethodToBooleanConverter}, ConverterParameter={x:Reference PaymentMethodPage}}"
+                                    Text="&#xf14a;"
+                                    TextColor="Green"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </Grid>
+        </pancake:PancakeView>
+    </Grid>
+</pages:PopupPage>

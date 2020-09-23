@@ -1,0 +1,555 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WPSTORE.Views.CartPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:customs="clr-namespace:WPSTORE.Controls.Actions"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:extensions="clr-namespace:WPSTORE.Extensions"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
+    xmlns:template="clr-namespace:WPSTORE.Views.Templates"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{DynamicResource colBG2}"
+    NavigationPage.HasNavigationBar="False"
+    Shell.NavBarIsVisible="False"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout Spacing="0" VerticalOptions="FillAndExpand">
+                <Grid
+                    Margin="{OnPlatform '0',
+                                        iOS='0,30,0,0'}"
+                    Padding="{OnPlatform '15,0,20,0',
+                                         iOS='10,0,10,0'}"
+                    BackgroundColor="{DynamicResource colBG1}"
+                    HeightRequest="56">
+                    <Label
+                        FontFamily="{StaticResource FontAwesome}"
+                        FontSize="25"
+                        Text="&#xf057;"
+                        TextColor="{DynamicResource Gray-700}"
+                        VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label
+                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                        FontSize="16"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="{translator:Translate MyCart}"
+                        TextColor="{DynamicResource colPrim}"
+                        VerticalOptions="Center" />
+                </Grid>
+
+                <BoxView
+                    BackgroundColor="{DynamicResource Gray-500}"
+                    HeightRequest="0.5"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill" />
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition>
+                            <RowDefinition.Height>
+                                <OnPlatform
+                                    x:TypeArguments="GridLength"
+                                    Android="60"
+                                    iOS="100" />
+                            </RowDefinition.Height>
+                        </RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <ScrollView>
+                        <StackLayout
+                            HorizontalOptions="FillAndExpand"
+                            Spacing="0"
+                            VerticalOptions="FillAndExpand">
+                            <Label
+                                Margin="16,15,16,10"
+                                FontFamily="{StaticResource RegularFont_ProductSans}"
+                                FontSize="14"
+                                Text="{translator:Translate OrderInformation}"
+                                TextColor="{DynamicResource Gray-900}"
+                                VerticalOptions="Center" />
+
+                            <Grid
+                                Padding="16,10,16,5"
+                                BackgroundColor="{DynamicResource colBG1}"
+                                VerticalOptions="FillAndExpand">
+                                <StackLayout Spacing="8">
+                                    <Grid ColumnSpacing="1" HeightRequest="45">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="25" />
+                                            <ColumnDefinition Width="4*" />
+                                            <ColumnDefinition Width="10" />
+                                            <ColumnDefinition Width="25" />
+                                            <ColumnDefinition Width="4*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label
+                                            FontFamily="{StaticResource FontAwesome}"
+                                            HorizontalOptions="Center"
+                                            HorizontalTextAlignment="Center"
+                                            Text="&#xf2bd;"
+                                            TextColor="{DynamicResource colPrim}"
+                                            VerticalOptions="Center" />
+
+                                        <controls:CustomEntry
+                                            Grid.Column="1"
+                                            BorderColor="{DynamicResource colPrim}"
+                                            FontFamily="{StaticResource RegularFont_ProductSans}"
+                                            FontSize="14"
+                                            Text="{Binding Name}"
+                                            TextColor="{DynamicResource Gray-900}" />
+
+                                        <Label
+                                            Grid.Column="3"
+                                            FontFamily="{StaticResource FontAwesome}"
+                                            HorizontalOptions="Center"
+                                            HorizontalTextAlignment="Center"
+                                            Text="&#xf095;"
+                                            TextColor="{DynamicResource colPrim}"
+                                            VerticalOptions="Center" />
+
+                                        <controls:CustomEntry
+                                            Grid.Column="4"
+                                            BorderColor="{DynamicResource colPrim}"
+                                            FontFamily="{StaticResource RegularFont_ProductSans}"
+                                            FontSize="14"
+                                            Keyboard="Telephone"
+                                            Text="{Binding PhoneNumber}"
+                                            TextColor="{DynamicResource Gray-900}" />
+                                    </Grid>
+
+                                    <Grid ColumnSpacing="15" HeightRequest="90">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="0.5*" />
+                                            <RowDefinition Height="0.5*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="90" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid
+                                            Grid.RowSpan="2"
+                                            HorizontalOptions="FillAndExpand"
+                                            VerticalOptions="FillAndExpand">
+                                            <maps:Map
+                                                x:Name="map"
+                                                HasZoomEnabled="False"
+                                                IsShowingUser="True"
+                                                MapType="Street" />
+                                        </Grid>
+
+                                        <Label
+                                            Grid.Column="1"
+                                            FontFamily="{StaticResource RegularFont_ProductSans}"
+                                            FontSize="14"
+                                            LineBreakMode="WordWrap"
+                                            MaxLines="2"
+                                            Text="{Binding ShippingAddress}"
+                                            TextColor="{DynamicResource Gray-900}" />
+                                        <StackLayout
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="0"
+                                            Orientation="Horizontal"
+                                            Spacing="5">
+                                            <Label
+                                                FontFamily="{StaticResource FontAwesome}"
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"
+                                                Text="&#xf075;"
+                                                TextColor="{DynamicResource colPrim}"
+                                                VerticalOptions="Center" />
+
+                                            <controls:CustomEntry
+                                                Grid.Column="1"
+                                                BorderColor="{DynamicResource colPrim}"
+                                                FontFamily="{StaticResource RegularFont_ProductSans}"
+                                                FontSize="14"
+                                                HorizontalOptions="FillAndExpand"
+                                                Placeholder="{translator:Translate AddNoteShipper}"
+                                                PlaceholderColor="{DynamicResource Gray-700}"
+                                                TextColor="{DynamicResource Gray-900}" />
+                                        </StackLayout>
+                                    </Grid>
+
+                                    <BoxView BackgroundColor="{DynamicResource Gray-200}" HeightRequest="1" />
+
+                                    <StackLayout
+                                        HeightRequest="35"
+                                        Orientation="Horizontal"
+                                        Spacing="10"
+                                        VerticalOptions="Center">
+                                        <Label
+                                            FontFamily="{StaticResource FontAwesome}"
+                                            HorizontalOptions="Center"
+                                            HorizontalTextAlignment="Center"
+                                            Text="&#xf017;"
+                                            TextColor="{DynamicResource colPrim}"
+                                            VerticalOptions="Center" />
+                                        <Label
+                                            Grid.Column="1"
+                                            FontFamily="{StaticResource RegularFont_ProductSans}"
+                                            FontSize="14"
+                                            Text="{translator:Translate ReceiveAsap}"
+                                            TextColor="{DynamicResource Gray-900}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+
+                                </StackLayout>
+                            </Grid>
+
+                            <StackLayout
+                                Padding="16,15,16,10"
+                                HorizontalOptions="FillAndExpand"
+                                Orientation="Horizontal">
+                                <Label
+                                    FontFamily="{StaticResource RegularFont_ProductSans}"
+                                    FontSize="14"
+                                    Text="{translator:Translate OrderDetails}"
+                                    TextColor="{DynamicResource Gray-900}"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    FontFamily="{StaticResource RegularFont_ProductSans}"
+                                    FontSize="12"
+                                    HorizontalOptions="EndAndExpand"
+                                    Text="Tap on item to adjust q.ty"
+                                    TextColor="{DynamicResource Gray-900}"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
+
+                            <Grid BackgroundColor="{DynamicResource colBG1}">
+                                <StackLayout Margin="16,4">
+                                    <StackLayout
+                                        x:Name="CartList"
+                                        BindableLayout.ItemsSource="{Binding Carts}"
+                                        VerticalOptions="FillAndExpand">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid
+                                                    Margin="0,4"
+                                                    BackgroundColor="{DynamicResource colBG1}"
+                                                    ColumnSpacing="10"
+                                                    VerticalOptions="FillAndExpand">
+                                                    <Grid.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding BindingContext.UpdateCartItemCommand, Source={x:Reference CartList}}" CommandParameter="{Binding .}" />
+                                                    </Grid.GestureRecognizers>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="30" />
+                                                        <ColumnDefinition Width="*" />
+                                                        <ColumnDefinition Width="100" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Button
+                                                        Padding="0"
+                                                        BackgroundColor="Transparent"
+                                                        BorderColor="{DynamicResource Gray-Black}"
+                                                        BorderWidth="1"
+                                                        Command="{Binding BindingContext.UpdateCartItemCommand, Source={x:Reference CartList}}"
+                                                        CommandParameter="{Binding .}"
+                                                        FontFamily="{StaticResource RegularFont_ProductSans}"
+                                                        FontSize="14"
+                                                        HeightRequest="30"
+                                                        HorizontalOptions="Start"
+                                                        Text="{Binding Quantity}"
+                                                        TextColor="{DynamicResource colPrim}"
+                                                        VerticalOptions="Center"
+                                                        WidthRequest="40" />
+                                                    <Label
+                                                        Grid.Column="1"
+                                                        FontFamily="{StaticResource RegularFont_ProductSans}"
+                                                        FontSize="14"
+                                                        HorizontalOptions="StartAndExpand"
+                                                        Text="{Binding ProductName}"
+                                                        TextColor="{DynamicResource Gray-Black}"
+                                                        VerticalOptions="Center" />
+                                                    <controls:PriceControl
+                                                        Grid.Column="2"
+                                                        CurrencySymbol=""
+                                                        CurrencySymbolTextColor="{DynamicResource Gray-900}"
+                                                        HorizontalOptions="EndAndExpand"
+                                                        Price="{Binding TotalPrice}"
+                                                        PriceFontFamily="{StaticResource RegularFont_ProductSans}"
+                                                        PriceTextColor="{DynamicResource Gray-900}"
+                                                        SymbolFontFamily="{StaticResource RegularFont_ProductSans}"
+                                                        VerticalOptions="Center" />
+                                                </Grid>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+
+                                    <StackLayout
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        HeightRequest="50"
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <Label
+                                            FontFamily="{StaticResource FontAwesome}"
+                                            HorizontalOptions="Center"
+                                            HorizontalTextAlignment="Center"
+                                            Text="&#xf044;"
+                                            TextColor="{DynamicResource colPrim}"
+                                            VerticalOptions="Center" />
+                                        <controls:CustomEntry
+                                            Grid.Column="1"
+                                            BorderColor="Transparent"
+                                            FontFamily="{StaticResource RegularFont_ProductSans}"
+                                            FontSize="14"
+                                            HorizontalOptions="FillAndExpand"
+                                            Placeholder="{translator:Translate NoteToShop}"
+                                            PlaceholderColor="{DynamicResource Gray-700}"
+                                            Text="{Binding CustomerNote}"
+                                            TextColor="{DynamicResource Gray-900}" />
+                                    </StackLayout>
+
+                                    <BoxView BackgroundColor="{DynamicResource Gray-200}" HeightRequest="1" />
+
+                                    <StackLayout
+                                        HeightRequest="40"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <Label
+                                            FontFamily="{StaticResource RegularFont_ProductSans}"
+                                            FontSize="14"
+                                            HorizontalOptions="StartAndExpand"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{translator:Translate Subtotal}"
+                                            TextColor="{DynamicResource Gray-900}"
+                                            VerticalOptions="Center" />
+                                        <controls:PriceControl
+                                            CurrencySymbol=""
+                                            CurrencySymbolTextColor="{DynamicResource Gray-900}"
+                                            HorizontalOptions="EndAndExpand"
+                                            Price="{Binding SubTotal}"
+                                            PriceFontFamily="{StaticResource RegularFont_ProductSans}"
+                                            PriceTextColor="{DynamicResource Gray-900}"
+                                            SymbolFontFamily="{StaticResource RegularFont_ProductSans}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+
+                                    <StackLayout
+                                        Margin="0,-5"
+                                        HeightRequest="40"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <Label
+                                            FontFamily="{StaticResource RegularFont_ProductSans}"
+                                            FontSize="14"
+                                            HorizontalOptions="StartAndExpand"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{translator:Translate ShippingFee}"
+                                            TextColor="{DynamicResource Gray-900}"
+                                            VerticalOptions="Center" />
+
+                                        <Label
+                                            FontFamily="{StaticResource RegularFont_ProductSans}"
+                                            FontSize="14"
+                                            HorizontalOptions="EndAndExpand"
+                                            HorizontalTextAlignment="End"
+                                            Text="Free"
+                                            TextColor="{DynamicResource Gray-900}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+
+                                    <StackLayout
+                                        Margin="0,-5"
+                                        HeightRequest="40"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <Label
+                                            FontFamily="{StaticResource RegularFont_ProductSans}"
+                                            FontSize="14"
+                                            HorizontalOptions="StartAndExpand"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{Binding DefaultTaxRate.Name}"
+                                            TextColor="{DynamicResource Gray-900}"
+                                            VerticalOptions="Center" />
+
+                                        <Label
+                                            FontFamily="{StaticResource RegularFont_ProductSans}"
+                                            FontSize="14"
+                                            HorizontalOptions="EndAndExpand"
+                                            HorizontalTextAlignment="End"
+                                            Text="{Binding TaxAmount, StringFormat='{0:N}'}"
+                                            TextColor="{DynamicResource Gray-900}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+
+                                    <BoxView BackgroundColor="{DynamicResource Gray-200}" HeightRequest="1" />
+
+                                    <StackLayout
+                                        HeightRequest="45"
+                                        HorizontalOptions="FillAndExpand"
+                                        Orientation="Horizontal"
+                                        Spacing="5">
+                                        <Label
+                                            FontFamily="{StaticResource BoldFont_ProductSans}"
+                                            FontSize="14"
+                                            HorizontalOptions="StartAndExpand"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{translator:Translate Total}"
+                                            TextColor="{DynamicResource Gray-900}"
+                                            VerticalOptions="Center" />
+                                        <controls:PriceControl
+                                            CurrencySymbol=""
+                                            CurrencySymbolTextColor="{DynamicResource Gray-900}"
+                                            HorizontalOptions="EndAndExpand"
+                                            Price="{Binding Total, StringFormat='{0:N}'}"
+                                            PriceFontFamily="{StaticResource BoldFont_ProductSans}"
+                                            PriceTextColor="{DynamicResource Gray-900}"
+                                            SymbolFontFamily="{StaticResource BoldFont_ProductSans}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </Grid>
+
+                            <BoxView BackgroundColor="Transparent" HeightRequest="2" />
+
+                            <Grid
+                                Padding="16,8"
+                                BackgroundColor="{DynamicResource colBG1}"
+                                HeightRequest="70"
+                                VerticalOptions="EndAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*" />
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition Width="0.5*" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackLayout Spacing="5" VerticalOptions="Center">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ChoosePaymentMethodCommand}" />
+                                    </StackLayout.GestureRecognizers>
+                                    <Label
+                                        FontFamily="{StaticResource RegularFont_ProductSans}"
+                                        FontSize="12"
+                                        HorizontalOptions="Center"
+                                        Text="{Binding PaymentMethod}"
+                                        TextColor="{DynamicResource Gray-700}" />
+                                    <controls:PriceControl
+                                        CurrencySymbol=""
+                                        CurrencySymbolTextColor="{DynamicResource Gray-900}"
+                                        HorizontalOptions="Center"
+                                        Price="{Binding Total, StringFormat='{0:N}'}"
+                                        PriceFontFamily="{StaticResource RegularFont_ProductSans}"
+                                        PriceFontSize="12"
+                                        PriceTextColor="{DynamicResource Gray-900}"
+                                        SymbolFontFamily="{StaticResource RegularFont_ProductSans}"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+
+                                <BoxView
+                                    Grid.Column="1"
+                                    Margin="0,5"
+                                    BackgroundColor="{DynamicResource Gray-500}" />
+
+                                <StackLayout
+                                    Grid.Column="2"
+                                    Spacing="5"
+                                    VerticalOptions="Center">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ChooseCouponCommand}" />
+                                    </StackLayout.GestureRecognizers>
+                                    <Image
+                                        Aspect="AspectFit"
+                                        HeightRequest="20"
+                                        HorizontalOptions="Center"
+                                        Source="ic_ticket" />
+                                    <Label
+                                        FontFamily="{StaticResource RegularFont_ProductSans}"
+                                        FontSize="12"
+                                        HorizontalOptions="Center"
+                                        Text="{translator:Translate Coupons}"
+                                        TextColor="{DynamicResource Gray-700}" />
+                                </StackLayout>
+                            </Grid>
+                        </StackLayout>
+                    </ScrollView>
+
+                    <pancake:PancakeView
+                        Grid.Row="1"
+                        Margin="0"
+                        Padding="0"
+                        BackgroundGradientAngle="30"
+                        BackgroundGradientEndColor="{DynamicResource colGradStart}"
+                        BackgroundGradientStartColor="{DynamicResource colGradEnd}"
+                        HeightRequest="{OnPlatform Android='60',
+                                                   iOS='100'}"
+                        VerticalOptions="EndAndExpand">
+                        <StackLayout
+                            BackgroundColor="Transparent"
+                            Spacing="0"
+                            VerticalOptions="CenterAndExpand">
+                            <StackLayout.HeightRequest>
+                                <OnPlatform x:TypeArguments="x:Double">
+                                    <On Platform="iOS">100</On>
+                                    <On Platform="Android">60</On>
+                                </OnPlatform>
+                            </StackLayout.HeightRequest>
+                            <BoxView
+                                BackgroundColor="{DynamicResource Gray-500}"
+                                HeightRequest="0.5"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill" />
+
+                            <Grid
+                                Padding="15,0"
+                                BackgroundColor="Transparent"
+                                VerticalOptions="FillAndExpand">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding CreateNewOrderCommand}" />
+                                </Grid.GestureRecognizers>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label
+                                    Grid.Column="1"
+                                    FontFamily="{StaticResource BoldFont_ProductSans}"
+                                    FontSize="16"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Text="{translator:Translate Checkout}"
+                                    TextColor="{DynamicResource Gray-White}"
+                                    VerticalOptions="Center" />
+
+                                <controls:PriceControl
+                                    Grid.Column="2"
+                                    CurrencySymbol=""
+                                    CurrencySymbolTextColor="{DynamicResource Gray-White}"
+                                    HorizontalOptions="EndAndExpand"
+                                    Price="{Binding Total, StringFormat='{0:N}'}"
+                                    PriceFontFamily="{StaticResource RegularFont_ProductSans}"
+                                    PriceFontSize="18"
+                                    PriceTextColor="{DynamicResource Gray-White}"
+                                    SymbolFontFamily="{StaticResource RegularFont_ProductSans}"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                        </StackLayout>
+                    </pancake:PancakeView>
+
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

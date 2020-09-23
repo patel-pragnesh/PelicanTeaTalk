@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1048692320488",
+    "firebase_url": "https://xstore-e0e6d.firebaseio.com",
+    "project_id": "xstore-e0e6d",
+    "storage_bucket": "xstore-e0e6d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048692320488:android:7a99a014b7234bb3a5415d",
+        "android_client_info": {
+          "package_name": "com.tls.xstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1048692320488-eeb3l4artogqcosbulv4dnrfchj01h2b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLAdpiNJpBAirswopvbRDS3sXEOxVnZzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1048692320488-eeb3l4artogqcosbulv4dnrfchj01h2b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

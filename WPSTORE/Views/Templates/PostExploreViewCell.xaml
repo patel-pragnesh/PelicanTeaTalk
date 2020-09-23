@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ViewCell
+    x:Class="WPSTORE.Views.Templates.PostExploreViewCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:extensions="clr-namespace:WPSTORE.Extensions"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <ViewCell.View>
+        <AbsoluteLayout
+            Margin="0,5,0,5"
+            BackgroundColor="{DynamicResource colBG1}"
+            HeightRequest="350">
+
+            <!--  Post image  -->
+            <Frame
+                Padding="0"
+                AbsoluteLayout.LayoutBounds=".5,.1, .89, 200"
+                AbsoluteLayout.LayoutFlags="YProportional,XProportional,WidthProportional"
+                CornerRadius="15"
+                HasShadow="False"
+                HeightRequest="200"
+                IsClippedToBounds="True">
+                <Grid>
+                    <ffimageloading:CachedImage
+                        x:Name="postcover"
+                        Grid.Row="0"
+                        Aspect="AspectFill"
+                        BitmapOptimizations="True"
+                        DownsampleToViewSize="True"
+                        HeightRequest="200"
+                        IsOpaque="True"
+                        LoadingPlaceholder="logo.png"
+                        Source="{Binding jetpack_featured_media_url}">
+                        <ffimageloading:CachedImage.CacheKeyFactory>
+                            <extensions:CustomCacheKeyFactory />
+                        </ffimageloading:CachedImage.CacheKeyFactory>
+                    </ffimageloading:CachedImage>
+                </Grid>
+            </Frame>
+
+            <!--  Post Title  -->
+            <Label
+                Grid.Row="1"
+                Margin="20,0,0,0"
+                AbsoluteLayout.LayoutBounds=".0,.75, 280, 50"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                FontFamily="{StaticResource BoldFont_ProductSans}"
+                FontSize="14"
+                HeightRequest="50"
+                HorizontalOptions="Start"
+                LineBreakMode="TailTruncation"
+                MaxLines="2"
+                Text="{Binding title.rendered}"
+                TextColor="{DynamicResource colPrim}"
+                VerticalOptions="Center" />
+
+            <Label
+                AbsoluteLayout.LayoutBounds=".93,.74, 90, 40"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                FontFamily="{StaticResource RegularFont_ProductSans}"
+                FontSize="12"
+                Text="{Binding CreatedDate}"
+                TextColor="{DynamicResource BaseTextColor}" />
+
+            <BoxView
+                Margin="20,0,20,0"
+                AbsoluteLayout.LayoutBounds=".0,.82, 360, 1"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                BackgroundColor="#f5f5f5" />
+
+            <!--  Category name  -->
+            <Label
+                Margin="20,0,0,0"
+                AbsoluteLayout.LayoutBounds=".0,.96, 150,30"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                FontFamily="{StaticResource RegularFont_ProductSans}"
+                FontSize="14"
+                Text="{Binding CategoryName}"
+                TextColor="#49659F" />
+
+            <ImageButton
+                AbsoluteLayout.LayoutBounds=".8,.93, 20,20"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                BackgroundColor="Transparent"
+                HeightRequest="20"
+                Source="PlayHeart_red.png"
+                WidthRequest="20" />
+            <Label
+                Margin="0"
+                AbsoluteLayout.LayoutBounds=".88,.88, 30,10"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                BackgroundColor="White"
+                FontSize="8"
+                HeightRequest="10"
+                Text="100"
+                TextColor="#333333" />
+            <ImageButton
+                x:Name="Talkbtn"
+                AbsoluteLayout.LayoutBounds=".92,.94, 20,20"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                BackgroundColor="Transparent"
+                HeightRequest="20"
+                Source="playshare_b.png"
+                WidthRequest="20" />
+            <Label
+                AbsoluteLayout.LayoutBounds=".99,.88, 30,10"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                BackgroundColor="White"
+                FontSize="8"
+                Text="1000"
+                TextColor="#333333" />
+
+        </AbsoluteLayout>
+    </ViewCell.View>
+</ViewCell>

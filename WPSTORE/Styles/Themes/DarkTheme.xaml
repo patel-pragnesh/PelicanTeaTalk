@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    x:Class="WPSTORE.Themes.DarkTheme"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:WPSTORE"
+    Source="/Styles/General.xaml">
+
+    <!--
+        THEME COLORS
+        
+        The colors below will be automatically updated on each platform project by the build task.
+        
+        IMPORTANT: To avoid issues on Android please make sure your accent color is not transparent!
+        Just add "FF" inmediately after the "#" on your color.
+        
+        So these are not valid (both are equivalent and means a transparent color):
+        #169CEE
+        #00169CEE
+        
+        ...but this is:
+        #FF169CEE
+    -->
+
+    <!--  Reverse color  -->
+    <!--  Gray-300 - Gray-900, Gray-400 - Gray-800,  -->
+    <!--  Gray-400 - Gray-800, Gray-400 - Gray-800,  -->
+
+    <Color x:Key="Gray-100">#fff6f7f8</Color>
+    <Color x:Key="Gray-200">#ffebecef</Color>
+    <Color x:Key="Gray-900">#ffced2d9</Color>
+    <Color x:Key="Gray-800">#ffb2b8c2</Color>
+    <Color x:Key="Gray-500">#ff959eac</Color>
+    <Color x:Key="Gray-600">#ff788396</Color>
+    <Color x:Key="Gray-700">#ff606a7b</Color>
+    <Color x:Key="Gray-400">#ff4a515e</Color>
+    <Color x:Key="Gray-300">#ff333942</Color>
+    <Color x:Key="Gray-White">#ff000000</Color>
+    <Color x:Key="Gray-Black">#ffffffff</Color>
+    <Color x:Key="Transparent">#ff000000</Color>
+
+    <!--  Color Range  -->
+    <Color x:Key="colPrim">#FFEA8025</Color>
+    <Color x:Key="colGradStart">#FFEA8025</Color>
+    <Color x:Key="colGradEnd">#FFFFC400</Color>
+    <Color x:Key="colSec">#FF8199FF</Color>
+    <Color x:Key="colTer">#FFC5C5C5</Color>
+    <Color x:Key="colQua">#FFFFFFFF</Color>
+    <Color x:Key="colQui">#FFFFFFFF</Color>
+    <Color x:Key="colPen">#FFFF0000</Color>
+    <Color x:Key="colProc">#FFEA8025</Color>
+    <Color x:Key="colHold">#FFEA8025</Color>
+    <Color x:Key="colFail">#FFFF0000</Color>
+    <Color x:Key="colComp">#FF008000</Color>
+    <Color x:Key="colRef">#FFEA8025</Color>
+    <Color x:Key="colCan">#FFFFFFFF</Color>
+
+    <!--  Backgroundcolors  -->
+    <Color x:Key="colBG1">#FF000000</Color>
+    <Color x:Key="colBG2">#FF111111</Color>
+    <Color x:Key="DarkBlueColor">#222e3c</Color>
+    <Color x:Key="BlueColor">#4c6277</Color>
+    <!--<Color x:Key="colBG1">#FFFFFFFF</Color>
+    <Color x:Key="colBG2">#FFeeebe1</Color>-->
+
+    <!--  Entry Colors  -->
+    <Color x:Key="colAccCheck">#FFE7F9F5</Color>
+    <Color x:Key="colAccError">#FFF9E7EB</Color>
+    <Color x:Key="colAccUns">#FFF2F3F5</Color>
+    <Color x:Key="colUnsPrim">#FFC7CAD1</Color>
+    <Color x:Key="colAltQua">#FFE3E7EF</Color>
+
+    <!--  Border Colors  -->
+    <Color x:Key="colBorCheck">#FF10CA87</Color>
+    <Color x:Key="colBorError">#FFCA1030</Color>
+
+    <!--  Remark Colors  -->
+    <Color x:Key="colRemPrim">#FFF93963</Color>
+    <Color x:Key="colRemSec">#FFD4145C</Color>
+
+    <!--  Surface Colors  -->
+    <Color x:Key="colSurf1">#FF121212</Color>
+    <Color x:Key="colSurf2">#FF1D1D1D</Color>
+
+    <!--  Shell Colors  -->
+    <Color x:Key="colTabBarUns">#FFC5C5C5</Color>
+    <Color x:Key="colTabBarBack">#FF121212</Color>
+
+    <!--
+        OnPlatform does not support DynamicResource so to make the switch color dynamic in iOS it's included
+        in each theme. Android's OnColor only affects the track but not the thumb, so it shouldn't be used
+    -->
+    <Style ApplyToDerivedTypes="true" TargetType="Switch">
+        <Setter Property="OnColor">
+            <OnPlatform x:TypeArguments="Color">
+                <On Platform="iOS" Value="{StaticResource colPrim}" />
+            </OnPlatform>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:extensions="clr-namespace:WPSTORE.Extensions"
+             xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+             x:Class="WPSTORE.Views.Templates.HomePostTileTemplate">
+  <ContentView.Content>
+        <AbsoluteLayout  WidthRequest="{OnPlatform 100,Android=100,iOS=120}"
+                         HeightRequest="{OnPlatform 150,Android=150,iOS=180}">
+            <ffimageloading:CachedImage WidthRequest="{OnPlatform 100,Android=100,iOS=120}"
+                                        HeightRequest="{OnPlatform 100,Android=100,iOS=120}"
+                                        Source="{Binding jetpack_featured_media_url}"
+                                        LoadingPlaceholder="logo.png"
+                                        DownsampleToViewSize="True"
+                                        Aspect="AspectFit"
+                                        AbsoluteLayout.LayoutBounds="{OnPlatform '0,0,100,100',Android='0,0,100,100',iOS='0,0,120,120'}"
+                                        AbsoluteLayout.LayoutFlags="PositionProportional">
+                <ffimageloading:CachedImage.CacheKeyFactory>
+                    <extensions:CustomCacheKeyFactory />
+                </ffimageloading:CachedImage.CacheKeyFactory>
+                <ffimageloading:CachedImage.Transformations>
+                    <fftransformations:RoundedTransformation CropHeightRatio="100"
+                                                             CropWidthRatio="100"></fftransformations:RoundedTransformation>
+                </ffimageloading:CachedImage.Transformations>
+            </ffimageloading:CachedImage>
+
+            <Label Text="{Binding title.rendered}"
+                   TextColor="{DynamicResource BlackTextColor}"
+                   FontSize="12"
+                   HeightRequest="35"
+                   AbsoluteLayout.LayoutBounds="{OnPlatform '0,.85,100,35',Android='0,.85,100,35',iOS='0,.85,120,35'}"
+                   AbsoluteLayout.LayoutFlags="PositionProportional"></Label>
+
+            <StackLayout Orientation="Horizontal"
+                         Spacing="0"
+                         AbsoluteLayout.LayoutBounds="{OnPlatform '0,0,95,15',Android='0,0,95,15',iOS='0,0,115,25'}"
+                         AbsoluteLayout.LayoutFlags="PositionProportional"
+                         VerticalOptions="Center">
+                <StackLayout HorizontalOptions="FillAndExpand"></StackLayout>
+                <Image  Grid.Row="0"
+                        Grid.Column="0"
+                        Source="ic_explore"
+                        HeightRequest="12"
+                        WidthRequest="12"></Image>
+                <Label Text="{Binding CreatedDate}"
+                       TextColor="{DynamicResource colPrim}"
+                       FontSize="12"></Label>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentView.Content>
+</ContentView>

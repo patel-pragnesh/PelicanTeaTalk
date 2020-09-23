@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="WPSTORE.Views.Templates.HomeCardWithOrderButtonTemplate"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:extensions="clr-namespace:WPSTORE.Extensions"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    mc:Ignorable="d">
+    <ContentView.Content>
+        <Grid Padding="5">
+            <!--<Frame
+                Margin="0"
+                Padding="0"
+                BackgroundColor="{DynamicResource Gray-400}"
+                CornerRadius="11"
+                HasShadow="False"
+                TranslationX="2"
+                TranslationY="2" />-->
+            <Frame
+                Margin="0"
+                Padding="0"
+                BorderColor="{DynamicResource Gray-700}"
+                CornerRadius="10"
+                HasShadow="True"
+                IsClippedToBounds="True">
+                <Grid
+                    Padding="10,8"
+                    BackgroundColor="{DynamicResource colBG1}"
+                    RowSpacing="0"
+                    VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.55*" />
+                        <RowDefinition Height="0.15*" />
+                        <RowDefinition Height="0.15*" />
+                        <RowDefinition Height="0.15*" />
+                    </Grid.RowDefinitions>
+
+                    <ffimageloading:CachedImage
+                        Margin="-14,-10,-14,5"
+                        Aspect="AspectFill"
+                        DownsampleToViewSize="True"
+                        HeightRequest="{OnPlatform 100,
+                                                   Android=100,
+                                                   iOS=90}"
+                        LoadingPlaceholder="logo.png"
+                        Source="{Binding ProductImage}"
+                        WidthRequest="{OnPlatform 200,
+                                                  Android=200,
+                                                  iOS=200}">
+                        <ffimageloading:CachedImage.CacheKeyFactory>
+                            <extensions:CustomCacheKeyFactory />
+                        </ffimageloading:CachedImage.CacheKeyFactory>
+                        <ffimageloading:CachedImage.Transformations>
+                            <fftransformations:CornersTransformation />
+                        </ffimageloading:CachedImage.Transformations>
+                    </ffimageloading:CachedImage>
+
+                    <Label
+                        Grid.Row="1"
+                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                        FontSize="15"
+                        HorizontalTextAlignment="Start"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="2"
+                        Text="{Binding Name}"
+                        TextColor="{DynamicResource Gray-900}"
+                        VerticalOptions="Start"
+                        VerticalTextAlignment="Start" />
+
+                    <Label
+                        Grid.Row="2"
+                        FontFamily="{StaticResource RegularFont_ProductSans}"
+                        FontSize="13"
+                        HorizontalTextAlignment="Start"
+                        LineBreakMode="TailTruncation"
+                        LineHeight="1.25"
+                        MaxLines="3"
+                        Text="{Binding ShortDescription}"
+                        TextColor="{DynamicResource Gray-800}"
+                        TextType="Html"
+                        VerticalOptions="Start"
+                        VerticalTextAlignment="Start" />
+
+                    <StackLayout
+                        Grid.Row="3"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal">
+                        <controls:PriceControl
+                            CurrencySymbol=""
+                            HorizontalOptions="StartAndExpand"
+                            Price="{Binding Price}"
+                            PriceFontFamily="{StaticResource BoldFont_ProductSans}"
+                            PriceFontSize="16"
+                            SymbolFontFamily="{StaticResource BoldFont_ProductSans}"
+                            VerticalOptions="Center" />
+
+                        <Button
+                            Margin="0"
+                            Padding="5,0,5,0"
+                            BackgroundColor="Transparent"
+                            BorderColor="{DynamicResource colPrim}"
+                            BorderWidth="2"
+                            Command="{Binding OrderCommand}"
+                            CornerRadius="17"
+                            FontFamily="{StaticResource RegularFont_ProductSans}"
+                            FontSize="12"
+                            HeightRequest="34"
+                            HorizontalOptions="EndAndExpand"
+                            IsVisible="{Binding ShowButton}"
+                            Text="{translator:Translate OrderNow}"
+                            TextColor="{DynamicResource colPrim}"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                </Grid>
+            </Frame>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

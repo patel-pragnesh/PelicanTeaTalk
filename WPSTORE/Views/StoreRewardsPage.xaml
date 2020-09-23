@@ -1,0 +1,852 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WPSTORE.Views.StoreRewardsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:extensions="clr-namespace:WPSTORE.Extensions"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    xmlns:zxcm="clr-namespace:ZXing.Common;assembly=zxing.portable"
+    xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{DynamicResource colBG2}"
+    NavigationPage.HasNavigationBar="False"
+    Shell.NavBarIsVisible="False"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout Spacing="0" VerticalOptions="FillAndExpand">
+                <StackLayout
+                    Margin="{OnPlatform '0',
+                                        iOS='0,30,0,0'}"
+                    Padding="{OnPlatform '20,0,20,0',
+                                         iOS='10,0,10,0'}"
+                    BackgroundColor="{DynamicResource colBG1}"
+                    HeightRequest="60"
+                    Orientation="Horizontal"
+                    Spacing="0">
+                    <!--<ImageButton
+                        BackgroundColor="Transparent"
+                        Command="{Binding BackCommand}"
+                        Source="ic_back"
+                        WidthRequest="20" />-->
+                    <Label
+                        FontFamily="{StaticResource FontAwesome}"
+                        FontSize="25"
+                        Text="&#xf057;"
+                        TextColor="{DynamicResource Gray-700}"
+                        VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BackCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label
+                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                        FontSize="16"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="{translator:Translate LoyaltyInfo}"
+                        TextColor="{DynamicResource colPrim}"
+                        VerticalOptions="Center" />
+                </StackLayout>
+
+                <BoxView
+                    BackgroundColor="{DynamicResource Gray-900}"
+                    HeightRequest="0.5"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill" />
+
+                <ScrollView VerticalOptions="FillAndExpand" VerticalScrollBarVisibility="Never">
+                    <StackLayout VerticalOptions="FillAndExpand">
+                        <Frame
+                            Margin="16,20,16,8"
+                            Padding="0"
+                            CornerRadius="8"
+                            HasShadow="True"
+                            IsClippedToBounds="True">
+                            <Grid>
+                                <Image
+                                    Aspect="AspectFill"
+                                    HeightRequest="150"
+                                    Source="member_card" />
+
+                                <Label
+                                    Margin="0,0,10,0"
+                                    FontFamily="{StaticResource FontAwesome}"
+                                    FontSize="30"
+                                    HorizontalOptions="EndAndExpand"
+                                    Text="&#xf3a5;"
+                                    TextColor="{DynamicResource colPrim}"
+                                    VerticalOptions="Center" />
+
+                                <StackLayout
+                                    Margin="1,0,1,0"
+                                    Padding="10"
+                                    BackgroundColor="Transparent"
+                                    HorizontalOptions="FillAndExpand"
+                                    Spacing="5"
+                                    VerticalOptions="CenterAndExpand">
+                                    <Label
+                                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                                        FontSize="18"
+                                        HorizontalOptions="Start"
+                                        Text="Ai Pham"
+                                        TextColor="{DynamicResource colPrim}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        FontSize="13"
+                                        HorizontalOptions="Start"
+                                        Style="{StaticResource TxtSubTit1_7}"
+                                        Text="Diamond Level"
+                                        TextColor="{DynamicResource colRemPrim}"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+
+                        <Frame
+                            Margin="16,0,16,10"
+                            Padding="10"
+                            BackgroundColor="{DynamicResource colBG1}"
+                            CornerRadius="8"
+                            HasShadow="True">
+                            <Grid RowSpacing="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="60" />
+                                    <RowDefinition Height="0.5" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="0.5" />
+                                    <RowDefinition Height="30" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*" />
+                                    <ColumnDefinition Width="0.5" />
+                                    <ColumnDefinition Width="0.5*" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackLayout
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    VerticalOptions="Center">
+                                    <Label
+                                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                                        FontSize="16"
+                                        HorizontalTextAlignment="Center"
+                                        Text="612"
+                                        TextColor="{DynamicResource colPrim}"
+                                        VerticalTextAlignment="Center" />
+                                    <Label
+                                        FontFamily="{StaticResource RegularFont_ProductSans}"
+                                        FontSize="14"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{translator:Translate TotalPoint}"
+                                        TextColor="{DynamicResource Gray-900}"
+                                        VerticalTextAlignment="Center" />
+                                </StackLayout>
+
+                                <BoxView
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    BackgroundColor="LightGray"
+                                    VerticalOptions="FillAndExpand" />
+
+                                <StackLayout
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    VerticalOptions="Center">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ViewVouchersCommand}" />
+                                    </StackLayout.GestureRecognizers>
+                                    <Label
+                                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                                        FontSize="16"
+                                        HorizontalTextAlignment="Center"
+                                        Text="2"
+                                        TextColor="{DynamicResource colPrim}"
+                                        VerticalTextAlignment="Center" />
+                                    <StackLayout
+                                        HorizontalOptions="CenterAndExpand"
+                                        Orientation="Horizontal"
+                                        Spacing="10">
+                                        <Label
+                                            FontFamily="{StaticResource RegularFont_ProductSans}"
+                                            FontSize="14"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{translator:Translate Offers}"
+                                            TextColor="{DynamicResource Gray-900}"
+                                            VerticalTextAlignment="Center" />
+                                        <Label
+                                            FontFamily="{StaticResource FontAwesome}"
+                                            FontSize="14"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="&#xf105;"
+                                            TextColor="{DynamicResource Gray-900}"
+                                            VerticalOptions="Center" />
+                                    </StackLayout>
+
+                                </StackLayout>
+
+                                <BoxView
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3"
+                                    BackgroundColor="LightGray" />
+
+                                <StackLayout
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="Center">
+
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding RedemptionHistoryCommand}" />
+                                    </StackLayout.GestureRecognizers>
+                                    <Label
+                                        Margin="0,0,0,0"
+                                        FontSize="14"
+                                        Style="{StaticResource TxtSubTit1_7}"
+                                        Text="{translator:Translate PointHistory}"
+                                        TextColor="{DynamicResource Gray-900}"
+                                        VerticalTextAlignment="Center" />
+
+                                    <!--<Label
+                                        Margin="0,0,0,0"
+                                        FontAttributes="Bold"
+                                        FontSize="Medium"
+                                        HorizontalOptions="EndAndExpand"
+                                        HorizontalTextAlignment="End"
+                                        Text="đ"
+                                        TextColor="{DynamicResource colPrim}" />-->
+
+                                    <Label
+                                        FontFamily="{StaticResource FontAwesome}"
+                                        FontSize="16"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="&#xf105;"
+                                        TextColor="{DynamicResource Gray-900}"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+
+                                <BoxView
+                                    Grid.Row="3"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3"
+                                    BackgroundColor="LightGray" />
+
+                                <StackLayout
+                                    Grid.Row="4"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3"
+                                    Orientation="Horizontal"
+                                    VerticalOptions="Center">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ViewProgrameCommand}" />
+                                    </StackLayout.GestureRecognizers>
+
+                                    <Label
+                                        Margin="0,0,0,0"
+                                        FontSize="14"
+                                        Style="{StaticResource TxtSubTit1_7}"
+                                        Text="{translator:Translate LoyaltyProgram}"
+                                        TextColor="{DynamicResource Gray-900}" />
+
+                                    <Label
+                                        FontFamily="{StaticResource FontAwesome}"
+                                        FontSize="16"
+                                        HorizontalOptions="EndAndExpand"
+                                        Text="&#xf105;"
+                                        TextColor="{DynamicResource Gray-900}"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
+
+                        <Frame
+                            Margin="16,0,16,10"
+                            Padding="10"
+                            BackgroundColor="{DynamicResource colBG1}"
+                            CornerRadius="8"
+                            HasShadow="False">
+                            <StackLayout
+                                Orientation="Vertical"
+                                Spacing="10"
+                                VerticalOptions="Center">
+                                <Label
+                                    FontSize="14"
+                                    HorizontalTextAlignment="Start"
+                                    Style="{StaticResource TxtSubTit1_7}"
+                                    Text="You are now Diamond Member"
+                                    TextColor="{DynamicResource Gray-900}"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    FontSize="13"
+                                    HorizontalTextAlignment="Start"
+                                    Style="{StaticResource TxtSubTit1_3}"
+                                    Text="Congratulations! You have accumulated enough points to keep your rank. Please continue to visit ShopApp to enjoy the benefits from your membership!"
+                                    TextColor="{DynamicResource Gray-700}"
+                                    VerticalTextAlignment="Center" />
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame
+                            Margin="16,0,16,10"
+                            Padding="0"
+                            BackgroundColor="{DynamicResource colBG2}"
+                            CornerRadius="8"
+                            HasShadow="False">
+
+                            <tabView:SfTabView
+                                Margin="{OnPlatform Android='0,0,0,0',
+                                                    iOS='0'}"
+                                BackgroundColor="{DynamicResource colBG1}"
+                                DisplayMode="ImageWithText"
+                                IsScrollButtonEnabled="False"
+                                OverflowMode="Scroll"
+                                TabHeight="{OnPlatform Android='60',
+                                                       iOS='55'}"
+                                VisibleHeaderCount="5">
+                                <tabView:SfTabView.SelectionIndicatorSettings>
+                                    <tabView:SelectionIndicatorSettings
+                                        Position="Bottom"
+                                        StrokeThickness="2"
+                                        Color="{DynamicResource colPrim}" />
+                                </tabView:SfTabView.SelectionIndicatorSettings>
+
+                                <tabView:SfTabItem
+                                    Title="New"
+                                    FontIconFontColor="{DynamicResource Gray-700}"
+                                    FontIconFontFamily="{StaticResource FontAwesome}"
+                                    FontIconFontSize="20"
+                                    IconFont="&#xf4be;"
+                                    SelectionColor="{DynamicResource colPrim}"
+                                    TitleFontColor="{DynamicResource Gray-700}"
+                                    TitleFontFamily="{StaticResource RegularFont_ProductSans}"
+                                    TitleFontSize="12">
+
+                                    <tabView:SfTabItem.Content>
+                                        <StackLayout
+                                            Padding="10"
+                                            BackgroundColor="{DynamicResource colBG1}"
+                                            Spacing="10">
+                                            <Label
+                                                FontSize="13"
+                                                Style="{StaticResource TxtSubTit1_3}"
+                                                Text="You have earned a New rank"
+                                                TextColor="{DynamicResource Gray-800}" />
+
+                                            <Label
+                                                FontSize="13"
+                                                Style="{StaticResource TxtSubTit1_3}"
+                                                Text="Voucher redempt does not affect your up ranking"
+                                                TextColor="{DynamicResource colPrim}" />
+
+                                            <BoxView BackgroundColor="LightGray" HeightRequest="0.5" />
+
+                                            <StackLayout
+                                                Margin="10,0,0,0"
+                                                HeightRequest="30"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesome}"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="&#xf4be;"
+                                                    TextColor="{DynamicResource colPrim}"
+                                                    VerticalOptions="Center" />
+
+                                                <Label
+                                                    FontSize="13"
+                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                    Text="Free upsize after the first success order"
+                                                    TextColor="{DynamicResource Gray-800}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </tabView:SfTabItem.Content>
+                                </tabView:SfTabItem>
+
+                                <tabView:SfTabItem
+                                    Title="Bronze"
+                                    FontIconFontColor="{DynamicResource Gray-700}"
+                                    FontIconFontFamily="{StaticResource FontAwesome}"
+                                    FontIconFontSize="20"
+                                    IconFont="&#xf436;"
+                                    SelectionColor="{DynamicResource colPrim}"
+                                    TitleFontColor="{DynamicResource Gray-700}"
+                                    TitleFontFamily="{StaticResource Montserrat-Medium}"
+                                    TitleFontSize="12">
+
+                                    <tabView:SfTabItem.Content>
+                                        <StackLayout
+                                            Padding="10"
+                                            BackgroundColor="{DynamicResource colBG1}"
+                                            Spacing="10">
+                                            <Label
+                                                FontSize="13"
+                                                Style="{StaticResource TxtSubTit1_3}"
+                                                Text="You have earned Bronze rank"
+                                                TextColor="{DynamicResource Gray-800}" />
+
+                                            <Label
+                                                FontSize="13"
+                                                Style="{StaticResource TxtSubTit1_3}"
+                                                Text="Redeem vouchers does not affect your up ranking"
+                                                TextColor="{DynamicResource colPrim}" />
+
+                                            <BoxView BackgroundColor="LightGray" HeightRequest="0.5" />
+
+                                            <StackLayout
+                                                Margin="10,0,0,0"
+                                                HeightRequest="30"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesome}"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="&#xf4be;"
+                                                    TextColor="{DynamicResource colPrim}"
+                                                    VerticalOptions="Center" />
+
+                                                <Label
+                                                    FontSize="13"
+                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                    Text="A piece of cake for free on your birthday"
+                                                    TextColor="{DynamicResource Gray-800}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Margin="10,0,0,0"
+                                                HeightRequest="30"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesome}"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="&#xf4be;"
+                                                    TextColor="{DynamicResource colPrim}"
+                                                    VerticalOptions="Center" />
+
+                                                <Label
+                                                    FontSize="13"
+                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                    Text="Redeem vouchers in Rewards Store"
+                                                    TextColor="{DynamicResource Gray-800}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Margin="10,0,0,0"
+                                                HeightRequest="35"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesome}"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="&#xf4be;"
+                                                    TextColor="{DynamicResource colPrim}"
+                                                    VerticalOptions="Center" />
+
+                                                <Label
+                                                    FontSize="13"
+                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                    Text="Free 1 of snack for order greater than 50$"
+                                                    TextColor="{DynamicResource Gray-800}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </tabView:SfTabItem.Content>
+                                </tabView:SfTabItem>
+
+                                <tabView:SfTabItem
+                                    Title="Silver"
+                                    FontIconFontColor="{DynamicResource Gray-700}"
+                                    FontIconFontFamily="{StaticResource FontAwesome}"
+                                    FontIconFontSize="20"
+                                    IconFont="&#xf042;"
+                                    SelectionColor="{DynamicResource colPrim}"
+                                    TitleFontColor="{DynamicResource Gray-700}"
+                                    TitleFontFamily="{StaticResource Montserrat-Medium}"
+                                    TitleFontSize="12">
+
+                                    <tabView:SfTabItem.Content>
+                                        <StackLayout
+                                            Padding="10"
+                                            BackgroundColor="{DynamicResource colBG1}"
+                                            Spacing="10">
+                                            <Label
+                                                FontSize="13"
+                                                Style="{StaticResource TxtSubTit1_3}"
+                                                Text="You have earned Silver Rank"
+                                                TextColor="{DynamicResource Gray-800}" />
+
+                                            <Label
+                                                FontSize="13"
+                                                Style="{StaticResource TxtSubTit1_3}"
+                                                Text="Redeem vouchers does not affect your up ranking"
+                                                TextColor="{DynamicResource colPrim}" />
+
+                                            <BoxView BackgroundColor="LightGray" HeightRequest="0.5" />
+
+                                            <StackLayout
+                                                Margin="10,0,0,0"
+                                                HeightRequest="30"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesome}"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="&#xf4be;"
+                                                    TextColor="{DynamicResource colPrim}"
+                                                    VerticalOptions="Center" />
+
+                                                <Label
+                                                    FontSize="13"
+                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                    Text="A piece of cake for free on your birthday"
+                                                    TextColor="{DynamicResource Gray-800}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Margin="10,0,0,0"
+                                                HeightRequest="30"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesome}"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="&#xf4be;"
+                                                    TextColor="{DynamicResource colPrim}"
+                                                    VerticalOptions="Center" />
+
+                                                <Label
+                                                    FontSize="13"
+                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                    Text="Redeem vouchers in Rewards Store"
+                                                    TextColor="{DynamicResource Gray-800}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Margin="10,0,0,0"
+                                                HeightRequest="30"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesome}"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="&#xf4be;"
+                                                    TextColor="{DynamicResource colPrim}"
+                                                    VerticalOptions="Center" />
+
+                                                <Label
+                                                    FontSize="13"
+                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                    Text="Buy 2 get 1 for free"
+                                                    TextColor="{DynamicResource Gray-800}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+
+                                        </StackLayout>
+                                    </tabView:SfTabItem.Content>
+                                </tabView:SfTabItem>
+
+                                <tabView:SfTabItem
+                                    Title="Gold"
+                                    FontIconFontColor="{DynamicResource Gray-700}"
+                                    FontIconFontFamily="{StaticResource FontAwesome}"
+                                    FontIconFontSize="20"
+                                    IconFont="&#xf433;"
+                                    SelectionColor="{DynamicResource colPrim}"
+                                    TitleFontColor="{DynamicResource Gray-700}"
+                                    TitleFontFamily="{StaticResource Montserrat-Medium}"
+                                    TitleFontSize="12">
+
+                                    <tabView:SfTabItem.Content>
+                                        <StackLayout
+                                            Padding="10"
+                                            BackgroundColor="{DynamicResource colBG1}"
+                                            Spacing="10">
+                                            <Label
+                                                FontSize="13"
+                                                Style="{StaticResource TxtSubTit1_3}"
+                                                Text="You have earned Gold Rank"
+                                                TextColor="{DynamicResource Gray-800}" />
+
+                                            <Label
+                                                FontSize="13"
+                                                Style="{StaticResource TxtSubTit1_3}"
+                                                Text="Voucher redeem does not affect your up ranking"
+                                                TextColor="{DynamicResource colPrim}" />
+
+                                            <BoxView BackgroundColor="LightGray" HeightRequest="0.5" />
+
+                                            <StackLayout
+                                                Margin="10,0,0,0"
+                                                HeightRequest="30"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesome}"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="&#xf4be;"
+                                                    TextColor="{DynamicResource colPrim}"
+                                                    VerticalOptions="Center" />
+
+                                                <Label
+                                                    FontSize="13"
+                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                    Text="A piece of cake on your birthday"
+                                                    TextColor="{DynamicResource Gray-800}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Margin="10,0,0,0"
+                                                HeightRequest="30"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesome}"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="&#xf4be;"
+                                                    TextColor="{DynamicResource colPrim}"
+                                                    VerticalOptions="Center" />
+
+                                                <Label
+                                                    FontSize="13"
+                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                    Text="Redeem vouchers in Rewards Store"
+                                                    TextColor="{DynamicResource Gray-800}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Margin="10,0,0,0"
+                                                HeightRequest="35"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesome}"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="&#xf4be;"
+                                                    TextColor="{DynamicResource colPrim}"
+                                                    VerticalOptions="Center" />
+
+                                                <Label
+                                                    FontSize="13"
+                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                    Text="Free one traditional coffee or 1 cup of any size M fruit tea"
+                                                    TextColor="{DynamicResource Gray-800}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Margin="10,0,0,0"
+                                                HeightRequest="35"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesome}"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="&#xf4be;"
+                                                    TextColor="{DynamicResource colPrim}"
+                                                    VerticalOptions="Center" />
+
+                                                <Label
+                                                    FontSize="13"
+                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                    Text="Redeem special offers from ShopApp and partners"
+                                                    TextColor="{DynamicResource Gray-800}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+
+                                        </StackLayout>
+                                    </tabView:SfTabItem.Content>
+                                </tabView:SfTabItem>
+
+                                <tabView:SfTabItem
+                                    Title="Diamond"
+                                    FontIconFontColor="{DynamicResource Gray-700}"
+                                    FontIconFontFamily="{StaticResource FontAwesome}"
+                                    FontIconFontSize="20"
+                                    IconFont="&#xf3a5;"
+                                    SelectionColor="{DynamicResource colPrim}"
+                                    TitleFontColor="{DynamicResource Gray-700}"
+                                    TitleFontFamily="{StaticResource Montserrat-Medium}"
+                                    TitleFontSize="12">
+
+                                    <tabView:SfTabItem.Content>
+                                        <StackLayout
+                                            Padding="10"
+                                            BackgroundColor="{DynamicResource colBG1}"
+                                            Spacing="10">
+                                            <Label
+                                                FontSize="13"
+                                                Style="{StaticResource TxtSubTit1_3}"
+                                                Text="You have earned Diamond rank"
+                                                TextColor="{DynamicResource Gray-800}" />
+
+                                            <Label
+                                                FontSize="13"
+                                                Style="{StaticResource TxtSubTit1_3}"
+                                                Text="Voucher redempt does not affect your up ranking"
+                                                TextColor="{DynamicResource colPrim}" />
+
+                                            <BoxView BackgroundColor="LightGray" HeightRequest="0.5" />
+
+                                            <StackLayout
+                                                Margin="10,0,0,0"
+                                                HeightRequest="30"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesome}"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="&#xf4be;"
+                                                    TextColor="{DynamicResource colPrim}"
+                                                    VerticalOptions="Center" />
+
+                                                <Label
+                                                    FontSize="13"
+                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                    Text="A piece of cake on your birthday"
+                                                    TextColor="{DynamicResource Gray-800}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Margin="10,0,0,0"
+                                                HeightRequest="30"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesome}"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="&#xf4be;"
+                                                    TextColor="{DynamicResource colPrim}"
+                                                    VerticalOptions="Center" />
+
+                                                <Label
+                                                    FontSize="13"
+                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                    Text="Redeem vouchers in Rewards Store"
+                                                    TextColor="{DynamicResource Gray-800}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Margin="10,0,0,0"
+                                                HeightRequest="30"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesome}"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="&#xf4be;"
+                                                    TextColor="{DynamicResource colPrim}"
+                                                    VerticalOptions="Center" />
+
+                                                <Label
+                                                    FontSize="13"
+                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                    Text="Free of any drinking item"
+                                                    TextColor="{DynamicResource Gray-800}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Margin="10,0,0,0"
+                                                HeightRequest="35"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesome}"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="&#xf4be;"
+                                                    TextColor="{DynamicResource colPrim}"
+                                                    VerticalOptions="Center" />
+
+                                                <Label
+                                                    FontSize="13"
+                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                    Text="Redeem special offers from ShopApp and partners"
+                                                    TextColor="{DynamicResource Gray-800}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+
+                                            <StackLayout
+                                                Margin="10,0,0,0"
+                                                HeightRequest="30"
+                                                HorizontalOptions="FillAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="10">
+                                                <Label
+                                                    FontFamily="{StaticResource FontAwesome}"
+                                                    HorizontalOptions="Start"
+                                                    HorizontalTextAlignment="Start"
+                                                    Text="&#xf4be;"
+                                                    TextColor="{DynamicResource colPrim}"
+                                                    VerticalOptions="Center" />
+
+                                                <Label
+                                                    FontSize="13"
+                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                    Text="Accumulate faster by 1.5x multiplying"
+                                                    TextColor="{DynamicResource Gray-800}"
+                                                    VerticalOptions="Center" />
+                                            </StackLayout>
+
+                                        </StackLayout>
+                                    </tabView:SfTabItem.Content>
+                                </tabView:SfTabItem>
+
+                            </tabView:SfTabView>
+                        </Frame>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+            <controls:LoadingOverlay
+                Grid.Row="0"
+                HorizontalOptions="Fill"
+                IsRunning="{Binding IsBusy, Mode=TwoWay}"
+                VerticalOptions="Fill" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

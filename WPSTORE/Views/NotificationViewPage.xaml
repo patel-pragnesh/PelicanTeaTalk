@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WPSTORE.Views.NotificationViewPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{DynamicResource colBG2}"
+    NavigationPage.HasNavigationBar="False"
+    Shell.NavBarIsVisible="False"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout Spacing="0" VerticalOptions="FillAndExpand">
+                <Grid
+                    Margin="{OnPlatform '0',
+                                        iOS='0,30,0,0'}"
+                    Padding="{OnPlatform '15,0,20,0',
+                                         iOS='10,0,10,0'}"
+                    BackgroundColor="{DynamicResource colBG1}"
+                    HeightRequest="56">
+                    <Label
+                        FontFamily="{StaticResource FontAwesome}"
+                        FontSize="25"
+                        Text="&#xf057;"
+                        TextColor="{DynamicResource Gray-700}"
+                        VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BackCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label
+                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                        FontSize="16"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="{translator:Translate Notification}"
+                        TextColor="{DynamicResource colPrim}"
+                        VerticalOptions="Center" />
+                </Grid>
+
+                <BoxView
+                    BackgroundColor="{DynamicResource Gray-900}"
+                    HeightRequest="0.5"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill" />
+
+                <Grid ColumnSpacing="0" RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Label
+                        Margin="10,10"
+                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                        FontSize="14"
+                        HorizontalOptions="End"
+                        Text="MARK ALL AS READ"
+                        TextColor="{DynamicResource Gray-900}"
+                        VerticalOptions="Center" />
+
+                    <ListView
+                        x:Name="TaskNotifications"
+                        Grid.Row="1"
+                        HasUnevenRows="True"
+                        ItemsSource="{Binding Notifications}"
+                        SelectionMode="Single"
+                        VerticalOptions="FillAndExpand">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid
+                                        Padding="10"
+                                        BackgroundColor="{DynamicResource Gray-White}"
+                                        ColumnSpacing="15"
+                                        RowSpacing="5"
+                                        VerticalOptions="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image
+                                            Grid.RowSpan="3"
+                                            Aspect="AspectFit"
+                                            Source="{Binding icon}"
+                                            WidthRequest="60" />
+                                        <!--<Label
+                                            Grid.RowSpan="2"
+                                            FontFamily="{StaticResource FontAwesome}"
+                                            FontSize="16"
+                                            HorizontalOptions="Center"
+                                            Text="&#xf0f3;"
+                                            TextColor="{DynamicResource colPrim}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />-->
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            FontFamily="{DynamicResource BoldFont_ProductSans}"
+                                            FontSize="14"
+                                            LineBreakMode="WordWrap"
+                                            LineHeight="{OnPlatform Android=1,
+                                                                    Default=-1}"
+                                            Text="{Binding title}"
+                                            TextColor="{DynamicResource colPrim}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            FontFamily="{DynamicResource RegularFont_ProductSans}"
+                                            FontSize="14"
+                                            LineBreakMode="WordWrap"
+                                            LineHeight="{OnPlatform Android=1,
+                                                                    Default=-1}"
+                                            Text="{Binding message}"
+                                            TextColor="{DynamicResource Gray-900}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                        <Label
+                                            Grid.Row="2"
+                                            Grid.ColumnSpan="2"
+                                            FontAttributes="Italic"
+                                            FontSize="12"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="{Binding starttime}" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+
+            </StackLayout>
+            <controls:LoadingOverlay
+                Grid.Row="0"
+                HorizontalOptions="Fill"
+                IsRunning="{Binding IsBusy, Mode=TwoWay}"
+                VerticalOptions="Fill" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

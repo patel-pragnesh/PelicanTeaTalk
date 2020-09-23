@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="WPSTORE.Views.Templates.OrderFoodCardItemTemplate"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:extensions="clr-namespace:WPSTORE.Extensions"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    xmlns:viewModels="clr-namespace:WPSTORE.ViewModels"
+    mc:Ignorable="d">
+    <ContentView.Content>
+        <controls:CustomShadowFrame
+            Margin="7"
+            Padding="0"
+            BackgroundColor="{DynamicResource colBG1}"
+            BorderColor="White"
+            BorderWidth="2"
+            CornerRadius="10"
+            HasShadow="True">
+            <StackLayout
+                BackgroundColor="{DynamicResource colBG1}"
+                IsClippedToBounds="True"
+                Orientation="Vertical"
+                Spacing="0"
+                VerticalOptions="FillAndExpand">
+
+                <Grid>
+                    <ffimageloading:CachedImage
+                        Aspect="AspectFill"
+                        DownsampleToViewSize="True"
+                        HeightRequest="{OnPlatform Android='150',
+                                                   iOS='150'}"
+                        LoadingPlaceholder="logo.png"
+                        Source="{Binding ProductImage}">
+                        <ffimageloading:CachedImage.CacheKeyFactory>
+                            <extensions:CustomCacheKeyFactory />
+                        </ffimageloading:CachedImage.CacheKeyFactory>
+                    </ffimageloading:CachedImage>
+                    <ffimageloading:CachedImage
+                        Margin="0,5,5,0"
+                        Aspect="AspectFit"
+                        DownsampleToViewSize="True"
+                        HeightRequest="35"
+                        HorizontalOptions="End"
+                        IsVisible="{Binding OnSale}"
+                        Source="sale_tag"
+                        VerticalOptions="Start"
+                        WidthRequest="35" />
+                </Grid>
+
+                <Label
+                    Margin="8,0"
+                    FontFamily="{StaticResource BoldFont_ProductSans}"
+                    FontSize="14"
+                    HeightRequest="40"
+                    LineBreakMode="TailTruncation"
+                    MaxLines="2"
+                    Text="{Binding Name}"
+                    TextColor="{DynamicResource Gray-900}"
+                    VerticalTextAlignment="Center" />
+
+                <BoxView
+                    BackgroundColor="{DynamicResource Gray-400}"
+                    HeightRequest="1"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand" />
+                <!--<pancake:PancakeView
+                    Margin="0,0,0,0"
+                    Padding="0,5"
+                    BackgroundGradientAngle="45"
+                    BackgroundGradientEndColor="{DynamicResource colGradEnd}"
+                    BackgroundGradientStartColor="{DynamicResource colGradStart}"
+                    BorderColor="Transparent"
+                    CornerRadius="0,0,0,0"
+                    HasShadow="False"
+                    VerticalOptions="EndAndExpand">
+
+                </pancake:PancakeView>-->
+                <Grid
+                    Padding="8,8,8,8"
+                    BackgroundColor="{DynamicResource Transparent}"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="Center">
+                    <controls:PriceControl
+                        CurrencySymbol=""
+                        HorizontalOptions="StartAndExpand"
+                        Price="{Binding Price}"
+                        PriceFontFamily="{StaticResource BoldFont_ProductSans}"
+                        PriceFontSize="16"
+                        SymbolFontFamily="{StaticResource BoldFont_ProductSans}"
+                        VerticalOptions="Center" />
+                    <Button
+                        Padding="0"
+                        BackgroundColor="Transparent"
+                        BorderColor="{DynamicResource colPrim}"
+                        BorderWidth="1"
+                        Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewModels:OrdersViewModel}}, Path=ProductTapCommand}"
+                        CommandParameter="{Binding .}"
+                        CornerRadius="15"
+                        FontFamily="{StaticResource FontAwesome}"
+                        FontSize="15"
+                        HeightRequest="30"
+                        HorizontalOptions="EndAndExpand"
+                        Text="&#xf07a;"
+                        TextColor="{DynamicResource colPrim}"
+                        VerticalOptions="Center"
+                        WidthRequest="60" />
+                </Grid>
+
+            </StackLayout>
+        </controls:CustomShadowFrame>
+    </ContentView.Content>
+</ContentView>

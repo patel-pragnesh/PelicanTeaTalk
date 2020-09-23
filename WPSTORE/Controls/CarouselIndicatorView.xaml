@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Grid
+    x:Class="WPSTORE.Controls.CarouselIndicatorView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:control="clr-namespace:WPSTORE.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="Indicator"
+    RowSpacing="2"
+    mc:Ignorable="d">
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+        <RowDefinition Height="3" />
+    </Grid.RowDefinitions>
+    <Grid.Resources>
+        <ResourceDictionary>
+            <Color x:Key="AccentColor">#d50000</Color>
+            <Color x:Key="SecondaryColor">Black</Color>
+        </ResourceDictionary>
+    </Grid.Resources>
+    <FlexLayout
+        x:Name="myList"
+        BindableLayout.ItemsSource="{Binding Items, Source={x:Reference Indicator}}"
+        HorizontalOptions="FillAndExpand"
+        JustifyContent="SpaceAround">
+        <BindableLayout.ItemTemplate>
+            <DataTemplate>
+                <Grid Padding="8,3" RowSpacing="5">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="ChangeTab" />
+                    </Grid.GestureRecognizers>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <control:CustomShadowFrame
+                        Padding="0"
+                        BackgroundColor="{DynamicResource colBG1}"
+                        CornerRadius="25"
+                        HeightRequest="50"
+                        HorizontalOptions="Center"
+                        IsClippedToBounds="True"
+                        WidthRequest="50">
+                        <ffimageloading:CachedImage
+                            Aspect="AspectFit"
+                            CacheType="All"
+                            HeightRequest="50"
+                            Source="{Binding ImageUrl}"
+                            WidthRequest="50">
+                            <ffimageloading:CachedImage.Transformations>
+                                <fftransformations:CircleTransformation />
+                            </ffimageloading:CachedImage.Transformations>
+                        </ffimageloading:CachedImage>
+                    </control:CustomShadowFrame>
+
+
+                    <Label
+                        Grid.Row="1"
+                        FontFamily="{StaticResource RegularFont_ProductSans}"
+                        FontSize="14"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        LineBreakMode="WordWrap"
+                        MaxLines="2"
+                        Text="{Binding Title}"
+                        TextColor="{DynamicResource Gray-900}"
+                        VerticalOptions="CenterAndExpand"
+                        VerticalTextAlignment="Center"
+                        WidthRequest="80" />
+
+                </Grid>
+                <!--<Label
+                    x:Name="title"
+                    Padding="15,0"
+                    FontFamily="{StaticResource BoldFont_ProductSans}"
+                    FontSize="{OnPlatform Android='15',
+                                          iOS='14'}"
+                    HeightRequest="50"
+                    HorizontalTextAlignment="Center"
+                    Text="{Binding Title}"
+                    TextColor="{DynamicResource colPrim}"
+                    VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="ChangeTab" />
+                    </Label.GestureRecognizers>
+                </Label>-->
+            </DataTemplate>
+        </BindableLayout.ItemTemplate>
+    </FlexLayout>
+
+    <BoxView
+        x:Name="activeIndicator"
+        Grid.Row="1"
+        Margin="0"
+        BackgroundColor="{DynamicResource colPrim}"
+        HeightRequest="3"
+        HorizontalOptions="Start"
+        VerticalOptions="End"
+        WidthRequest="90" />
+</Grid>

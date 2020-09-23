@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WPSTORE.Views.StorePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:extensions="clr-namespace:WPSTORE.Extensions"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    ios:Page.UseSafeArea="true"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.HasNavigationBar="False"
+    Shell.NavBarIsVisible="False"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout HorizontalOptions="FillAndExpand"
+                         Spacing="0"
+                         VerticalOptions="FillAndExpand">
+
+                <StackLayout Margin="{OnPlatform '0',
+                                        iOS='0,0,0,0'}"
+                             Padding="{OnPlatform '20,0,20,0',
+                                         iOS='10,0,10,0'}"
+                             BackgroundColor="{DynamicResource colBG1}"
+                             HeightRequest="56"
+                             Orientation="Horizontal"
+                             VerticalOptions="Center"
+                             Spacing="0">
+                    <Label FontFamily="{StaticResource BoldFont_ProductSans}"
+                           FontSize="16"
+                           HorizontalOptions="CenterAndExpand"
+                           Text="{translator:Translate Store}"
+                           TextColor="{DynamicResource colPrim}"
+                           VerticalOptions="Center" />
+                </StackLayout>
+
+                <BoxView BackgroundColor="{DynamicResource Gray-900}"
+                         HeightRequest="0.5"
+                         HorizontalOptions="Fill"
+                         VerticalOptions="Fill" />
+
+                <Grid VerticalOptions="FillAndExpand">
+                    <maps:Map x:Name="map"
+                              IsShowingUser="True"
+                              MapType="Street" />
+
+                    <CollectionView x:Name="storeList"
+                                    Margin="5,0,0,10"
+                                    HeightRequest="180"
+                                    ItemsSource="{Binding StoreList}"
+                                    SelectionMode="Single"
+                                    VerticalOptions="End">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Horizontal" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Padding="5"
+                                       BackgroundColor="Transparent"
+                                       HasShadow="False">
+                                    <Frame Padding="0"
+                                           BackgroundColor="{DynamicResource colBG1}"
+                                           CornerRadius="6"
+                                           HasShadow="False"
+                                           WidthRequest="150">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Path=BindingContext.StoreTappedCommand, Source={x:Reference storeList}}"
+                                                                  CommandParameter="{Binding .}" />
+                                        </Frame.GestureRecognizers>
+                                        <StackLayout BackgroundColor="{DynamicResource colBG1}"
+                                                     Spacing="3">
+                                            <Frame CornerRadius="0"
+                                                   HasShadow="False">
+                                                <ffimageloading:CachedImage Aspect="AspectFill"
+                                                                            DownsampleToViewSize="True"
+                                                                            HeightRequest="{OnPlatform Android='100',
+                                                                               iOS='100'}"
+                                                                            LoadingPlaceholder="logo.png"
+                                                                            Source="{Binding Image}">
+                                                    <ffimageloading:CachedImage.CacheKeyFactory>
+                                                        <extensions:CustomCacheKeyFactory />
+                                                    </ffimageloading:CachedImage.CacheKeyFactory>
+                                                </ffimageloading:CachedImage>
+                                            </Frame>
+                                            <Label Margin="5,0,5,2"
+                                                   FontSize="15"
+                                                   LineBreakMode="TailTruncation"
+                                                   Style="{StaticResource TxtSubTit1_7}"
+                                                   Text="{Binding Store_Name}" />
+                                            <Label Margin="5,0,5,0"
+                                                   FontSize="13"
+                                                   LineBreakMode="TailTruncation"
+                                                   MaxLines="2"
+                                                   Style="{StaticResource TxtSubTit1_3}"
+                                                   Text="{Binding Address}"
+                                                   TextColor="{DynamicResource Gray-900}" />
+                                        </StackLayout>
+                                    </Frame>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+
+                <BoxView Margin="0,0,0,0"
+                         BackgroundColor="{DynamicResource Gray-900}"
+                         HeightRequest="0.5"
+                         HorizontalOptions="Fill"
+                         VerticalOptions="End" />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

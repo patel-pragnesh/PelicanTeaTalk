@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="WPSTORE.AppShell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    xmlns:views="clr-namespace:WPSTORE.Views"
+    FlyoutBehavior="Disabled"
+    FlyoutHeaderBehavior="Fixed"
+    FlyoutIsPresented="False"
+    Navigated="OnNavigated"
+    Navigating="OnNavigating">
+    <Shell.Resources>
+        <Style x:Key="BaseStyle" TargetType="Element">
+            <!--  In iOS, this property changes the color of the FlyoutIcon and the selected top tabs  -->
+            <Setter Property="Shell.ForegroundColor" Value="{DynamicResource colPrim}" />
+            <!--  In iOS this property changes the color tabs upper not selected  -->
+            <Setter Property="Shell.UnselectedColor" Value="{DynamicResource colTabBarUns}" />
+
+            <Setter Property="Shell.BackgroundColor" Value="{DynamicResource colPrim}" />
+            <Setter Property="Shell.TitleColor" Value="#FFFFFF" />
+            <Setter Property="Shell.TabBarBackgroundColor" Value="{DynamicResource colTabBarBack}" />
+            <Setter Property="Shell.TabBarUnselectedColor" Value="{DynamicResource colTabBarUns}" />
+            <Setter Property="Shell.TabBarTitleColor" Value="{DynamicResource colPrim}" />
+        </Style>
+
+        <!--  ADD TabBar FlyoutBehavior is INVISIBLE  -->
+        <Style
+            ApplyToDerivedTypes="True"
+            BasedOn="{StaticResource BaseStyle}"
+            TargetType="TabBar" />
+
+        <!--  ADD ShellItem FlyoutBehavior is VISIBLE  -->
+        <Style
+            ApplyToDerivedTypes="True"
+            BasedOn="{StaticResource BaseStyle}"
+            TargetType="ShellItem" />
+
+        <Style
+            x:Key="TabbedShell"
+            ApplyToDerivedTypes="True"
+            BasedOn="{StaticResource BaseStyle}"
+            TargetType="Element">
+            <Setter Property="Shell.BackgroundColor" Value="#FFEA8025" />
+        </Style>
+    </Shell.Resources>
+
+    <ShellItem
+        Title="Home"
+        FlyoutDisplayOptions="AsSingleItem"
+        Icon="{StaticResource icon_tab_explore}">
+
+        <Tab Title="{translator:Translate HomeMenu}">
+            <Tab.Icon>
+                <FontImageSource FontFamily="{StaticResource FontAwesome}" Glyph="&#xf54f;" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate views:HomePage}" Route="home" />
+        </Tab>
+
+        <Tab Title="{translator:Translate Store}">
+            <Tab.Icon>
+                <FontImageSource FontFamily="{StaticResource FontAwesome}" Glyph="&#xf14e;" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate views:StorePage}" Route="store" />
+        </Tab>
+
+        <Tab Title="{translator:Translate Shopping}">
+            <Tab.Icon>
+                <FontImageSource FontFamily="{StaticResource FontAwesome}" Glyph="&#xf290;" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate views:OrdersPage}" Route="ordering" />
+        </Tab>
+
+        <Tab Title="{translator:Translate Account}">
+            <Tab.Icon>
+                <FontImageSource FontFamily="{StaticResource FontAwesome}" Glyph="&#xf2bd;" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate views:AccountPage}" Route="settings" />
+        </Tab>
+    </ShellItem>
+
+</Shell>

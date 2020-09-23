@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WPSTORE.Views.RegisterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{DynamicResource colBG2}"
+    NavigationPage.HasNavigationBar="True"
+    Shell.NavBarIsVisible="True"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <pancake:PancakeView
+            Margin="0,0,0,0"
+            Padding="0"
+            BackgroundGradientAngle="45"
+            BackgroundGradientEndColor="#F6F6F6"
+            BackgroundGradientStartColor="#E9E9E9"
+            BorderColor="{DynamicResource colPrimLight}"
+            BorderThickness="1"
+            HasShadow="True"
+            HeightRequest="190">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <ImageButton
+                    Margin="16,16,16,10"
+                    Padding="5"
+                    BackgroundColor="Transparent"
+                    Command="{Binding CancelCommand}"
+                    HeightRequest="36"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Center"
+                    WidthRequest="36">
+                    <ImageButton.Source>
+                        <FontImageSource
+                            FontFamily="{StaticResource FontAwesome}"
+                            Glyph="&#xf057;"
+                            Size="20"
+                            Color="{DynamicResource colPrim}" />
+                    </ImageButton.Source>
+                </ImageButton>
+                <StackLayout
+                    Grid.Row="1"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand">
+
+                    <StackLayout Spacing="15" VerticalOptions="CenterAndExpand">
+
+                        <ffimageloading:CachedImage
+                            x:Name="Logo"
+                            Aspect="AspectFit"
+                            BackgroundColor="Transparent"
+                            HeightRequest="80"
+                            HorizontalOptions="CenterAndExpand"
+                            Opacity="1"
+                            Source="logo"
+                            TranslationY="-10"
+                            WidthRequest="80">
+                            <ffimageloading:CachedImage.Transformations>
+                                <fftransformations:RoundedTransformation
+                                    BorderHexColor="#FFEA8025"
+                                    BorderSize="10"
+                                    Radius="60" />
+                            </ffimageloading:CachedImage.Transformations>
+                        </ffimageloading:CachedImage>
+
+                        <Label
+                            FontFamily="{StaticResource BoldFont_ProductSans}"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="THE SHOP APP"
+                            TextColor="{DynamicResource colPrim}"
+                            VerticalOptions="StartAndExpand" />
+                    </StackLayout>
+                    <ScrollView>
+                        <Grid
+                            Margin="0,0,0,0"
+                            Padding="16,16,16,0"
+                            VerticalOptions="FillAndExpand">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <StackLayout Grid.Row="0">
+                                <StackLayout Grid.Row="0" Spacing="0">
+
+                                    <controls:ExBorderlessEntryControl
+                                        Margin="0,12,0,0"
+                                        ErrorMessage="{Binding UserNameErrMessage}"
+                                        ExKeyboard="Plain"
+                                        ExText="{Binding Account.UserName}"
+                                        HasError="{Binding UserNameHasError}"
+                                        Icon="&#xf2bd;"
+                                        PlaceHolder="Username" />
+                                    <controls:ExBorderlessEntryControl
+                                        Margin="0,12,0,0"
+                                        ExKeyboard="Text"
+                                        ExText="{Binding Account.DisplayName}"
+                                        Icon="&#xf2c2;"
+                                        PlaceHolder="Display Name" />
+                                    <controls:ExBorderlessEntryControl
+                                        Margin="0,12,0,0"
+                                        ExKeyboard="Text"
+                                        ExText="{Binding Account.FirstName}"
+                                        Icon="&#xf031;"
+                                        PlaceHolder="First Name" />
+                                    <controls:ExBorderlessEntryControl
+                                        Margin="0,12,0,0"
+                                        ExKeyboard="Text"
+                                        ExText="{Binding Account.LastName}"
+                                        Icon="&#xf032;"
+                                        PlaceHolder="Last Name" />
+
+                                    <controls:ExBorderlessEntryControl
+                                        Margin="0,12,0,0"
+                                        ErrorMessage="{Binding EmailErrMessage}"
+                                        ExKeyboard="Email"
+                                        ExText="{Binding Account.Email}"
+                                        HasError="{Binding EmailHasError}"
+                                        Icon="&#xf0e0;"
+                                        PlaceHolder="Email" />
+
+                                    <controls:ExBorderlessEntryControl
+                                        Margin="0,12,0,0"
+                                        ErrorMessage="{Binding PasswordErrMessage}"
+                                        ExKeyboard="Text"
+                                        ExText="{Binding Account.Password}"
+                                        HasError="{Binding PasswordHasError}"
+                                        Icon="&#xf023;"
+                                        IsPassword="True"
+                                        PlaceHolder="Password" />
+                                    <Button
+                                        Grid.Row="1"
+                                        Margin="0,30"
+                                        BackgroundColor="White"
+                                        BorderColor="{DynamicResource colPrim}"
+                                        BorderWidth="1"
+                                        Command="{Binding RegisterCommand}"
+                                        CornerRadius="5"
+                                        FontAttributes="Bold"
+                                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                                        HorizontalOptions="Center"
+                                        Opacity="0.9"
+                                        Text="CREATE ACCOUNT"
+                                        TextColor="{DynamicResource colPrim}"
+                                        WidthRequest="200" />
+                                </StackLayout>
+                            </StackLayout>
+                        </Grid>
+                    </ScrollView>
+                </StackLayout>
+            </Grid>
+        </pancake:PancakeView>
+    </ContentPage.Content>
+</ContentPage>

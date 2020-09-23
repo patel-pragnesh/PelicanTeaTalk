@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WPSTORE.Views.VouchersPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:extensions="clr-namespace:WPSTORE.Extensions"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    xmlns:zxcm="clr-namespace:ZXing.Common;assembly=zxing.portable"
+    xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    NavigationPage.HasNavigationBar="False"
+    Shell.NavBarIsVisible="False"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <Grid>
+            <StackLayout Spacing="0" VerticalOptions="FillAndExpand">
+                <StackLayout
+                    Margin="{OnPlatform '0',
+                                        iOS='0,30,0,0'}"
+                    Padding="{OnPlatform '20,0,20,0',
+                                         iOS='10,0,10,0'}"
+                    BackgroundColor="{DynamicResource colBG1}"
+                    HeightRequest="56"
+                    Orientation="Horizontal"
+                    Spacing="0">
+                    <!--<ImageButton
+                        BackgroundColor="Transparent"
+                        Command="{Binding BackCommand}"
+                        Source="ic_back"
+                        WidthRequest="20" />-->
+                    <Label
+                        FontFamily="{StaticResource FontAwesome}"
+                        FontSize="25"
+                        Text="&#xf057;"
+                        TextColor="{DynamicResource Gray-700}"
+                        VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BackCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label
+                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                        FontSize="16"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="{translator:Translate MyVouchers}"
+                        TextColor="{DynamicResource colPrim}"
+                        VerticalOptions="Center" />
+                </StackLayout>
+
+                <BoxView
+                    BackgroundColor="{DynamicResource Gray-500}"
+                    HeightRequest="0.5"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill" />
+
+                <StackLayout BackgroundColor="{DynamicResource colBG2}" VerticalOptions="FillAndExpand">
+                    <Frame
+                        Margin="10"
+                        Padding="10,5"
+                        BackgroundColor="{DynamicResource colBG1}"
+                        BorderColor="{DynamicResource Gray-300}"
+                        CornerRadius="5"
+                        HasShadow="True"
+                        HeightRequest="50"
+                        IsClippedToBounds="True">
+                        <Grid ColumnSpacing="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="70" />
+                            </Grid.ColumnDefinitions>
+
+
+                            <Grid
+                                Margin="0,-10,0,0"
+                                BackgroundColor="{DynamicResource colBG1}"
+                                HeightRequest="30">
+                                <Entry
+                                    Margin="0,0,0,-10"
+                                    FontFamily="{StaticResource RegularFont_ProductSans}"
+                                    FontSize="14"
+                                    HeightRequest="30"
+                                    Placeholder="{translator:Translate EnterVoucherCode}"
+                                    PlaceholderColor="{DynamicResource Gray-600}" />
+                            </Grid>
+                            <Frame Grid.Column="1" Padding="1">
+                                <Image
+                                    x:Name="stampScan"
+                                    HeightRequest="30"
+                                    HorizontalOptions="Center"
+                                    Source="qrcode_scan"
+                                    VerticalOptions="Center">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding CodeScanningCommand}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Frame>
+                            <Button
+                                Grid.Column="2"
+                                Margin="0,3"
+                                Padding="0"
+                                BackgroundColor="{DynamicResource colBG1}"
+                                BorderColor="{DynamicResource colPrim}"
+                                BorderWidth="2"
+                                CornerRadius="30"
+                                FontFamily="{StaticResource BoldFont_ProductSans}"
+                                FontSize="13"
+                                HeightRequest="30"
+                                Text="{translator:Translate Apply}"
+                                TextColor="{DynamicResource colPrim}"
+                                WidthRequest="70" />
+                        </Grid>
+                    </Frame>
+
+                    <Grid>
+                        <BoxView BackgroundColor="{DynamicResource colBG2}" />
+
+                        <StackLayout Padding="0,0,0,20">
+                            <ListView
+                                CachingStrategy="RecycleElement"
+                                HasUnevenRows="True"
+                                ItemsSource="{Binding ListVouchers}"
+                                SelectionMode="Single"
+                                SeparatorVisibility="None">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <Frame
+                                                Padding="16,8"
+                                                BackgroundColor="Transparent"
+                                                HasShadow="False">
+                                                <Frame
+                                                    Padding="0"
+                                                    BackgroundColor="Transparent"
+                                                    CornerRadius="8"
+                                                    HasShadow="True"
+                                                    IsClippedToBounds="True">
+                                                    <Grid BackgroundColor="Transparent" HeightRequest="120">
+                                                        <Image
+                                                            Aspect="Fill"
+                                                            BackgroundColor="Transparent"
+                                                            Source="voucher_bg" />
+
+                                                        <Grid ColumnSpacing="20">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="0.3*" />
+                                                                <ColumnDefinition Width="0.7*" />
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <Frame
+                                                                Margin="22,22,5,22"
+                                                                Padding="0"
+                                                                CornerRadius="8"
+                                                                HasShadow="False"
+                                                                IsClippedToBounds="True">
+                                                                <ffimageloading:CachedImage
+                                                                    Aspect="AspectFill"
+                                                                    DownsampleToViewSize="True"
+                                                                    HeightRequest="{OnPlatform Android='65',
+                                                                                               iOS='60'}"
+                                                                    LoadingPlaceholder="logo.png"
+                                                                    Source="{Binding Icon}"
+                                                                    WidthRequest="{OnPlatform Android='65',
+                                                                                              iOS='60'}">
+                                                                    <ffimageloading:CachedImage.CacheKeyFactory>
+                                                                        <extensions:CustomCacheKeyFactory />
+                                                                    </ffimageloading:CachedImage.CacheKeyFactory>
+                                                                </ffimageloading:CachedImage>
+                                                            </Frame>
+
+                                                            <StackLayout
+                                                                Grid.Column="1"
+                                                                Margin="20,0,0,16"
+                                                                Spacing="0"
+                                                                VerticalOptions="Center">
+                                                                <Label
+                                                                    HeightRequest="40"
+                                                                    LineBreakMode="TailTruncation"
+                                                                    LineHeight="0.8"
+                                                                    MaxLines="2"
+                                                                    Style="{StaticResource TxtSubTit1_7}"
+                                                                    Text="{Binding Title}"
+                                                                    TextColor="{DynamicResource Gray-900}"
+                                                                    VerticalTextAlignment="Center" />
+                                                                <Label
+                                                                    FontSize="14"
+                                                                    LineBreakMode="TailTruncation"
+                                                                    MaxLines="2"
+                                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                                    Text="{Binding ExpiryDate, StringFormat='Expired on: {0}'}"
+                                                                    TextColor="{DynamicResource Gray-800}"
+                                                                    VerticalOptions="Center"
+                                                                    VerticalTextAlignment="Center" />
+
+                                                            </StackLayout>
+
+                                                        </Grid>
+                                                    </Grid>
+                                                </Frame>
+                                            </Frame>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <!--<CollectionView ItemsSource="{Binding ListVouchers}" SelectionMode="Single">
+                                    <CollectionView.ItemsLayout>
+                                        <GridItemsLayout Orientation="Vertical" />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Frame
+                                                Padding="16,4"
+                                                BackgroundColor="{DynamicResource colBG2}"
+                                                HasShadow="False">
+                                                <Frame
+                                                    Padding="8"
+                                                    BackgroundColor="{DynamicResource colSurf2}"
+                                                    CornerRadius="8"
+                                                    HasShadow="True"
+                                                    Visual="Material">
+                                                    <StackLayout Orientation="Horizontal" Spacing="16">
+                                                        <Frame
+                                                            Padding="0"
+                                                            CornerRadius="6"
+                                                            Visual="Material">
+                                                            <Image
+                                                                Aspect="AspectFill"
+                                                                HeightRequest="55"
+                                                                Source="{Binding Icon}"
+                                                                WidthRequest="55" />
+                                                        </Frame>
+
+                                                        <StackLayout
+                                                            HorizontalOptions="FillAndExpand"
+                                                            Orientation="Horizontal"
+                                                            Spacing="4"
+                                                            VerticalOptions="Center">
+
+                                                            <StackLayout Spacing="8">
+                                                                <Label
+                                                                    HeightRequest="40"
+                                                                    LineBreakMode="TailTruncation"
+                                                                    LineHeight="0.8"
+                                                                    MaxLines="2"
+                                                                    Style="{StaticResource TxtTitle_1}"
+                                                                    Text="{Binding Title}"
+                                                                    VerticalTextAlignment="Start" />
+                                                                <Label
+                                                                    LineBreakMode="TailTruncation"
+                                                                    MaxLines="2"
+                                                                    Style="{StaticResource TxtSubTit1_3}"
+                                                                    Text="{Binding ExpiryDate}" />
+
+                                                            </StackLayout>
+
+                                                        </StackLayout>
+
+                                                    </StackLayout>
+                                                </Frame>
+                                            </Frame>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>-->
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+            <controls:LoadingOverlay
+                Grid.Row="0"
+                HorizontalOptions="Fill"
+                IsRunning="{Binding IsBusy, Mode=TwoWay}"
+                VerticalOptions="Fill" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

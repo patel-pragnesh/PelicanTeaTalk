@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="WPSTORE.Views.CategoriesPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:templates="clr-namespace:WPSTORE.Views.Templates"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    Title="{translator:Translate CategoriesMenu}"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{DynamicResource colBG2}">
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Transparent" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+        <DataTemplate x:Key="CategoryTemplate">
+            <Grid Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Image
+                    Grid.RowSpan="2"
+                    Aspect="AspectFill"
+                    HeightRequest="40"
+                    Source="logo.png"
+                    WidthRequest="40" />
+                <Label
+                    Grid.Column="1"
+                    FontSize="18"
+                    LineBreakMode="WordWrap"
+                    MaxLines="2"
+                    Text="{Binding name}"
+                    TextColor="{StaticResource colPrim}"
+                    TextType="Html" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    FontSize="14"
+                    Text="{Binding description}"
+                    TextType="Html"
+                    VerticalOptions="End" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="CategorySearchTemplate">
+            <Grid Padding="10">
+                <Label
+                    FontAttributes="Bold"
+                    Text="{Binding name}"
+                    VerticalOptions="Center">
+                    <Label.TextColor>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="iOS" Value="White" />
+                        </OnPlatform>
+                    </Label.TextColor>
+                </Label>
+                <Grid.HeightRequest>
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="Android" Value="30" />
+                        <On Platform="iOS" Value="42" />
+                    </OnPlatform>
+                </Grid.HeightRequest>
+            </Grid>
+        </DataTemplate>
+    </ContentPage.Resources>
+
+    <Shell.SearchHandler>
+        <controls:WpSearchHandler
+            x:Name="CategorySearchHandler"
+            DisplayMemberName="name"
+            FontSize="Small"
+            ItemTemplate="{StaticResource CategorySearchTemplate}"
+            OnSearchItemSelected="CategorySearchHandler_OnSearchItemSelected"
+            OnSearchTextChange="CategorySearchHandler_OnSearchTextChange"
+            Placeholder="{translator:Translate SearchHint}"
+            SearchBoxVisibility="Collapsible"
+            ShowsResults="true" />
+    </Shell.SearchHandler>
+
+    <ContentPage.Content>
+        <Grid>
+            <ListView
+                x:Name="categoriesList"
+                CachingStrategy="RecycleElement"
+                HasUnevenRows="false"
+                ItemTapped="categoriesList_ItemTapped"
+                ItemsSource="{Binding Categories}"
+                SeparatorColor="Transparent"
+                SeparatorVisibility="None">
+                <ListView.RowHeight>
+                    <OnIdiom
+                        x:TypeArguments="x:Int32"
+                        Phone="100"
+                        Tablet="150" />
+                </ListView.RowHeight>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <templates:ListWithImagesItemTemplate />
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <controls:LoadingOverlay
+                Grid.Row="0"
+                HorizontalOptions="Fill"
+                IsRunning="{Binding IsBusy, Mode=TwoWay}"
+                VerticalOptions="Fill" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

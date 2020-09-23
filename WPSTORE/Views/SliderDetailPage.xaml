@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Details"
+             x:Name="self"
+             Shell.NavBarIsVisible="True"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="WPSTORE.Views.SliderDetailPage">
+    <!--<Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}" NavigationPage.HasNavigationBar="True"
+                            BindingContext="{Binding Source={x:Reference self}, Path=BindingContext}"
+                            IconOverride="back.png" />
+    </Shell.BackButtonBehavior>-->
+    <StackLayout VerticalOptions="FillAndExpand">
+        <WebView Source="{Binding ArticleUrl}"
+             HorizontalOptions="FillAndExpand"
+             VerticalOptions="FillAndExpand"/>
+    </StackLayout>
+    
+</ContentPage>

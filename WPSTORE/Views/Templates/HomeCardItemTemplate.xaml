@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="WPSTORE.Views.Templates.HomeCardItemTemplate"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:extensions="clr-namespace:WPSTORE.Extensions"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <ContentView.Content>
+        <Grid Padding="5">
+            <!--<Frame
+                Margin="0"
+                Padding="0"
+                BackgroundColor="{DynamicResource Gray-400}"
+                CornerRadius="11"
+                HasShadow="False"
+                TranslationX="2"
+                TranslationY="2" />-->
+            <controls:CustomShadowFrame
+                Margin="0"
+                Padding="0"
+                BackgroundColor="{DynamicResource colBG1}"
+                BorderColor="White"
+                BorderWidth="1"
+                CornerRadius="10"
+                HasShadow="True"
+                IsClippedToBounds="True">
+                <Grid BackgroundColor="{DynamicResource Gray-White}" VerticalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="120" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <!--<ffimageloading:CachedImage Grid.Row="0"
+                                            Margin="-14,0,-14,0"
+                                            CacheType="Disk"
+                                            CacheDuration="14"
+                                            Source="{ Binding jetpack_featured_media_url }"
+                                            Aspect="AspectFill" />-->
+                    <ffimageloading:CachedImage
+                        Margin="-14,0,-14,0"
+                        Aspect="AspectFill"
+                        DownsampleToViewSize="True"
+                        HeightRequest="{OnPlatform 100,
+                                                   Android=100,
+                                                   iOS=90}"
+                        LoadingPlaceholder="logo.png"
+                        Source="{Binding jetpack_featured_media_url}"
+                        WidthRequest="{OnPlatform 200,
+                                                  Android=200,
+                                                  iOS=200}">
+                        <ffimageloading:CachedImage.CacheKeyFactory>
+                            <extensions:CustomCacheKeyFactory />
+                        </ffimageloading:CachedImage.CacheKeyFactory>
+                        <ffimageloading:CachedImage.Transformations>
+                            <fftransformations:CornersTransformation />
+                        </ffimageloading:CachedImage.Transformations>
+                    </ffimageloading:CachedImage>
+
+                    <!--<Button Text="{Binding CategoryName }"
+                        HeightRequest="26"
+                        TextColor="{StaticResource OverImageTextColor}"
+                        CornerRadius="13"
+                        FontFamily="{StaticResource Montserrat-Regular}"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"
+                        Margin="8"
+                        FontSize="10"
+                        BackgroundColor="{StaticResource ComplementColor}"
+                        Padding="{OnPlatform Android=0, iOS=5}" />-->
+
+                    <Grid
+                        Grid.Row="1"
+                        Padding="10,0,10,10"
+                        RowSpacing="0"
+                        VerticalOptions="StartAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="70" />
+                            <RowDefinition Height="60" />
+                        </Grid.RowDefinitions>
+
+                        <Label
+                            Grid.Row="0"
+                            FontFamily="{StaticResource Montserrat-SemiBold}"
+                            FontSize="15"
+                            HorizontalTextAlignment="Start"
+                            LineBreakMode="TailTruncation"
+                            MaxLines="2"
+                            Text="{Binding title.rendered}"
+                            TextColor="{DynamicResource Gray-900}"
+                            VerticalOptions="Start"
+                            VerticalTextAlignment="Start" />
+
+                        <Label
+                            Grid.Row="1"
+                            FontSize="13"
+                            HorizontalTextAlignment="Start"
+                            LineBreakMode="TailTruncation"
+                            LineHeight="1.25"
+                            MaxLines="3"
+                            Text="{Binding ExcerptContent}"
+                            TextColor="{DynamicResource Gray-900}"
+                            VerticalOptions="Start"
+                            VerticalTextAlignment="Start" />
+
+                        <Grid Grid.Row="2" VerticalOptions="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                                Grid.Column="0"
+                                FontFamily="{StaticResource Montserrat-Regular}"
+                                FontSize="12"
+                                HorizontalOptions="Start"
+                                LineBreakMode="TailTruncation"
+                                Text="{Binding CreatedDate}"
+                                TextColor="{DynamicResource BlackTextColor}"
+                                VerticalOptions="Start" />
+
+                            <Label
+                                Grid.Column="1"
+                                FontFamily="{StaticResource FontAwesome}"
+                                FontSize="14"
+                                HorizontalOptions="End"
+                                Text="&#xe734;"
+                                TextColor="{DynamicResource BlackTextColor}"
+                                VerticalOptions="Start" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </controls:CustomShadowFrame>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

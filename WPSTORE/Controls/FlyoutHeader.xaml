@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="WPSTORE.Controls.FlyoutHeader"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    HeightRequest="200">
+    <Grid>
+        <!--<Image Aspect="AspectFill"
+               Source="main_header.png"
+               Opacity="0.7" />-->
+        <StackLayout
+            Padding="16"
+            HorizontalOptions="Start"
+            Orientation="Horizontal"
+            Spacing="10"
+            VerticalOptions="Center">
+
+            <Image
+                Aspect="AspectFit"
+                HeightRequest="80"
+                HorizontalOptions="Start"
+                Source="logo.png" />
+            <StackLayout HorizontalOptions="Start" VerticalOptions="Center">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    HorizontalTextAlignment="Start"
+                    Text="WPStore"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
+                <Label
+                    FontSize="14"
+                    HorizontalTextAlignment="Start"
+                    Text="Welcome to our Wordpress Store!"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
+            </StackLayout>
+
+        </StackLayout>
+    </Grid>
+</ContentView>

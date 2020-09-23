@@ -1,0 +1,1106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WPSTORE.Views.HomePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
+    xmlns:buttonCircle="clr-namespace:ButtonCircle.FormsPlugin.Abstractions;assembly=ButtonCircle.FormsPlugin.Abstractions"
+    xmlns:cardcontrol="clr-namespace:PanCardView.Controls;assembly=PanCardView"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:control="clr-namespace:WPSTORE.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:extensions="clr-namespace:WPSTORE.Extensions"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
+    xmlns:rotator="clr-namespace:Syncfusion.SfRotator.XForms;assembly=Syncfusion.SfRotator.XForms"
+    xmlns:sk="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
+    xmlns:template="clr-namespace:WPSTORE.Views.Templates"
+    xmlns:touch="clr-namespace:TouchEffect;assembly=TouchEffect"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    ios:Page.UseSafeArea="true"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{DynamicResource colBG2}"
+    Shell.NavBarHasShadow="False"
+    Shell.NavBarIsVisible="False"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout
+                    sk:Skeleton.IsBusy="{Binding IsBusy}"
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="0"
+                    VerticalOptions="FillAndExpand">
+                    <Grid
+                        Margin="0,0,0,0"
+                        Padding="16,8"
+                        sk:Skeleton.Animation="{sk:DefaultAnimation Fade}"
+                        sk:Skeleton.IsBusy="{Binding IsBusy}"
+                        sk:Skeleton.IsParent="True"
+                        BackgroundColor="{DynamicResource colBG1}"
+                        ColumnSpacing="5"
+                        HeightRequest="88"
+                        RowSpacing="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <ffimageloading:CachedImage
+                            Grid.RowSpan="2"
+                            sk:Skeleton.IsBusy="{Binding IsBusy}"
+                            HeightRequest="48"
+                            HorizontalOptions="Center"
+                            Source="{Binding UserInfo.PictureUrl}"
+                            VerticalOptions="Center"
+                            WidthRequest="48">
+                            <ffimageloading:CachedImage.CacheKeyFactory>
+                                <extensions:CustomCacheKeyFactory />
+                            </ffimageloading:CachedImage.CacheKeyFactory>
+                            <ffimageloading:CachedImage.Transformations>
+                                <fftransformations:CircleTransformation BorderHexColor="#333333" BorderSize="5" />
+                            </ffimageloading:CachedImage.Transformations>
+                        </ffimageloading:CachedImage>
+
+                        <Label
+                            Grid.Column="1"
+                            FontFamily="{StaticResource BoldFont_ProductSans}"
+                            FontSize="14"
+                            HorizontalOptions="Start"
+                            Text="{Binding UserInfo.DisplayName}"
+                            TextColor="{DynamicResource Gray-900}"
+                            VerticalTextAlignment="End" />
+
+                        <StackLayout
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Orientation="Horizontal"
+                            Spacing="5">
+                            <Label
+                                FontFamily="{StaticResource RegularFont_ProductSans}"
+                                FontSize="13"
+                                HorizontalOptions="Start"
+                                LineBreakMode="TailTruncation"
+                                LineHeight="{OnPlatform Default=-1,
+                                                        Android=1.25}"
+                                MaxLines="2"
+                                Text="Diamond Level"
+                                TextColor="{DynamicResource Gray-700}" />
+                            <BoxView BackgroundColor="{DynamicResource Gray-900}" WidthRequest="1" />
+                            <Label
+                                FontFamily="{StaticResource BoldFont_ProductSans}"
+                                FontSize="12"
+                                HorizontalOptions="Start"
+                                LineBreakMode="TailTruncation"
+                                LineHeight="{OnPlatform Default=-1,
+                                                        Android=1.25}"
+                                MaxLines="2"
+                                Text="549 Points"
+                                TextColor="{DynamicResource Gray-900}" />
+                        </StackLayout>
+
+                        <badge:SfBadgeView
+                            x:Name="notificationsBadge"
+                            Grid.RowSpan="2"
+                            Grid.Column="2"
+                            Margin="0"
+                            sk:Skeleton.IsBusy="{Binding IsBusy}"
+                            BadgeText="{Binding NotificationCounts, Mode=TwoWay}"
+                            HorizontalOptions="EndAndExpand"
+                            VerticalOptions="Center">
+                            <badge:SfBadgeView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding NotificationCommand}" />
+                            </badge:SfBadgeView.GestureRecognizers>
+                            <badge:SfBadgeView.BadgeSettings>
+                                <badge:BadgeSetting
+                                    BadgeAlignment="Center"
+                                    BadgeAnimation="Scale"
+                                    BadgePosition="TopRight"
+                                    BadgeType="Error"
+                                    FontSize="10"
+                                    TextPadding="5"
+                                    Offset="-1,1" />
+                            </badge:SfBadgeView.BadgeSettings>
+                            <badge:SfBadgeView.Content>
+                                <Label
+                                    FontFamily="{StaticResource FontAwesome}"
+                                    FontSize="22"
+                                    HorizontalOptions="Start"
+                                    Text="&#xf0f3;"
+                                    TextColor="{DynamicResource Gray-700}"
+                                    VerticalOptions="Start">
+                                    <!--<Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BackCommand}" />
+                                </Label.GestureRecognizers>-->
+                                </Label>
+                            </badge:SfBadgeView.Content>
+                        </badge:SfBadgeView>
+                    </Grid>
+
+                    <BoxView
+                        BackgroundColor="{DynamicResource Gray-500}"
+                        HeightRequest="0.5"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill" />
+
+                    <ScrollView Padding="0,0,0,15">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!--  Sliders  -->
+                            <rotator:SfRotator
+                                x:Name="sliderPosts"
+                                Grid.Row="0"
+                                Margin="{OnPlatform Android='0,0,0,0',
+                                                    iOS='10,0,10,20'}"
+                                BackgroundColor="#FFFFFF"
+                                DotPlacement="Default"
+                                DotsBorderColor="Blue"
+                                EnableAutoPlay="True"
+                                EnableLooping="True"
+                                HeightRequest="{OnPlatform 190,
+                                                           iOS=210}"
+                                HorizontalOptions="Center"
+                                ItemsSource="{Binding Sliders}"
+                                NavigationDelay="2000"
+                                NavigationStripMode="Dots"
+                                SelectedDotColor="Orange"
+                                SelectedIndex="{Binding CurrentFeaturedIndex, Mode=TwoWay}"
+                                UnselectedDotColor="{DynamicResource Gray-200}"
+                                VerticalOptions="Start">
+                                <rotator:SfRotator.ItemTemplate>
+                                    <DataTemplate>
+                                        <pancake:PancakeView Margin="{OnPlatform '10,10,10,10', iOS='0,20,0,10'}" CornerRadius="0">
+                                            <Grid>
+                                                <ffimageloading:CachedImage
+                                                    x:Name="backgroundImage"
+                                                    Aspect="AspectFill"
+                                                    FadeAnimationEnabled="True"
+                                                    FadeAnimationForCachedImages="True"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    LoadingPlaceholder="logo.png"
+                                                    Source="{Binding jetpack_featured_media_url}">
+                                                    <ffimageloading:CachedImage.CacheKeyFactory>
+                                                        <extensions:CustomCacheKeyFactory />
+                                                    </ffimageloading:CachedImage.CacheKeyFactory>
+                                                </ffimageloading:CachedImage>
+
+                                                <Grid Padding="0" VerticalOptions="End">
+                                                    <BoxView
+                                                        Margin="0,0,0,20"
+                                                        BackgroundColor="{DynamicResource Gray-Black}"
+                                                        Opacity="0.5"
+                                                        VerticalOptions="End" />
+                                                    <Label
+                                                        Margin="10,0,10,30"
+                                                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                                                        FontSize="16"
+                                                        HorizontalTextAlignment="Start"
+                                                        LineBreakMode="TailTruncation"
+                                                        MaxLines="2"
+                                                        Text="{Binding title.rendered}"
+                                                        TextColor="{DynamicResource Gray-White}"
+                                                        TextType="Html"
+                                                        VerticalTextAlignment="End" />
+                                                </Grid>
+                                            </Grid>
+                                            <pancake:PancakeView.GestureRecognizers>
+                                                <TapGestureRecognizer CommandParameter="{Binding Path=BindingContext.CurrentFeaturedIndex, Source={x:Reference sliderPosts}}" Tapped="OnSliderItemTapped" />
+                                            </pancake:PancakeView.GestureRecognizers>
+                                        </pancake:PancakeView>
+                                    </DataTemplate>
+                                </rotator:SfRotator.ItemTemplate>
+                            </rotator:SfRotator>
+                            <!--<cards:CoverFlowView
+                                x:Name="sliderPosts"
+                                Grid.Row="0"
+                                Margin="{OnPlatform Android='0',
+                                                    iOS='10,0,0,20'}"
+                                HeightRequest="{OnPlatform 190,
+                                                           iOS=210}"
+                                HorizontalOptions="FillAndExpand"
+                                IsAutoNavigatingAnimationEnabled="True"
+                                IsCyclical="true"
+                                IsPanSwipeEnabled="True"
+                                IsUserInteractionEnabled="True"
+                                IsViewReusingEnabled="True"
+                                ItemsSource="{Binding Sliders}"
+                                PositionShiftValue="0"
+                                SelectedIndex="{Binding CurrentFeaturedIndex}"
+                                SlideShowDuration="5000">
+                                <x:Arguments>
+                                    <proc:BaseCoverFlowFrontViewProcessor OpacityFactor="0.25" ScaleFactor="0.75" />
+                                    <proc:BaseCoverFlowBackViewProcessor OpacityFactor="0.25" ScaleFactor="0.75" />
+                                </x:Arguments>
+                                <cards:CoverFlowView.ItemTemplate>
+                                    <DataTemplate>
+                                        <pancake:PancakeView Margin="{OnPlatform '10,10,10,10', iOS='0,20,0,10'}" CornerRadius="3">
+
+                                            <Grid>
+                                                <ffimageloading:CachedImage
+                                                    x:Name="backgroundImage"
+                                                    Aspect="AspectFill"
+                                                    FadeAnimationEnabled="True"
+                                                    FadeAnimationForCachedImages="True"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    LoadingPlaceholder="logo.png"
+                                                    Source="{Binding jetpack_featured_media_url}">
+                                                    <ffimageloading:CachedImage.CacheKeyFactory>
+                                                        <extensions:CustomCacheKeyFactory />
+                                                    </ffimageloading:CachedImage.CacheKeyFactory>
+                                                </ffimageloading:CachedImage>
+
+                                                <Grid Padding="0" VerticalOptions="End">
+                                                    <BoxView
+                                                        Margin="0,0,0,20"
+                                                        BackgroundColor="{DynamicResource Gray-Black}"
+                                                        Opacity="0.5"
+                                                        VerticalOptions="End" />
+                                                    <Label
+                                                        Margin="10,0,10,30"
+                                                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                                                        FontSize="16"
+                                                        HorizontalTextAlignment="Start"
+                                                        LineBreakMode="TailTruncation"
+                                                        MaxLines="2"
+                                                        Text="{Binding title.rendered}"
+                                                        TextColor="{DynamicResource Gray-White}"
+                                                        TextType="Html"
+                                                        VerticalTextAlignment="End" />
+                                                </Grid>
+                                            </Grid>
+
+                                            <pancake:PancakeView.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding BindingContext.SlidersTapCommand, Source={x:Reference sliderPosts}}" CommandParameter="{Binding .}" />
+                                            </pancake:PancakeView.GestureRecognizers>
+                                        </pancake:PancakeView>
+                                    </DataTemplate>
+                                </cards:CoverFlowView.ItemTemplate>
+                                <cardcontrol:IndicatorsControl ToFadeDuration="2000" />
+                            </cards:CoverFlowView>-->
+
+                            <!--  Member Accesses  -->
+                            <Frame
+                                Grid.Row="1"
+                                Margin="0,0,0,10"
+                                Padding="0,20,0,20"
+                                sk:Skeleton.Animation="{sk:DefaultAnimation Fade}"
+                                sk:Skeleton.IsBusy="{Binding IsBusy}"
+                                sk:Skeleton.IsParent="True"
+                                BackgroundColor="{DynamicResource colBG1}"
+                                CornerRadius="0">
+                                <Grid ColumnSpacing="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.25*" />
+                                        <ColumnDefinition Width="0.25*" />
+                                        <ColumnDefinition Width="0.25*" />
+                                        <ColumnDefinition Width="0.25*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackLayout
+                                        Grid.Column="0"
+                                        sk:Skeleton.IsBusy="{Binding IsBusy}"
+                                        Spacing="5">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding RedemptionPinCommand}" />
+                                        </StackLayout.GestureRecognizers>
+
+                                        <Image
+                                            Aspect="AspectFit"
+                                            HeightRequest="50"
+                                            Source="redemption_scan"
+                                            WidthRequest="50" />
+                                        <Label
+                                            FontFamily="{StaticResource BoldFont_ProductSans}"
+                                            FontSize="12"
+                                            HorizontalOptions="Center"
+                                            Text="{translator:Translate Redemption}"
+                                            TextColor="{DynamicResource Gray-800}"
+                                            VerticalOptions="End" />
+                                    </StackLayout>
+
+                                    <StackLayout
+                                        Grid.Column="1"
+                                        sk:Skeleton.IsBusy="{Binding IsBusy}"
+                                        Spacing="5">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding OrderCommand}" />
+                                        </StackLayout.GestureRecognizers>
+
+                                        <Image
+                                            Aspect="AspectFit"
+                                            HeightRequest="50"
+                                            Source="delivery_icon"
+                                            WidthRequest="50" />
+                                        <Label
+                                            FontFamily="{StaticResource BoldFont_ProductSans}"
+                                            FontSize="12"
+                                            HorizontalOptions="Center"
+                                            Text="{translator:Translate Order}"
+                                            TextColor="{DynamicResource Gray-800}"
+                                            VerticalOptions="End" />
+                                    </StackLayout>
+
+                                    <StackLayout
+                                        Grid.Column="2"
+                                        sk:Skeleton.IsBusy="{Binding IsBusy}"
+                                        Spacing="5">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding VouchersCommand}" />
+                                        </StackLayout.GestureRecognizers>
+
+                                        <Image
+                                            Aspect="AspectFit"
+                                            HeightRequest="50"
+                                            Source="coupon_icon"
+                                            WidthRequest="50" />
+                                        <Label
+                                            FontFamily="{StaticResource BoldFont_ProductSans}"
+                                            FontSize="12"
+                                            HorizontalOptions="Center"
+                                            Text="{translator:Translate Vouchers}"
+                                            TextColor="{DynamicResource Gray-800}"
+                                            VerticalOptions="End" />
+                                    </StackLayout>
+
+                                    <StackLayout
+                                        Grid.Column="3"
+                                        sk:Skeleton.IsBusy="{Binding IsBusy}"
+                                        Spacing="5">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding RewardsCommand}" />
+                                        </StackLayout.GestureRecognizers>
+
+                                        <Image
+                                            Aspect="AspectFit"
+                                            HeightRequest="50"
+                                            Source="redemption_icon"
+                                            WidthRequest="50" />
+                                        <Label
+                                            FontFamily="{StaticResource BoldFont_ProductSans}"
+                                            FontSize="12"
+                                            HorizontalOptions="Center"
+                                            Text="{translator:Translate Rewards}"
+                                            TextColor="{DynamicResource Gray-800}"
+                                            VerticalOptions="End" />
+                                    </StackLayout>
+                                </Grid>
+                            </Frame>
+
+                            <!--  Music Playing  -->
+                            <Grid
+                                Grid.Row="2"
+                                Padding="10"
+                                sk:Skeleton.IsBusy="{Binding IsBusy}"
+                                IsVisible="False"
+                                RowSpacing="8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Label
+                                    Grid.Row="0"
+                                    FontFamily="{StaticResource BoldFont_ProductSans}"
+                                    FontSize="13"
+                                    HorizontalOptions="Start"
+                                    HorizontalTextAlignment="Start"
+                                    Text="{translator:Translate PlayingMusic}"
+                                    TextColor="{DynamicResource Gray-900}"
+                                    VerticalOptions="End" />
+
+                                <Frame
+                                    Grid.Row="1"
+                                    Margin="0"
+                                    Padding="10"
+                                    sk:Skeleton.IsBusy="{Binding IsBusy}"
+                                    BackgroundColor="{DynamicResource colBG1}"
+                                    CornerRadius="10"
+                                    HasShadow="True"
+                                    HeightRequest="75">
+                                    <Grid ColumnSpacing="10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="80" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <ffimageloading:CachedImage
+                                            x:Name="CoverImage"
+                                            Grid.Column="0"
+                                            Margin="0"
+                                            Aspect="AspectFit"
+                                            Source="{Binding Song.Cover}">
+                                            <ffimageloading:CachedImage.Transformations>
+                                                <fftransformations:CircleTransformation />
+                                            </ffimageloading:CachedImage.Transformations>
+                                        </ffimageloading:CachedImage>
+
+                                        <buttonCircle:CircleButton
+                                            BackgroundColor="{DynamicResource colPrim}"
+                                            Command="{Binding PlayCommand}"
+                                            FontIcon="FontAwesome"
+                                            FontSize="10"
+                                            HeightRequest="15"
+                                            HorizontalOptions="Center"
+                                            Icon="{Binding Icon}"
+                                            TextColor="{DynamicResource Gray-White}"
+                                            VerticalOptions="Center"
+                                            WidthRequest="15" />
+
+                                        <StackLayout
+                                            Grid.Column="1"
+                                            Spacing="5"
+                                            VerticalOptions="FillAndExpand">
+
+                                            <Label
+                                                FontFamily="{StaticResource BoldFont_ProductSans}"
+                                                FontSize="14"
+                                                LineBreakMode="TailTruncation"
+                                                Text="{Binding Song.Title}"
+                                                TextColor="{DynamicResource Gray-900}" />
+
+                                            <Label
+                                                FontFamily="{StaticResource BoldFont_ProductSans}"
+                                                FontSize="12"
+                                                Text="{Binding Song.Artist}"
+                                                TextColor="{DynamicResource colPrim}" />
+
+                                            <StackLayout
+                                                HorizontalOptions="StartAndExpand"
+                                                Orientation="Horizontal"
+                                                Spacing="0">
+                                                <lottie:AnimationView
+                                                    Animation="equal_playing.json"
+                                                    AutoPlay="true"
+                                                    HeightRequest="25"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    Loop="true"
+                                                    VerticalOptions="FillAndExpand"
+                                                    WidthRequest="25" />
+                                                <Label
+                                                    FontFamily="{StaticResource RegularFont_ProductSans}"
+                                                    FontSize="12"
+                                                    HorizontalOptions="StartAndExpand"
+                                                    Text="{translator:Translate NowPlaying}"
+                                                    TextColor="{DynamicResource Gray-900}"
+                                                    VerticalOptions="End" />
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </Grid>
+                                </Frame>
+                            </Grid>
+
+                            <!--  Product categories  -->
+                            <Grid Grid.Row="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Grid
+                                    Grid.Row="0"
+                                    Margin="10,5,10,5"
+                                    sk:Skeleton.IsBusy="{Binding IsBusy}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.5*" />
+                                        <ColumnDefinition Width="0.5*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        Grid.Column="0"
+                                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                                        FontSize="13"
+                                        HorizontalOptions="Start"
+                                        HorizontalTextAlignment="Start"
+                                        Text="{translator:Translate ProductCategories}"
+                                        TextColor="{DynamicResource colPrim}"
+                                        VerticalOptions="End" />
+                                    <!--<StackLayout
+                                        Grid.Column="1"
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Center"
+                                        WidthRequest="120">
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="ShowAllWhatsNews_Tapped" />
+                                        </StackLayout.GestureRecognizers>
+                                        <Label
+                                            FontFamily="{StaticResource FontAwesome}"
+                                            FontSize="18"
+                                            HorizontalOptions="End"
+                                            Text="&#xf101;"
+                                            TextColor="{DynamicResource colPrim}" />
+                                    </StackLayout>-->
+                                </Grid>
+
+                                <Grid Grid.Row="1" HeightRequest="110">
+                                    <CollectionView
+                                        x:Name="ProductCategoriesSlider"
+                                        Margin="8,0,8,0"
+                                        HorizontalScrollBarVisibility="Never"
+                                        ItemsSource="{Binding ProductCategories}"
+                                        SelectionMode="None"
+                                        VerticalScrollBarVisibility="Never">
+                                        <CollectionView.ItemsLayout>
+                                            <LinearItemsLayout Orientation="Horizontal" />
+                                        </CollectionView.ItemsLayout>
+
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Padding="8,8,8,8" RowSpacing="8">
+                                                    <Grid.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding BindingContext.CategoriesTapCommand, Source={x:Reference ProductCategoriesSlider}}" CommandParameter="{Binding .}" />
+                                                    </Grid.GestureRecognizers>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="60" />
+                                                        <RowDefinition Height="40" />
+                                                    </Grid.RowDefinitions>
+
+                                                    <control:CustomShadowFrame
+                                                        Padding="0"
+                                                        BackgroundColor="{DynamicResource colBG1}"
+                                                        CornerRadius="30"
+                                                        HeightRequest="60"
+                                                        HorizontalOptions="Center"
+                                                        IsClippedToBounds="True"
+                                                        Visual="Material"
+                                                        WidthRequest="60">
+                                                        <ffimageloading:CachedImage
+                                                            Aspect="AspectFit"
+                                                            HeightRequest="60"
+                                                            Source="{Binding Image.ImageUrl}"
+                                                            WidthRequest="60">
+                                                            <ffimageloading:CachedImage.Transformations>
+                                                                <fftransformations:CircleTransformation />
+                                                            </ffimageloading:CachedImage.Transformations>
+                                                        </ffimageloading:CachedImage>
+                                                    </control:CustomShadowFrame>
+
+                                                    <Label
+                                                        Grid.Row="1"
+                                                        FontFamily="{StaticResource RegularFont_ProductSans}"
+                                                        FontSize="13"
+                                                        HorizontalOptions="Center"
+                                                        LineBreakMode="TailTruncation"
+                                                        Text="{Binding Name}"
+                                                        TextColor="{DynamicResource Gray-900}"
+                                                        VerticalOptions="Start" />
+
+                                                </Grid>
+
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </Grid>
+
+                            </Grid>
+
+                            <!--  Featured Products  -->
+                            <Grid Grid.Row="4" IsVisible="False">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Grid
+                                    Grid.Row="0"
+                                    Margin="10,5,10,5"
+                                    sk:Skeleton.IsBusy="{Binding IsBusy}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.5*" />
+                                        <ColumnDefinition Width="0.5*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        Grid.Column="0"
+                                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                                        FontSize="13"
+                                        HorizontalOptions="Start"
+                                        HorizontalTextAlignment="Start"
+                                        Text="{translator:Translate FeaturedProducts}"
+                                        TextColor="{DynamicResource colPrim}"
+                                        VerticalOptions="End" />
+                                </Grid>
+
+                                <CollectionView
+                                    x:Name="FeaturedProducts"
+                                    Grid.Row="1"
+                                    Margin="0,8,0,5"
+                                    HeightRequest="300"
+                                    HorizontalScrollBarVisibility="Never"
+                                    ItemsSource="{Binding FeaturedProducts}"
+                                    SelectionMode="None"
+                                    VerticalScrollBarVisibility="Never">
+                                    <CollectionView.ItemsLayout>
+                                        <LinearItemsLayout Orientation="Horizontal" />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <template:HomeCardWithOrderButtonTemplate
+                                                Padding="2,0,3,3"
+                                                BackgroundColor="{DynamicResource colBG2}"
+                                                WidthRequest="230">
+                                                <template:HomeCardWithOrderButtonTemplate.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding BindingContext.ProductTapCommand, Source={x:Reference FeaturedProducts}}" CommandParameter="{Binding .}" />
+                                                </template:HomeCardWithOrderButtonTemplate.GestureRecognizers>
+                                            </template:HomeCardWithOrderButtonTemplate>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+
+                            </Grid>
+
+                            <!--  Post categories  -->
+                            <Grid
+                                Grid.Row="5"
+                                HorizontalOptions="FillAndExpand"
+                                RowSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <!--  WhatsNews  -->
+                                <Grid Grid.Row="0" Margin="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1.8" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0" sk:Skeleton.IsBusy="{Binding IsBusy}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.4*" />
+                                            <ColumnDefinition Width="0.6*" />
+                                        </Grid.ColumnDefinitions>
+                                        <pancake:PancakeView
+                                            Margin="0,0,0,0"
+                                            Padding="0"
+                                            BackgroundGradientAngle="45"
+                                            BackgroundGradientEndColor="{DynamicResource colGradEnd}"
+                                            BackgroundGradientStartColor="{DynamicResource colGradStart}"
+                                            BorderColor="Transparent"
+                                            BorderThickness="1"
+                                            CornerRadius="0,50,0,0"
+                                            Elevation="1"
+                                            HasShadow="False"
+                                            Opacity="0.8" />
+                                        <Label
+                                            Grid.Column="0"
+                                            Margin="10,5,0,0"
+                                            FontFamily="{StaticResource BoldFont_ProductSans}"
+                                            FontSize="13"
+                                            HorizontalOptions="Start"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{translator:Translate WhatsNews}"
+                                            TextColor="{DynamicResource Gray-White}"
+                                            VerticalOptions="Center" />
+
+                                        <StackLayout
+                                            Grid.Column="1"
+                                            Padding="0,10,10,5"
+                                            HeightRequest="25"
+                                            HorizontalOptions="EndAndExpand"
+                                            Orientation="Horizontal"
+                                            Spacing="5"
+                                            VerticalOptions="Center">
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="ShowAllWhatsNews_Tapped" />
+                                            </StackLayout.GestureRecognizers>
+                                            <Label
+                                                FontFamily="{StaticResource BoldFont_ProductSans}"
+                                                FontSize="14"
+                                                HorizontalOptions="EndAndExpand"
+                                                Text="{translator:Translate ViewAll}"
+                                                TextColor="{DynamicResource colPrim}"
+                                                VerticalOptions="EndAndExpand" />
+                                            <Label
+                                                FontFamily="{StaticResource FontAwesome}"
+                                                FontSize="14"
+                                                HorizontalOptions="EndAndExpand"
+                                                Text="&#xf054;"
+                                                TextColor="{DynamicResource colPrim}"
+                                                VerticalOptions="EndAndExpand" />
+                                        </StackLayout>
+                                    </Grid>
+                                    <BoxView Grid.Row="1" BackgroundColor="{DynamicResource colPrim}" />
+                                    <CollectionView
+                                        x:Name="WhatsNewsSlider"
+                                        Grid.Row="2"
+                                        Margin="0,8,0,5"
+                                        HeightRequest="300"
+                                        HorizontalScrollBarVisibility="Never"
+                                        ItemsSource="{Binding WhatsNews}"
+                                        SelectionMode="None"
+                                        VerticalScrollBarVisibility="Never">
+                                        <CollectionView.ItemsLayout>
+                                            <LinearItemsLayout Orientation="Horizontal" />
+                                        </CollectionView.ItemsLayout>
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <template:HomeCardWithViewButtonTemplate
+                                                    Padding="2,0,3,3"
+                                                    BackgroundColor="{DynamicResource colBG2}"
+                                                    WidthRequest="230">
+                                                    <template:HomeCardWithViewButtonTemplate.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding BindingContext.PostTapCommand, Source={x:Reference WhatsNewsSlider}}" CommandParameter="{Binding .}" />
+                                                    </template:HomeCardWithViewButtonTemplate.GestureRecognizers>
+                                                </template:HomeCardWithViewButtonTemplate>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </Grid>
+
+                                <!--  News  -->
+                                <Grid Grid.Row="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1.8" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <!--<Grid
+                                        Grid.Row="0"
+                                        Margin="10,10,10,5"
+                                        sk:Skeleton.IsBusy="{Binding IsBusy}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.5*" />
+                                            <ColumnDefinition Width="0.5*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label
+                                            Grid.Column="0"
+                                            FontFamily="{StaticResource BoldFont_ProductSans}"
+                                            FontSize="13"
+                                            HorizontalOptions="Start"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{translator:Translate News}"
+                                            TextColor="{DynamicResource colPrim}"
+                                            VerticalOptions="End" />
+                                        <Button
+                                            Grid.Column="1"
+                                            Margin="0,10,0,0"
+                                            Padding="0"
+                                            BackgroundColor="Transparent"
+                                            BorderColor="{DynamicResource colPrim}"
+                                            BorderWidth="1.2"
+                                            Clicked="ShowAllNews_Tapped"
+                                            CornerRadius="15"
+                                            FontFamily="{StaticResource RegularFont_ProductSans}"
+                                            FontSize="12"
+                                            HeightRequest="30"
+                                            HorizontalOptions="End"
+                                            Text="{translator:Translate ViewAll}"
+                                            TextColor="{DynamicResource colPrim}"
+                                            VerticalOptions="Center" />
+                                    -->
+                                    <!--<StackLayout
+                                            Grid.Column="1"
+                                            HorizontalOptions="End"
+                                            VerticalOptions="Center"
+                                            WidthRequest="120">
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="ShowAllNews_Tapped" />
+                                            </StackLayout.GestureRecognizers>
+                                            <Label
+                                                FontFamily="{StaticResource RegularFont_ProductSans}"
+                                                FontSize="14"
+                                                HorizontalOptions="End"
+                                                Text="{translator:Translate ViewAll}"
+                                                TextColor="{DynamicResource Gray-900}"
+                                                TextDecorations="Underline" />
+                                        </StackLayout>-->
+                                    <!--
+
+                                    </Grid>-->
+                                    <Grid Grid.Row="0" sk:Skeleton.IsBusy="{Binding IsBusy}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.4*" />
+                                            <ColumnDefinition Width="0.6*" />
+                                        </Grid.ColumnDefinitions>
+                                        <pancake:PancakeView
+                                            Margin="0,0,0,0"
+                                            Padding="0"
+                                            BackgroundGradientAngle="45"
+                                            BackgroundGradientEndColor="{DynamicResource colGradEnd}"
+                                            BackgroundGradientStartColor="{DynamicResource colGradStart}"
+                                            BorderColor="Transparent"
+                                            BorderThickness="1"
+                                            CornerRadius="0,50,0,0"
+                                            Elevation="1"
+                                            HasShadow="False"
+                                            Opacity="0.8" />
+                                        <Label
+                                            Grid.Column="0"
+                                            Margin="10,5,0,0"
+                                            FontFamily="{StaticResource BoldFont_ProductSans}"
+                                            FontSize="13"
+                                            HorizontalOptions="Start"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{translator:Translate News}"
+                                            TextColor="{DynamicResource Gray-White}"
+                                            VerticalOptions="Center" />
+
+                                        <StackLayout
+                                            Grid.Column="1"
+                                            Padding="0,10,10,5"
+                                            HeightRequest="25"
+                                            HorizontalOptions="EndAndExpand"
+                                            Orientation="Horizontal"
+                                            Spacing="5"
+                                            VerticalOptions="Center">
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="ShowAllNews_Tapped" />
+                                            </StackLayout.GestureRecognizers>
+                                            <Label
+                                                FontFamily="{StaticResource BoldFont_ProductSans}"
+                                                FontSize="14"
+                                                HorizontalOptions="EndAndExpand"
+                                                Text="{translator:Translate ViewAll}"
+                                                TextColor="{DynamicResource colPrim}"
+                                                VerticalOptions="EndAndExpand" />
+                                            <Label
+                                                FontFamily="{StaticResource FontAwesome}"
+                                                FontSize="14"
+                                                HorizontalOptions="EndAndExpand"
+                                                Text="&#xf054;"
+                                                TextColor="{DynamicResource colPrim}"
+                                                VerticalOptions="EndAndExpand" />
+                                        </StackLayout>
+                                    </Grid>
+                                    <BoxView Grid.Row="1" BackgroundColor="{DynamicResource colPrim}" />
+                                    <CollectionView
+                                        x:Name="NewsSlider"
+                                        Grid.Row="2"
+                                        Margin="0,8,0,5"
+                                        HeightRequest="300"
+                                        HorizontalScrollBarVisibility="Never"
+                                        ItemsSource="{Binding News}"
+                                        SelectionMode="None"
+                                        VerticalScrollBarVisibility="Never">
+                                        <CollectionView.ItemsLayout>
+                                            <LinearItemsLayout Orientation="Horizontal" />
+                                        </CollectionView.ItemsLayout>
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <template:HomeCardWithViewButtonTemplate
+                                                    Padding="2,0,3,3"
+                                                    sk:Skeleton.Animation="{sk:DefaultAnimation Fade}"
+                                                    sk:Skeleton.IsBusy="{Binding IsBusy}"
+                                                    WidthRequest="230">
+                                                    <template:HomeCardWithViewButtonTemplate.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding BindingContext.PostTapCommand, Source={x:Reference NewsSlider}}" CommandParameter="{Binding .}" />
+                                                    </template:HomeCardWithViewButtonTemplate.GestureRecognizers>
+                                                </template:HomeCardWithViewButtonTemplate>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </Grid>
+
+                                <!--  CoffeeLover  -->
+                                <Grid Grid.Row="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="1.8" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0" sk:Skeleton.IsBusy="{Binding IsBusy}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.4*" />
+                                            <ColumnDefinition Width="0.6*" />
+                                        </Grid.ColumnDefinitions>
+                                        <pancake:PancakeView
+                                            Margin="0,0,0,0"
+                                            Padding="0"
+                                            BackgroundGradientAngle="45"
+                                            BackgroundGradientEndColor="{DynamicResource colGradEnd}"
+                                            BackgroundGradientStartColor="{DynamicResource colGradStart}"
+                                            BorderColor="Transparent"
+                                            BorderThickness="1"
+                                            CornerRadius="0,50,0,0"
+                                            Elevation="1"
+                                            HasShadow="False"
+                                            Opacity="0.8" />
+                                        <Label
+                                            Grid.Column="0"
+                                            Margin="10,5,0,0"
+                                            FontFamily="{StaticResource BoldFont_ProductSans}"
+                                            FontSize="13"
+                                            HorizontalOptions="Start"
+                                            HorizontalTextAlignment="Start"
+                                            Text="{translator:Translate CoffeeLover}"
+                                            TextColor="{DynamicResource Gray-White}"
+                                            VerticalOptions="Center" />
+
+                                        <StackLayout
+                                            Grid.Column="1"
+                                            Padding="0,10,10,5"
+                                            HeightRequest="25"
+                                            HorizontalOptions="EndAndExpand"
+                                            Orientation="Horizontal"
+                                            Spacing="5"
+                                            VerticalOptions="Center">
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="ShowAllCoffeeLover_Tapped" />
+                                            </StackLayout.GestureRecognizers>
+                                            <Label
+                                                FontFamily="{StaticResource BoldFont_ProductSans}"
+                                                FontSize="14"
+                                                HorizontalOptions="EndAndExpand"
+                                                Text="{translator:Translate ViewAll}"
+                                                TextColor="{DynamicResource colPrim}"
+                                                VerticalOptions="EndAndExpand" />
+                                            <Label
+                                                FontFamily="{StaticResource FontAwesome}"
+                                                FontSize="14"
+                                                HorizontalOptions="EndAndExpand"
+                                                Text="&#xf054;"
+                                                TextColor="{DynamicResource colPrim}"
+                                                VerticalOptions="EndAndExpand" />
+                                        </StackLayout>
+                                    </Grid>
+                                    <BoxView Grid.Row="1" BackgroundColor="{DynamicResource colPrim}" />
+                                    <CollectionView
+                                        x:Name="PromotionsSlider"
+                                        Grid.Row="2"
+                                        Margin="0,8,0,5"
+                                        HeightRequest="300"
+                                        HorizontalScrollBarVisibility="Never"
+                                        ItemsSource="{Binding CoffeeLover}"
+                                        SelectionMode="None"
+                                        VerticalScrollBarVisibility="Never">
+                                        <CollectionView.ItemsLayout>
+                                            <LinearItemsLayout Orientation="Horizontal" />
+                                        </CollectionView.ItemsLayout>
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <template:HomeCardWithViewButtonTemplate
+                                                    Padding="2,0,3,3"
+                                                    sk:Skeleton.Animation="{sk:DefaultAnimation Fade}"
+                                                    sk:Skeleton.IsBusy="{Binding IsBusy}"
+                                                    WidthRequest="230">
+                                                    <template:HomeCardWithViewButtonTemplate.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding BindingContext.PostTapCommand, Source={x:Reference PromotionsSlider}}" CommandParameter="{Binding .}" />
+                                                    </template:HomeCardWithViewButtonTemplate.GestureRecognizers>
+                                                </template:HomeCardWithViewButtonTemplate>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </ScrollView>
+
+                    <BoxView
+                        BackgroundColor="{DynamicResource Gray-900}"
+                        HeightRequest="0.5"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="End" />
+                </StackLayout>
+            </Grid>
+
+            <pancake:PancakeView
+                Padding="15"
+                touch:TouchEff.PressedAnimationDuration="500"
+                touch:TouchEff.PressedAnimationEasing="{x:Static Easing.CubicIn}"
+                touch:TouchEff.PressedScale="1.25"
+                touch:TouchEff.RegularAnimationDuration="500"
+                touch:TouchEff.RegularAnimationEasing="{x:Static Easing.CubicOut}"
+                touch:TouchEff.RippleCount="-1"
+                AbsoluteLayout.LayoutBounds="1,1,60,60"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                BackgroundGradientAngle="45"
+                BackgroundGradientEndColor="{DynamicResource colGradEnd}"
+                BackgroundGradientStartColor="{DynamicResource colGradStart}"
+                CornerRadius="30"
+                TranslationX="-20"
+                TranslationY="-20">
+                <Image
+                    Aspect="AspectFit"
+                    HorizontalOptions="Center"
+                    Source="btn_help"
+                    VerticalOptions="Center" />
+                <pancake:PancakeView.Effects>
+                    <touch:TouchEff Completed="OnSocialClicked" />
+                </pancake:PancakeView.Effects>
+            </pancake:PancakeView>
+
+            <Image
+                x:Name="FirstSocial"
+                touch:TouchEff.CommandParameter="question"
+                touch:TouchEff.PressedAnimationDuration="250"
+                touch:TouchEff.PressedOpacity="0.5"
+                touch:TouchEff.RegularAnimationDuration="250"
+                AbsoluteLayout.LayoutBounds="1,1,50,50"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                Aspect="AspectFill"
+                Scale="0"
+                Source="question.png"
+                TranslationX="-15"
+                TranslationY="-90">
+
+                <Image.Effects>
+                    <touch:TouchEff Completed="OnQuestionPicked" />
+                </Image.Effects>
+
+            </Image>
+
+            <Image
+                x:Name="SecondSocial"
+                touch:TouchEff.CommandParameter="messenger"
+                touch:TouchEff.PressedAnimationDuration="250"
+                touch:TouchEff.PressedOpacity="0.5"
+                touch:TouchEff.RegularAnimationDuration="250"
+                AbsoluteLayout.LayoutBounds="1,1,50,50"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                Aspect="AspectFill"
+                Scale="0"
+                Source="chat.png"
+                TranslationX="-70"
+                TranslationY="-70">
+
+                <Image.Effects>
+                    <touch:TouchEff Completed="OnFacebookPicked" />
+                </Image.Effects>
+
+            </Image>
+
+            <Image
+                x:Name="ThirdSocial"
+                touch:TouchEff.CommandParameter="call"
+                touch:TouchEff.PressedAnimationDuration="500"
+                touch:TouchEff.PressedOpacity="0.5"
+                touch:TouchEff.RegularAnimationDuration="500"
+                AbsoluteLayout.LayoutBounds="1,1,50,50"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                Aspect="AspectFill"
+                Scale="0"
+                Source="call.png"
+                TranslationX="-90"
+                TranslationY="-15">
+
+                <Image.Effects>
+                    <touch:TouchEff Completed="OnCallPicked" />
+                </Image.Effects>
+
+            </Image>
+        </AbsoluteLayout>
+
+    </ContentPage.Content>
+</ContentPage>

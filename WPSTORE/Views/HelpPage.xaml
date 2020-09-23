@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="WPSTORE.Views.HelpPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    Title="{translator:Translate HelpTitle}"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    Shell.NavBarIsVisible="True"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand">
+            <Label Margin="16,16,16,10"
+                   FontFamily="{StaticResource FontAwesome}"
+                   FontSize="25"
+                   HorizontalOptions="Start"
+                   Text="&#xf057;"
+                   TextColor="{DynamicResource Gray-700}"
+                   VerticalOptions="Start"
+                   WidthRequest="40">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BackCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <BoxView BackgroundColor="{DynamicResource Gray-500}"
+                     HeightRequest="0.5"
+                     HorizontalOptions="Fill"
+                     VerticalOptions="Fill" />
+            <WebView
+                HorizontalOptions="FillAndExpand"
+                Source="{Binding HelpPageUrl}"
+                VerticalOptions="FillAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

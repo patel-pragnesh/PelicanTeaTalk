@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="WPSTORE.Views.ProductDetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:cardcontrol="clr-namespace:PanCardView.Controls;assembly=PanCardView"
+    xmlns:cards="clr-namespace:PanCardView;assembly=PanCardView"
+    xmlns:controls="clr-namespace:WPSTORE.Controls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:proc="clr-namespace:PanCardView.Processors;assembly=PanCardView"
+    xmlns:rotator="clr-namespace:Syncfusion.SfRotator.XForms;assembly=Syncfusion.SfRotator.XForms"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{DynamicResource colBG2}"
+    CloseWhenBackgroundIsClicked="False"
+    mc:Ignorable="d">
+    <pages:PopupPage.Animation>
+        <animations:MoveAnimation
+            DurationIn="100"
+            DurationOut="100"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"
+            PositionIn="Right"
+            PositionOut="Right" />
+    </pages:PopupPage.Animation>
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="DetailCard" TargetType="pancake:PancakeView">
+                <Setter Property="BackgroundColor" Value="{DynamicResource Gray-500}" />
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="Scale" Value="0" />
+                <Setter Property="TranslationY" Value="100" />
+                <Setter Property="HeightRequest" Value="120" />
+                <Setter Property="WidthRequest" Value="120" />
+            </Style>
+            <Style x:Key="TitleDetailCard" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource BoldFont_ProductSans}" />
+                <Setter Property="TextColor" Value="{DynamicResource Gray-100}" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="FontSize" Value="13" />
+            </Style>
+
+            <Style x:Key="ValueDetailCard" TargetType="Label">
+                <Setter Property="TextColor" Value="{DynamicResource Gray-White}" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontFamily" Value="{StaticResource BoldFont_ProductSans}" />
+            </Style>
+
+            <Style x:Key="FooterBtn" TargetType="Button">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="Padding" Value="20" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="TranslationY" Value="80" />
+                <Setter Property="CornerRadius" Value="0" />
+            </Style>
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+    <pages:PopupPage.Content>
+
+        <Grid>
+            <ScrollView
+                Margin="0,0,0,0"
+                Padding="0,0,0,10"
+                VerticalOptions="FillAndExpand"
+                VerticalScrollBarVisibility="Never">
+                <StackLayout HorizontalOptions="FillAndExpand">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="350" />
+                            <RowDefinition Height="200" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <!--<rotator:SfRotator
+                            x:Name="sliderPosts"
+                            Grid.RowSpan="2"
+                            Margin="0"
+                            BackgroundColor="#FFFFFF"
+                            DotPlacement="Default"
+                            DotsBorderColor="Blue"
+                            EnableAutoPlay="True"
+                            EnableLooping="True"
+                            HorizontalOptions="FillAndExpand"
+                            ItemsSource="{Binding Product.Images}"
+                            NavigationDelay="2000"
+                            NavigationStripMode="Dots"
+                            SelectedDotColor="Orange"
+                            SelectedIndex="{Binding CurrentFeaturedIndex, Mode=TwoWay}"
+                            UnselectedDotColor="{DynamicResource Gray-200}"
+                            VerticalOptions="FillAndExpand">
+                            <rotator:SfRotator.ItemTemplate>
+                                <DataTemplate>
+                                    <ffimageloading:CachedImage Aspect="AspectFill" Source="{Binding ImageUrl}" />
+                                </DataTemplate>
+                            </rotator:SfRotator.ItemTemplate>
+                        </rotator:SfRotator>-->
+                        <cards:CoverFlowView
+                            x:Name="productGallery"
+                            Grid.RowSpan="2"
+                            Margin="{OnPlatform Android='0',
+                                                iOS='0,0,0,0'}"
+                            HorizontalOptions="FillAndExpand"
+                            IsAutoInteractionRunning="False"
+                            IsAutoNavigatingAnimationEnabled="True"
+                            IsCyclical="true"
+                            IsPanSwipeEnabled="True"
+                            IsUserInteractionEnabled="True"
+                            IsViewReusingEnabled="False"
+                            ItemsSource="{Binding Product.Images}"
+                            PositionShiftValue="0"
+                            SlideShowDuration="3000"
+                            VerticalOptions="FillAndExpand">
+
+                            <cards:CoverFlowView.ItemTemplate>
+                                <DataTemplate>
+                                    <ffimageloading:CachedImage Aspect="AspectFill" Source="{Binding ImageUrl}">
+                                        <ffimageloading:CachedImage.GestureRecognizers>
+                                            <TapGestureRecognizer CommandParameter="{Binding ImageUrl}" Tapped="OnImageViewTapped" />
+                                        </ffimageloading:CachedImage.GestureRecognizers>
+                                    </ffimageloading:CachedImage>
+                                </DataTemplate>
+                            </cards:CoverFlowView.ItemTemplate>
+                            <cardcontrol:IndicatorsControl ToFadeDuration="2000" />
+                        </cards:CoverFlowView>
+
+
+                        <Grid
+                            Margin="{OnPlatform Android='0',
+                                                iOS='0,30,0,0'}"
+                            Padding="{OnPlatform Android='15,5,20,5',
+                                                 iOS='10,0,10,0'}"
+                            ColumnSpacing="15"
+                            HeightRequest="50"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="Start">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                                FontFamily="{StaticResource FontAwesome}"
+                                FontSize="25"
+                                Text="&#xf057;"
+                                TextColor="{DynamicResource Gray-700}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BackCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Label
+                                Grid.Column="1"
+                                FontFamily="{StaticResource BoldFont_ProductSans}"
+                                FontSize="16"
+                                HorizontalOptions="Start"
+                                LineBreakMode="TailTruncation"
+                                MaxLines="2"
+                                Text="{Binding Product.Name}"
+                                TextColor="{DynamicResource colPrim}"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
+                        </Grid>
+
+                        <!--<ffimageloading:CachedImage
+                        Grid.RowSpan="2"
+                        Aspect="AspectFill"
+                        Source="{Binding Product.ProductImage}" />-->
+                        <StackLayout
+                            Grid.Row="1"
+                            Margin="10"
+                            HorizontalOptions="StartAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="15"
+                            VerticalOptions="End">
+                            <Label
+                                FontFamily="{StaticResource FontAwesome}"
+                                FontSize="22"
+                                HorizontalOptions="Center"
+                                IsVisible="{Binding Product.Featured}"
+                                Text="&#xf587;"
+                                TextColor="{DynamicResource colPrim}" />
+                            <!--<Label
+                                FontFamily="{StaticResource FontAwesome}"
+                                FontSize="22"
+                                HorizontalOptions="Center"
+                                IsVisible="{Binding Product.OnSale}"
+                                Text="&#xf02b;"
+                                TextColor="{DynamicResource colPrim}" />-->
+                            <!--<Label
+                                FontFamily="{StaticResource RegularFont_ProductSans}"
+                                FontSize="15"
+                                HorizontalOptions="Center"
+                                IsVisible="{Binding Product.OnSale}"
+                                Text="On Sale"
+                                TextColor="{DynamicResource colPrim}" />-->
+                            <ffimageloading:CachedImage
+                                Margin="0,5,5,0"
+                                Aspect="AspectFit"
+                                DownsampleToViewSize="True"
+                                HeightRequest="55"
+                                HorizontalOptions="End"
+                                IsVisible="{Binding Product.OnSale}"
+                                Source="sale_tag"
+                                VerticalOptions="Start"
+                                WidthRequest="55" />
+                        </StackLayout>
+
+                        <StackLayout
+                            Grid.Row="1"
+                            Margin="10"
+                            HorizontalOptions="EndAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="15"
+                            VerticalOptions="End">
+                            <Label
+                                FontFamily="{StaticResource FontAwesome}"
+                                FontSize="22"
+                                HorizontalOptions="Center"
+                                Text="&#xf02e;"
+                                TextColor="{DynamicResource colPrim}" />
+                            <Label
+                                FontFamily="{StaticResource FontAwesome}"
+                                FontSize="22"
+                                HorizontalOptions="Center"
+                                Text="&#xf1e0;"
+                                TextColor="{DynamicResource colPrim}" />
+                        </StackLayout>
+
+                        <StackLayout
+                            Grid.Row="1"
+                            Padding="15,10"
+                            HorizontalOptions="CenterAndExpand"
+                            Orientation="Horizontal"
+                            Spacing="20"
+                            VerticalOptions="CenterAndExpand">
+
+                            <pancake:PancakeView
+                                x:Name="priceContainer"
+                                BackgroundColor="#80000000"
+                                CornerRadius="10"
+                                HeightRequest="80"
+                                WidthRequest="120">
+                                <StackLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+                                    <Label Style="{StaticResource TitleDetailCard}" Text="Price" />
+
+                                    <Grid Padding="0" BackgroundColor="Transparent">
+                                        <Label Style="{StaticResource ValueDetailCard}" Text="{Binding Product.RegularPrice}" />
+                                        <BoxView
+                                            Margin="0"
+                                            BackgroundColor="{DynamicResource colFail}"
+                                            HeightRequest="2"
+                                            HorizontalOptions="Center"
+                                            IsVisible="{Binding Product.OnSale}"
+                                            VerticalOptions="CenterAndExpand" />
+                                    </Grid>
+
+                                    <Label
+                                        IsVisible="{Binding Product.OnSale}"
+                                        Style="{StaticResource ValueDetailCard}"
+                                        Text="{Binding Product.Price}" />
+                                </StackLayout>
+                            </pancake:PancakeView>
+
+                            <pancake:PancakeView
+                                x:Name="sizeContainer"
+                                BackgroundColor="#80000000"
+                                CornerRadius="10"
+                                HeightRequest="80"
+                                WidthRequest="120">
+                                <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                    <Label Style="{StaticResource TitleDetailCard}" Text="Size" />
+                                    <Label Style="{StaticResource ValueDetailCard}" Text="{Binding Product.Dimensions.Length}" />
+                                </StackLayout>
+                            </pancake:PancakeView>
+
+                        </StackLayout>
+
+                        <Grid
+                            Grid.Row="2"
+                            Padding="15,10"
+                            RowSpacing="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Grid HorizontalOptions="FillAndExpand">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <controls:NumericUpDown
+                                    Margin="0,0,0,10"
+                                    Maximum="100"
+                                    Minimum="1"
+                                    OnValueChanged="NumericUpDown_OnValueChanged"
+                                    Value="{Binding Quantity}" />
+
+                                <pancake:PancakeView
+                                    Grid.Column="1"
+                                    Margin="0"
+                                    Padding="15,3"
+                                    BackgroundColor="{DynamicResource colBG1}"
+                                    BorderColor="{DynamicResource colPrim}"
+                                    BorderThickness="3"
+                                    CornerRadius="8"
+                                    HeightRequest="40"
+                                    HorizontalOptions="EndAndExpand"
+                                    WidthRequest="120">
+                                    <Grid HorizontalOptions="FillAndExpand">
+                                        <Label
+                                            FontFamily="{StaticResource FontAwesome}"
+                                            FontSize="20"
+                                            HorizontalOptions="EndAndExpand"
+                                            Text="&#xf07a;"
+                                            TextColor="{DynamicResource colPrim}"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Center" />
+                                        <controls:PriceControl
+                                            CurrencySymbol=""
+                                            CurrencySymbolTextColor="{DynamicResource Gray-White}"
+                                            HorizontalOptions="StartAndExpand"
+                                            Price="{Binding TotalPrice}"
+                                            PriceFontFamily="{StaticResource RegularFont_ProductSans}"
+                                            PriceFontSize="16"
+                                            PriceTextColor="{DynamicResource Gray-White}"
+                                            SymbolFontFamily="{StaticResource RegularFont_ProductSans}"
+                                            VerticalOptions="Center" />
+                                    </Grid>
+
+                                </pancake:PancakeView>
+                            </Grid>
+
+                            <Label
+                                Grid.Row="1"
+                                FontFamily="{StaticResource RegularFont_ProductSans}"
+                                FontSize="15"
+                                LineHeight="1.2"
+                                Text="{Binding Product.ShortDescription}"
+                                TextColor="{DynamicResource Gray-900}"
+                                TextType="Html" />
+                            <Label
+                                Grid.Row="2"
+                                FontFamily="{StaticResource RegularFont_ProductSans}"
+                                FontSize="15"
+                                LineHeight="1.2"
+                                Text="{Binding Product.Description}"
+                                TextColor="{DynamicResource Gray-900}"
+                                TextType="Html" />
+                        </Grid>
+
+                    </Grid>
+
+                    <Button
+                        Margin="10,0"
+                        Padding="5,0,5,0"
+                        BackgroundColor="{DynamicResource colPrim}"
+                        Command="{Binding AddToCartCommand}"
+                        CornerRadius="5"
+                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                        FontSize="16"
+                        HeightRequest="50"
+                        Text="Add to Cart"
+                        TextColor="{DynamicResource Gray-White}"
+                        VerticalOptions="EndAndExpand" />
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+
+    </pages:PopupPage.Content>
+</pages:PopupPage>

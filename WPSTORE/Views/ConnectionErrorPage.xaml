@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+    x:Class="WPSTORE.Views.ConnectionErrorPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    xmlns:svg="clr-namespace:WPSTORE.Controls"
+    xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="{DynamicResource colSec}"
+    NavigationPage.HasNavigationBar="False">
+
+    <pages:PopupPage.Resources>
+        <Style x:Key="LabelStyle" TargetType="Label">
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+            <Setter Property="LineHeight" Value="{OnPlatform Android=1.25, Default=-1}" />
+            <Setter Property="TextColor" Value="{DynamicResource Gray-White}" />
+        </Style>
+
+        <!--  Common button style  -->
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+            <Setter Property="VerticalOptions" Value="EndAndExpand" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0,10,0,24" />
+            <Setter Property="CornerRadius" Value="20" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="WidthRequest" Value="245" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="FontFamily" Value="{StaticResource Montserrat-SemiBold}" />
+            <Setter Property="BackgroundColor" Value="{StaticResource colPrim}" />
+            <Setter Property="TextColor" Value="{DynamicResource Gray-White}" />
+        </Style>
+    </pages:PopupPage.Resources>
+    <ContentPage.Content>
+        <StackLayout
+            BackgroundColor="{DynamicResource colSec}"
+            HorizontalOptions="Center"
+            VerticalOptions="FillAndExpand">
+
+            <Grid VerticalOptions="CenterAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="300" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackLayout
+                    BackgroundColor="Transparent"
+                    Spacing="0"
+                    VerticalOptions="Center">
+                    <svg:SVGImage
+                        x:Name="ErrorImage"
+                        Margin="{x:OnIdiom Phone='0,0,0,0',
+                                           Desktop='0',
+                                           Tablet='0'}"
+                        HeightRequest="{OnPlatform Android=200,
+                                                   iOS=200}"
+                        Source="NoInternet.svg"
+                        VerticalOptions="Center"
+                        WidthRequest="{x:OnIdiom Phone=200,
+                                                 Desktop=300,
+                                                 Tablet=300}" />
+
+                    <Label
+                        Margin="0,32,0,8"
+                        FontFamily="{StaticResource BoldFont_ProductSans}"
+                        FontSize="20"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource LabelStyle}"
+                        Text="{translator:Translate ConnectionErrorTitle}"
+                        VerticalTextAlignment="Center" />
+
+                    <Label
+                        Margin="8,0,8,0"
+                        FontFamily="{StaticResource RegularFont_ProductSans}"
+                        FontSize="16"
+                        Style="{StaticResource LabelStyle}"
+                        Text="{translator:Translate ConnectionErrorContent}"
+                        VerticalTextAlignment="Center" />
+                </StackLayout>
+
+                <Button
+                    Grid.Row="1"
+                    Clicked="OnOkButtonClicked"
+                    Style="{StaticResource ButtonStyle}"
+                    Text="{translator:Translate Ok}" />
+
+            </Grid>
+
+        </StackLayout>
+    </ContentPage.Content>
+</pages:PopupPage>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WPSTORE.Controls.LoadingOverlay"
+             x:Name="ContentView"
+             IsVisible="{Binding Source={x:Reference Name=ContentView}, Path=IsRunning}">
+    <ContentView.Content>
+        <AbsoluteLayout  x:Name="Layout"
+                     VerticalOptions="Fill"
+                     HorizontalOptions="Fill">
+            <ActivityIndicator
+                AbsoluteLayout.LayoutBounds="0.5,0.5,0.1,0.1"
+                AbsoluteLayout.LayoutFlags="All"
+                BindingContext="{x:Reference ContentView}"
+                IsRunning="{Binding IsRunning}"
+                x:Name="Indicator"
+                WidthRequest="40"
+                HeightRequest="40"/>
+        </AbsoluteLayout>
+    </ContentView.Content>
+</ContentView>

@@ -25,7 +25,7 @@ using Android.Content;
 
 namespace WPSTORE.Droid
 {
-    [Activity(Label = "XStore", 
+    [Activity(Label = "TeaTalk",
         Icon = "@drawable/icon",
         //Theme = "@style/Theme.Splash", // <-- Updated
         Theme = "@style/MainTheme",

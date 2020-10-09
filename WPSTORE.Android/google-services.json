@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "1048692320488",
-    "firebase_url": "https://xstore-e0e6d.firebaseio.com",
-    "project_id": "xstore-e0e6d",
-    "storage_bucket": "xstore-e0e6d.appspot.com"
+    "project_number": "310451903694",
+    "firebase_url": "https://teatalkapp-cc57f.firebaseio.com",
+    "project_id": "teatalkapp-cc57f",
+    "storage_bucket": "teatalkapp-cc57f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1048692320488:android:7a99a014b7234bb3a5415d",
+        "mobilesdk_app_id": "1:310451903694:android:743f28cf22d9322a98c49f",
         "android_client_info": {
           "package_name": "com.tls.xstore"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1048692320488-eeb3l4artogqcosbulv4dnrfchj01h2b.apps.googleusercontent.com",
+          "client_id": "310451903694-0o6ru1gjsr0pq8mvpitqvqondp75uh3b.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDLAdpiNJpBAirswopvbRDS3sXEOxVnZzY"
+          "current_key": "AIzaSyAMuonIf4eVU9oIPH_bOPdd4xT-REJwXrw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1048692320488-eeb3l4artogqcosbulv4dnrfchj01h2b.apps.googleusercontent.com",
+              "client_id": "310451903694-0o6ru1gjsr0pq8mvpitqvqondp75uh3b.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

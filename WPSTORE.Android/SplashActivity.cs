@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WPSTORE.Droid
 {
-    [Activity(Label = "XStore",
+    [Activity(Label = "TeaTalk",
         Icon = "@drawable/icon", 
         Theme = "@style/Theme.Splash",
         MainLauncher = true,

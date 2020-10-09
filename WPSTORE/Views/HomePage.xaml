@@ -180,7 +180,7 @@
                                                            iOS=210}"
                                 HorizontalOptions="Center"
                                 ItemsSource="{Binding Sliders}"
-                                NavigationDelay="2000"
+                                NavigationDelay="6000"
                                 NavigationStripMode="Dots"
                                 SelectedDotColor="Orange"
                                 SelectedIndex="{Binding CurrentFeaturedIndex, Mode=TwoWay}"
@@ -203,7 +203,7 @@
                                                     </ffimageloading:CachedImage.CacheKeyFactory>
                                                 </ffimageloading:CachedImage>
 
-                                                <Grid Padding="0" VerticalOptions="End">
+                                                <!--<Grid Padding="0" VerticalOptions="End">
                                                     <BoxView
                                                         Margin="0,0,0,20"
                                                         BackgroundColor="{DynamicResource Gray-Black}"
@@ -220,7 +220,7 @@
                                                         TextColor="{DynamicResource Gray-White}"
                                                         TextType="Html"
                                                         VerticalTextAlignment="End" />
-                                                </Grid>
+                                                </Grid>-->
                                             </Grid>
                                             <pancake:PancakeView.GestureRecognizers>
                                                 <TapGestureRecognizer CommandParameter="{Binding Path=BindingContext.CurrentFeaturedIndex, Source={x:Reference sliderPosts}}" Tapped="OnSliderItemTapped" />

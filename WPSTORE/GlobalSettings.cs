@@ -30,7 +30,9 @@ namespace WPSTORE
         public const string WooCommerncePrefix = "wp-json/wc/v3";
 
         public const string AndroidClientId = "877130854950-fjai37crgsccjmbp8nbhlh49e4tuhsc5.apps.googleusercontent.com";
+        //public const string AndroidClientId = "886764006155-nkpqqlcr331viq04qtpeluerb1phc5me.apps.googleusercontent.com";
         public const string AndroidUrlSchema = "com.googleusercontent.apps.877130854950-fjai37crgsccjmbp8nbhlh49e4tuhsc5";
+        //public const string AndroidUrlSchema = "com.googleusercontent.apps.886764006155-nkpqqlcr331viq04qtpeluerb1phc5me";
 
         public const string iOSClientId = "877130854950-j9ettaot9go1jfmk0ut6o1ef1os0s9jb.apps.googleusercontent.com";
         public const string iOSUrlSchema = "com.googleusercontent.apps.877130854950-j9ettaot9go1jfmk0ut6o1ef1os0s9jb";
@@ -96,6 +98,23 @@ namespace WPSTORE
             set => AppSettings.AddOrUpdateValue(nameof(DeviceToken), value);
         }
 
+        public static bool AuthRequired
+        {
+            get => Preferences.Get(nameof(AuthRequired), true);
+            set => Preferences.Set(nameof(AuthRequired), value);
+        }
+
+        public static bool IsGuest
+        {
+            get => Preferences.Get(nameof(IsGuest), false);
+            set => Preferences.Set(nameof(IsGuest), value);
+        }
+
+        public static WpLoginResponseModel UserInfo
+        {
+            get => PreferencesHelpers.Get(nameof(UserInfo), default(WpLoginResponseModel));
+            set => PreferencesHelpers.Set(nameof(UserInfo), value);
+        }
         public static DateTime ExpiresDate
         {
             get => Preferences.Get(nameof(ExpiresDate), DateTime.UtcNow);

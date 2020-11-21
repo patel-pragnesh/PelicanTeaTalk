@@ -82,7 +82,7 @@
                             TextColor="{DynamicResource Gray-900}"
                             VerticalTextAlignment="End" />
 
-                        <StackLayout
+                        <StackLayout IsVisible="{Binding MemberRelated}"
                             Grid.Row="1"
                             Grid.Column="1"
                             Orientation="Horizontal"
@@ -354,7 +354,7 @@
                                             FontFamily="{StaticResource BoldFont_ProductSans}"
                                             FontSize="12"
                                             HorizontalOptions="Center"
-                                            Text="{translator:Translate Order}"
+                                            Text="{translator:Translate MyOrders}"
                                             TextColor="{DynamicResource Gray-800}"
                                             VerticalOptions="End" />
                                     </StackLayout>

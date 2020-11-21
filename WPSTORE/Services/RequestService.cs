@@ -53,10 +53,10 @@ namespace WPSTORE.Services
             }
             try
             {
-                if (!Barrel.Current.IsExpired(key: uri) && !forcedRefresh)
-                {
-                    return Barrel.Current.Get<TResult>(key: uri);
-                }
+                //if (!Barrel.Current.IsExpired(key: uri) && !forcedRefresh)
+               // {
+               //     return Barrel.Current.Get<TResult>(key: uri);
+                //}
                 var httpClient = await HttpClientCreator(uri);
                 var response = await httpClient.GetAsync(uri);
                 await HandleResponse(response);
@@ -150,18 +150,19 @@ namespace WPSTORE.Services
                 {
                     throw new ConnectivityException();
                 }
-                //switch (Device.RuntimePlatform)
-                //{
-                //    case Device.Android:
-                //        this.httpClient = new HttpClient(DependencyService.Get<Services.IHTTPClientHandlerCreationService>().GetInsecureHandler());
-                //        break;
-                //    default:
-                //        ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
-                //        var httpClient = new HttpClient(new HttpClientHandler());
-                //        break;
-                //}
+                HttpClient httpClient = null;
+
+                switch (Device.RuntimePlatform)
+                {
+                    case Device.Android:
+                        httpClient = new HttpClient(DependencyService.Get<IHTTPClientHandlerCreationService>().GetInsecureHandler());
+                        break;
+                    default:
+                        //ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+                        httpClient = new HttpClient();
+                        break;
+                }
                 //var httpClient = new HttpClient();
-                var httpClient = new HttpClient(DependencyService.Get<IHTTPClientHandlerCreationService>().GetInsecureHandler());
                 httpClient.Timeout = TimeSpan.FromSeconds(45);
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 httpClient.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue
@@ -190,8 +191,20 @@ namespace WPSTORE.Services
                     throw new ConnectivityException();
                 }
 
+                HttpClient httpClient = null;
+
+                switch (Device.RuntimePlatform)
+                {
+                    case Device.Android:
+                        httpClient = new HttpClient(DependencyService.Get<IHTTPClientHandlerCreationService>().GetInsecureHandler());
+                        break;
+                    default:
+                        //ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+                        httpClient = new HttpClient();
+                        break;
+                }
                 //var httpClient = new HttpClient();
-                var httpClient = new HttpClient(DependencyService.Get<IHTTPClientHandlerCreationService>().GetInsecureHandler());
+                //var httpClient = new HttpClient(DependencyService.Get<IHTTPClientHandlerCreationService>().GetInsecureHandler());
                 httpClient.Timeout = TimeSpan.FromSeconds(45);
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 httpClient.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue

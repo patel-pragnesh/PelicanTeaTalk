@@ -17,7 +17,8 @@ namespace WPSTORE.Services
         OAuth2Base oAuth2;
 
         //WP User
-        public bool IsAuthenticated => false;// GlobalSettings.UserInfo != null && DateTime.UtcNow <= GlobalSettings.ExpiresDate;
+        //public bool IsAuthenticated => false;// GlobalSettings.UserInfo != null && DateTime.UtcNow <= GlobalSettings.ExpiresDate;
+        public bool IsAuthenticated => GlobalSettings.UserInfo != null;
 
         //Social account user
         //public bool IsSocialAuthenticated => GlobalSettings.User != null;

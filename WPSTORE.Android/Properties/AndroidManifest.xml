@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="10" android:versionName="1.3.0" package="com.tls.xstore" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="22" android:targetSdkVersion="28" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="12" android:versionName="1.3.0" package="com.tls.pelicancube" android:installLocation="auto">
+	<uses-sdk android:minSdkVersion="22" android:targetSdkVersion="29" />
 	<application android:largeHeap="true" android:usesCleartextTraffic="true" android:icon="@drawable/icon" android:label="TeaTalk">
 		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCoJLnIioJVjrjIBY4G5QP8cMu2C6tdV-A" />
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />

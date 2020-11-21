@@ -168,7 +168,7 @@
                                 Text="{Binding UserInfo.DisplayName}"
                                 TextColor="{DynamicResource Gray-900}" />
 
-                            <Label
+                            <Label IsVisible="{Binding MemberRelated}"
                                 FontFamily="{StaticResource RegularFont_ProductSans}"
                                 FontSize="14"
                                 HorizontalOptions="Start"
@@ -180,7 +180,7 @@
                                 TextColor="{DynamicResource Gray-700}" />
                         </StackLayout>
 
-                        <Label
+                        <Label IsVisible="{Binding MemberRelated}"
                             Grid.RowSpan="2"
                             Grid.Column="2"
                             Margin="8,0"
@@ -391,7 +391,7 @@
                             Text="&#xe72b;"
                             VerticalOptions="Center" />-->
 
-                        <Label
+                        <Label IsVisible="{Binding MemberRelated}"
                             Style="{StaticResource TableSectionTextStyle}"
                             Text="{translator:Translate Logout}"
                             TextColor="Red"

@@ -31,8 +31,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
-    <AndroidUseAapt2>false</AndroidUseAapt2>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidEnableSGenConcurrent>false</AndroidEnableSGenConcurrent>
+    <AndroidKeyStore>false</AndroidKeyStore>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -43,19 +45,20 @@
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
-    <AndroidEnableMultiDex>false</AndroidEnableMultiDex>
+    <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidSupportedAbis>armeabi-v7a;x86;x86_64;arm64-v8a</AndroidSupportedAbis>
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
     <AndroidKeyStore>false</AndroidKeyStore>
-    <AndroidSigningKeyStore>C:\Users\MTT\AppData\Local\Xamarin\Mono for Android\Keystore\key0\key0.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyStore>D:\APK SIgnTool\My Keystorefile\mykeystorefile.jks</AndroidSigningKeyStore>
     <AndroidSigningStorePass>huuai1122</AndroidSigningStorePass>
     <AndroidDexTool>dx</AndroidDexTool>
     <AndroidEnableSGenConcurrent>false</AndroidEnableSGenConcurrent>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidSigningKeyAlias>Teatalkonline</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>Kelaniya123</AndroidSigningKeyPass>
     <AndroidPackageFormat>aab</AndroidPackageFormat>
-    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -191,6 +194,7 @@
     <AndroidAsset Include="Assets\equal_playing.json" />
     <AndroidAsset Include="Assets\loading_gears.json" />
     <AndroidAsset Include="Assets\gift_card.json" />
+    <GoogleServicesJson Include="google-services.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
@@ -451,7 +455,7 @@
     <AndroidResource Include="Resources\drawable\order_now.gif" />
   </ItemGroup>
   <ItemGroup>
-    <GoogleServicesJson Include="google-services.json" />
+    <GoogleServicesJson Include="google-services_old.json" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\pin_red.png" />

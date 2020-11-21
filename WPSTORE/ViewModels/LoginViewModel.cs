@@ -21,8 +21,9 @@ namespace WPSTORE.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        private string _userEmail = "";
-        private string _password = "";
+        private string _userEmail;
+        private string _password;
+        private bool _isNavigatedFromInternal;
         private readonly IAuthenticationService _authenticationService;
         private readonly IDialogService _dialogService;
         private readonly IAppService _appService;
@@ -37,7 +38,7 @@ namespace WPSTORE.ViewModels
 
             //LoginCommand = new Command(LoginClicked);
             ForgotPasswordCommand = new Command(this.ForgotPasswordClicked);
-
+            SkipLoginCommand = new Command(SkipLoginClicked);
             RememberLogin = GlobalSettings.RememberMe;
 
             MessagingInit();
@@ -52,7 +53,14 @@ namespace WPSTORE.ViewModels
             //    }
             //});
         }
-
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            if (parameters["NavigatedFromInternal"] != null)
+            {
+                _isNavigatedFromInternal = (bool)parameters["NavigatedFromInternal"];
+            }
+        }
         public string Password
         {
             get => _password;
@@ -80,6 +88,7 @@ namespace WPSTORE.ViewModels
 
         public Command LoginCommand { get; set; }
         public Command ForgotPasswordCommand { get; set; }
+        public Command SkipLoginCommand { get; set; }
 
         public async Task LoginClicked()
         {
@@ -128,7 +137,10 @@ namespace WPSTORE.ViewModels
                         await _appService.AddOrUpdateDeviceSubscription(GlobalSettings.DeviceToken, deviceType, $"{UserName}");
                     }
 
-                    Application.Current.MainPage = new AppShell();
+                    //Application.Current.MainPage = new AppShell();
+                    GlobalSettings.IsGuest = false;
+                    await GotoApp();
+
                 }
                 else
                 {
@@ -139,6 +151,25 @@ namespace WPSTORE.ViewModels
 
         }
 
+        private async void SkipLoginClicked(object obj)
+        {
+            GlobalSettings.AuthRequired = false;
+            GlobalSettings.IsGuest = true;
+            GlobalSettings.User = new UserModel
+            {
+                DisplayName = "Guest",
+                PictureUrl = "https://icon-library.com/images/anonymous-icon/anonymous-icon-0.jpg"
+            };
+            await GotoApp();
+        }
+
+        private async Task GotoApp()
+        {
+            if (_isNavigatedFromInternal)
+                await NavigationService.GoBackAsync();
+            else
+                Application.Current.MainPage = new AppShell();
+        }
         private async void ForgotPasswordClicked(object obj)
         {
             var label = obj as Label;

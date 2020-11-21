@@ -28,7 +28,7 @@
 		<false/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>tlssoftwarevn.com</key>
+			<key>teatalkonline.com</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>
@@ -78,13 +78,11 @@
 		<string>fa-solid-900.ttf</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>8.0</string>
-	<key>CFBundleDisplayName</key>
-	<string>XStore</string>
+	<string>11.0</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.tls.xstore</string>
+	<string>com.tls.pelicancube</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.2</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
@@ -98,7 +96,7 @@
 			<string>Google Auth</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.tls.xstore</string>
+				<string>com.tls.pelicancube</string>
 			</array>
 			<key>CFBundleURLTypes</key>
 			<string>Viewer</string>
@@ -127,7 +125,13 @@
 	<array>
 		<string>remote-notification</string>
 	</array>
-  <key>FirebaseAppDelegateProxyEnabled</key>
-  <false/>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>CFBundleDisplayName</key>
+	<string>TeaTalk Online</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.1.2</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Teatalk online would like to access your calender</string>
 </dict>
 </plist>

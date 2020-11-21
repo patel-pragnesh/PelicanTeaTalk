@@ -11,6 +11,8 @@
     xmlns:translator="clr-namespace:WPSTORE.Languages.Texts;assembly=WPSTORE"
     prism:ViewModelLocator.AutowireViewModel="True"
     BackgroundColor="{DynamicResource colBG2}"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    ios:Page.UseSafeArea="true"
     NavigationPage.HasNavigationBar="True"
     Shell.NavBarIsVisible="True"
     mc:Ignorable="d">

@@ -8,7 +8,7 @@ namespace WPSTORE.Services.Interfaces
     public interface IAuthenticationService
     {
         //Wordpress
-        //bool IsAuthenticated { get; }
+        bool IsAuthenticated { get; }
 
         //Social
         //bool IsSocialAuthenticated { get; }

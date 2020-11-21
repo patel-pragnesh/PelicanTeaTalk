@@ -47,14 +47,14 @@
             BorderThickness="1"
             CornerRadius="25,25,0,0"
             HasShadow="True">
-            <Grid>
+            <Grid WidthRequest="300">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="0.5" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Row="0" Padding="10,10,0,0">
+                <Grid Grid.Row="0" WidthRequest="300" Padding="10,10,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="auto" />
@@ -63,10 +63,12 @@
                         Grid.Column="0"
                         Margin="10,0,30,0"
                         FontFamily="{StaticResource RegularFont_ProductSans}"
-                        FontSize="16"
+                        FontSize="20"
+                        FontAttributes="Bold"
                         Text="{translator:Translate ChoosePaymentMethod}"
                         TextColor="{DynamicResource colPrim}"
                         VerticalOptions="Center" />
+
                     <pancake:PancakeView
                         Grid.Column="1"
                         Margin="{OnPlatform Android='0,-20,0,0',
@@ -101,15 +103,38 @@
                             </ImageButton.Source>
                         </ImageButton>
                     </pancake:PancakeView>
-                </Grid>
 
-                <BoxView
+                  
+                    
+                    <StackLayout
+                    x:Name="PaymentMethodList"
                     Grid.Row="1"
-                    Margin="20,0,50,0"
-                    BackgroundColor="{DynamicResource Gray-500}"
-                    HeightRequest="0.5" />
+                    HeightRequest="150"
+                        WidthRequest="100">
+                        
+                        <Button Text="Pay By Cash"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                HeightRequest="50"
+                                BorderColor="Black"
+                                BorderWidth="0.25"
+                                BackgroundColor="Orange"
+                                VerticalOptions="StartAndExpand"                                 
+                                Clicked="OnButtonClickedPayByCash"/>
 
-                <StackLayout
+                        <Button Text="Pay By Card"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                HeightRequest="50"
+                                BorderColor="Black"
+                                BorderWidth="0.25"
+                                BackgroundColor="DarkOrange"
+                                VerticalOptions="CenterAndExpand"
+                                Clicked="OnButtonClickedPayByCard"/>
+
+                    </StackLayout>
+
+                    <!--<StackLayout
                     x:Name="PaymentMethodList"
                     Grid.Row="2"
                     Margin="20,10"
@@ -147,7 +172,9 @@
                             </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
-                </StackLayout>
+                </StackLayout>-->
+                    
+                </Grid>
             </Grid>
         </pancake:PancakeView>
     </Grid>

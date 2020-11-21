@@ -357,6 +357,9 @@
   <data name="OrderCreated" xml:space="preserve">
     <value>Order created successfully</value>
   </data>
+  <data name="OrderCreatedSuccess" xml:space="preserve">
+    <value>Order created successfully</value>
+  </data>
   <data name="OrderDetails" xml:space="preserve">
     <value>Order details</value>
   </data>

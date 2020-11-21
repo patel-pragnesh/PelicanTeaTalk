@@ -8,28 +8,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:310451903694:android:99da9f6fa91d871298c49f",
+        "mobilesdk_app_id": "1:310451903694:android:743f28cf22d9322a98c49f",
         "android_client_info": {
-          "package_name": "com.tls.pelicancube"
+          "package_name": "com.tls.xstore"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "310451903694-elkjbj03pai70912sd5gholddccllb46.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.tls.pelicancube",
-            "certificate_hash": "466ed348b2804f028cd7fe3c6d062d3cb1f5f455"
-          }
-        },
-        {
-          "client_id": "310451903694-g7t8f27obonf8acqp0k09flrrs60b56j.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.tls.pelicancube",
-            "certificate_hash": "9a9f365e3678db5aaf4d89458459a305f95330da"
-          }
-        },
         {
           "client_id": "310451903694-0o6ru1gjsr0pq8mvpitqvqondp75uh3b.apps.googleusercontent.com",
           "client_type": 3

@@ -1,4 +1,5 @@
-﻿using MonkeyCache.FileStore;
+﻿using Android.Content;
+using MonkeyCache.FileStore;
 using Plugin.Permissions.Abstractions;
 using Prism.Navigation;
 using Rg.Plugins.Popup.Services;
@@ -171,6 +172,7 @@ namespace WPSTORE.ViewModels
             if (!AlreadyShowConfirm)
             {
                 var customerCached = Barrel.Current.Get<CustomerModel>(key: GlobalSettings.CachedKeys.CustomerInfo);
+                List<PaymentMethodModel> PaymentMethod = new List<PaymentMethodModel>();
                 if (customerCached != null)
                     CustomerInfo = customerCached;
 
@@ -222,8 +224,13 @@ namespace WPSTORE.ViewModels
                             Barrel.Current.Add(key: GlobalSettings.CachedKeys.GuestOrderList, data: guestOrderIds, expireIn: TimeSpan.FromDays(90));
                         }
                         MessagingCenter.Send("", MessagingCenterKeys.CreateOrderCompleted);
-                        _dialogService.ShowToast(TextsTranslateManager.Translate("OrderCreated"), 800);
-                        await Shell.Current.Navigation.PopAsync(animated: false);
+
+                        //_dialogService.ShowToast(TextsTranslateManager.Translate("OrderCreated"), 1800);
+                        
+                        await PopupNavigation.Instance.PushAsync(new PopupPaymentMethodPage(result));
+
+                        //await Shell.Current.Navigation.PopAsync(animated: false);
+                        //await Shell.Current.Navigation.PopAsync(MainPage());
                     }
                 }));
             }

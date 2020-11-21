@@ -28,6 +28,7 @@ namespace WPSTORE
         static readonly string JwtPrefix = "wp-json/simple-jwt-authentication/v1";
         static readonly string XStorePrefix = "wp-json/api/xstore";
         public const string WooCommerncePrefix = "wp-json/wc/v3";
+        public const string WebXPayRequest = "https://teatalkonline.com/IPG-setup";
 
         public const string AndroidClientId = "877130854950-fjai37crgsccjmbp8nbhlh49e4tuhsc5.apps.googleusercontent.com";
         //public const string AndroidClientId = "886764006155-nkpqqlcr331viq04qtpeluerb1phc5me.apps.googleusercontent.com";

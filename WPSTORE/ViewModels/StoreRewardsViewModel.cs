@@ -19,6 +19,7 @@ namespace WPSTORE.ViewModels
         {
             _appService = appService;
             RedemptionPin = "M16602403";
+            UserInfo = GlobalSettings.User;
             AsyncRunner.Run(LoadVoucherItems());
         }
         public override void OnNavigatedTo(INavigationParameters parameters)
@@ -49,6 +50,12 @@ namespace WPSTORE.ViewModels
             ListVouchers = await _appService.GetVoucherItems();
 
             IsBusy = false;
+        }
+        private UserModel _userInfo;
+        public UserModel UserInfo
+        {
+            get { return _userInfo; }
+            set { SetProperty(ref _userInfo, value); }
         }
         private string _redemptionPin;
         public string RedemptionPin

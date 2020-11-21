@@ -312,6 +312,12 @@
   <data name="MyVouchers" xml:space="preserve">
     <value>My vouchers</value>
   </data>
+    <data name="MyOrders" xml:space="preserve">
+    <value>My orders</value>
+  </data>
+    <data name="SkipLogin" xml:space="preserve">
+    <value>GUEST LOGIN</value>
+  </data>
   <data name="New" xml:space="preserve">
     <value>New</value>
   </data>

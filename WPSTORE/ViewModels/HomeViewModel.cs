@@ -54,6 +54,7 @@ namespace WPSTORE.ViewModels
 
             UserInfo = GlobalSettings.User;
             FacebookId = GlobalSettings.FacebookPageId;
+            MemberRelated = !GlobalSettings.IsGuest;
 
             AsyncRunner.Run(Processing());
         }
@@ -222,7 +223,12 @@ namespace WPSTORE.ViewModels
             get => _notificationCounts;
             set => SetProperty(ref _notificationCounts, value);
         }
-
+        private bool _memberRelated;
+        public bool MemberRelated
+        {
+            get => _memberRelated;
+            set { SetProperty(ref _memberRelated, value); }
+        }
         private int _currentFeaturedIndex;
         public int CurrentFeaturedIndex
         {
@@ -355,13 +361,20 @@ namespace WPSTORE.ViewModels
         public ICommand RedemptionPinCommand => new Command(async () => await RedemptionPin());
         private async Task RedemptionPin()
         {
-            await NavigationService.NavigateAsync(nameof(RedemptionPinPage));
+            if (GlobalSettings.IsGuest)
+                await NavigationService.NavigateAsync(nameof(LoginPage));
+            else
+                await NavigationService.NavigateAsync(nameof(RedemptionPinPage));
         }
 
         public ICommand OrderCommand => new Command(async () => await OrderCommandAsync());
         private async Task OrderCommandAsync()
         {
-            await Shell.Current.GoToAsync(nameof(OrdersPage), true);
+            if (GlobalSettings.IsGuest)
+                await NavigationService.NavigateAsync(nameof(LoginPage));
+            else
+                await NavigationHelpers.GotoPageAsync(nameof(OrderHistoryPage));
+            //await Shell.Current.GoToAsync(nameof(OrdersPage), true);
         }
 
         public ICommand ProductTapCommand => new Command<ProductModel>(async (product) =>
@@ -399,14 +412,19 @@ namespace WPSTORE.ViewModels
         public ICommand VouchersCommand => new Command(async () => await VouchersCommandAsync());
         private async Task VouchersCommandAsync()
         {
-
-            await NavigationService.NavigateAsync(nameof(VouchersPage));
+            if (GlobalSettings.IsGuest)
+                await NavigationService.NavigateAsync(nameof(LoginPage));
+            else
+                await NavigationService.NavigateAsync(nameof(VouchersPage));
         }
 
         public ICommand RewardsCommand => new Command(async () => await RewardsCommandAsync());
         private async Task RewardsCommandAsync()
         {
-            await NavigationService.NavigateAsync(nameof(RewardsPage));
+            if (GlobalSettings.IsGuest)
+                await NavigationService.NavigateAsync(nameof(LoginPage));
+            else
+                await NavigationService.NavigateAsync(nameof(RewardsPage));
         }
 
         public ICommand CategoriesTapCommand => new Command(async (item) =>

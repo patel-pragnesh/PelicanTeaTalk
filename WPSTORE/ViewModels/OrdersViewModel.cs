@@ -42,11 +42,21 @@ namespace WPSTORE.ViewModels
             await SetBusyAsync(InitData);
         }
 
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            if (parameters["BackButtonVisible"] != null)
+            {
+                BackButtonVisible = (bool)parameters["BackButtonVisible"];
+            }
+        }
+
         public string ProductCategoryId
         {
             set
             {
                 CategoryId = Convert.ToInt32(value);
+                BackButtonVisible = true;
             }
         }
         internal int CategoryId;
@@ -120,7 +130,9 @@ namespace WPSTORE.ViewModels
 
         private async Task LoadTabData(TabModel tab)
         {
-            var products = await _wooCommerceService.GetProductsByCategoryId($"{tab.CategoryId}", tab.CurrentPage, tab.PageSize).ConfigureAwait(false);
+            //var products = await _wooCommerceService.GetProductsByCategoryId($"{tab.CategoryId}", tab.CurrentPage, tab.PageSize).ConfigureAwait(false);
+
+            var products = await _wooCommerceService.GetProductsByCategoryId($"{tab.CategoryId}", tab.CurrentPage, tab.PageSize);
             if (products != null && products.Any())
             {
                 tab.ItemThreshold = products.Count >= tab.PageSize ? 0 : -1;
@@ -262,6 +274,12 @@ namespace WPSTORE.ViewModels
             });
         }
 
+        private bool _backButtonVisible = false;
+        public bool BackButtonVisible
+        {
+            get => _backButtonVisible;
+            set => SetProperty(ref _backButtonVisible, value);
+        }
         private UserModel _userInfo;
         public UserModel UserInfo
         {

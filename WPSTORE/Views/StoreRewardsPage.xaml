@@ -94,7 +94,7 @@
                                         FontFamily="{StaticResource BoldFont_ProductSans}"
                                         FontSize="18"
                                         HorizontalOptions="Start"
-                                        Text="Ai Pham"
+                                        Text="{Binding UserInfo.DisplayName}"
                                         TextColor="{DynamicResource colPrim}"
                                         VerticalOptions="Center" />
                                     <Label

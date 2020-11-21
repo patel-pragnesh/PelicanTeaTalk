@@ -20,7 +20,7 @@ namespace WPSTORE.ViewModels
         public AccountViewModel(INavigationService navigationService ) : base(navigationService)
         {
             UserInfo = GlobalSettings.User;
-
+            MemberRelated = !GlobalSettings.IsGuest;
 
             LanguageList = Settings.Languages;
             if (!string.IsNullOrEmpty(Settings.LanguageSelected))
@@ -93,15 +93,28 @@ namespace WPSTORE.ViewModels
             }
         }
 
+        private bool _memberRelated;
+        public bool MemberRelated
+        {
+            get => _memberRelated;
+            set { SetProperty(ref _memberRelated, value); }
+        }
+
         public ICommand StoreRewardCommand => new Command(async () => await StoreRewardCommandAsync());
         private async Task StoreRewardCommandAsync()
         {
-            await NavigationService.NavigateAsync(nameof(StoreRewardsPage));
+            if (GlobalSettings.IsGuest)
+                await NavigationService.NavigateAsync(nameof(LoginPage));
+            else
+                await NavigationService.NavigateAsync(nameof(StoreRewardsPage));
         }
         public ICommand AccountInfoCommand => new Command(async () => await AccountInfoCommandAsync());
         private async Task AccountInfoCommandAsync()
         {
-            await NavigationService.NavigateAsync(nameof(AccountInfoPage));
+            if (GlobalSettings.IsGuest)
+                await NavigationService.NavigateAsync(nameof(LoginPage));
+            else
+                await NavigationService.NavigateAsync(nameof(AccountInfoPage));
         }
         public ICommand LoginCommand => new Command(async () => await LoginCommandAsync());
         private async Task LoginCommandAsync()
@@ -128,7 +141,10 @@ namespace WPSTORE.ViewModels
 
         public ICommand OrderHistoryCommand => new Command(async () =>
         {
-            await NavigationHelpers.GotoPageAsync(nameof(OrderHistoryPage));
+            if (GlobalSettings.IsGuest)
+                await NavigationService.NavigateAsync(nameof(LoginPage));
+            else
+                await NavigationHelpers.GotoPageAsync(nameof(OrderHistoryPage));
         });
     }
 }

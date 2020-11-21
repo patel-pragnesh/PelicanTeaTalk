@@ -99,6 +99,23 @@ namespace WPSTORE
             set => AppSettings.AddOrUpdateValue(nameof(DeviceToken), value);
         }
 
+        public static bool AuthRequired
+        {
+            get => Preferences.Get(nameof(AuthRequired), true);
+            set => Preferences.Set(nameof(AuthRequired), value);
+        }
+
+        public static bool IsGuest
+        {
+            get => Preferences.Get(nameof(IsGuest), false);
+            set => Preferences.Set(nameof(IsGuest), value);
+        }
+
+        public static WpLoginResponseModel UserInfo
+        {
+            get => PreferencesHelpers.Get(nameof(UserInfo), default(WpLoginResponseModel));
+            set => PreferencesHelpers.Set(nameof(UserInfo), value);
+        }
         public static DateTime ExpiresDate
         {
             get => Preferences.Get(nameof(ExpiresDate), DateTime.UtcNow);

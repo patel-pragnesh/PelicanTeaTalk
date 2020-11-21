@@ -68,7 +68,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <ffimageloading:CachedImage
+                    <!--<ffimageloading:CachedImage
                         Grid.RowSpan="2"
                         HeightRequest="48"
                         HorizontalOptions="Center"
@@ -81,7 +81,25 @@
                         <ffimageloading:CachedImage.Transformations>
                             <fftransformations:CircleTransformation BorderHexColor="#333333" BorderSize="5" />
                         </ffimageloading:CachedImage.Transformations>
-                    </ffimageloading:CachedImage>
+                    </ffimageloading:CachedImage>-->
+                    <ImageButton
+                        Grid.RowSpan="2"
+                        Padding="5,3,5,3"
+                        BackgroundColor="Transparent"
+                        Command="{Binding GoBackCommand}"
+                        HeightRequest="36"
+                        HorizontalOptions="Start"
+                        IsVisible="{Binding BackButtonVisible}"
+                        VerticalOptions="Center"
+                        WidthRequest="36">
+                        <ImageButton.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource FontAwesome}"
+                                Glyph="&#xf053;"
+                                Size="20"
+                                Color="{DynamicResource colPrim}" />
+                        </ImageButton.Source>
+                    </ImageButton>
 
                     <Label
                         Grid.Column="1"

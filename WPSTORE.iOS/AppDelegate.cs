@@ -9,6 +9,7 @@ using Lottie.Forms.iOS.Renderers;
 using PanCardView.iOS;
 using Plugin.FirebasePushNotification;
 using Syncfusion.SfRotator.XForms.iOS;
+using TouchEffect.iOS;
 using UIKit;
 using Xamarin.Forms.GoogleMaps.iOS;
 
@@ -73,11 +74,12 @@ namespace WPSTORE.iOS
                 Rg.Plugins.Popup.Popup.Init();
 
                 CardsViewRenderer.Preserve();
+                TouchEffectPreserver.Preserve();
                 LoadApplication(new App());
 
                 Plugin.Segmented.Control.iOS.SegmentedControlRenderer.Initialize();
 
-                FirebasePushNotificationManager.Initialize(options, true);
+              FirebasePushNotificationManager.Initialize(options, true);
 
                 return base.FinishedLaunching(app, options);
             }
